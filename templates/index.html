@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% block title %}GitHub Actions Usage — Overview{% endblock %}
+{% block content %}
+<h1>GitHub Actions Usage</h1>
+
+<div class="stats-grid">
+    <div class="card">
+        <h2>This Month</h2>
+        <div class="stat-big">{{ month_total }} <span class="muted" style="font-size: 1rem;">/ {{ allowance }} min</span></div>
+        <div class="progress-bar">
+            {% set pct = (month_total / allowance * 100) if allowance else 0 %}
+            {% if pct < 70 %}
+            <div class="progress-fill progress-green" style="width: {{ [pct, 100] | min }}%"></div>
+            {% elif pct < 90 %}
+            <div class="progress-fill progress-amber" style="width: {{ [pct, 100] | min }}%"></div>
+            {% else %}
+            <div class="progress-fill progress-red" style="width: {{ [pct, 100] | min }}%"></div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="card">
+        <h2>Cost Projection</h2>
+        <p>At current pace: <strong class="mono">{{ projection.projected }}</strong> / {{ projection.allowance }} min</p>
+        <span class="badge badge-{{ projection.status }}">{{ projection.percent }}% of allowance</span>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Summary (This Month)</h2>
+    <div class="stats-row">
+        <span><strong class="mono">{{ global_stats.total_runs }}</strong> total runs</span>
+        <span><strong class="mono">{{ global_stats.success_rate }}%</strong> success rate</span>
+        <span><strong class="mono">{{ global_stats.avg_duration }}s</strong> avg duration</span>
+        <span class="muted">Linux: {{ global_stats.linux_mins }} min · macOS: {{ global_stats.macos_mins }} · Windows: {{ global_stats.windows_mins }} min</span>
+    </div>
+</div>
+
+<div class="card">
+    <h2>By Trigger</h2>
+    <table>
+        <thead><tr><th>Trigger</th><th>Runs</th><th>Minutes</th></tr></thead>
+        <tbody>
+            {% for t in trigger_breakdown %}
+            <tr>
+                <td class="mono">{{ t.trigger or 'unknown' }}</td>
+                <td>{{ t.runs }}</td>
+                <td class="mono">{{ (t.minutes or 0) | round(1) }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="3" class="muted">No data</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h2>Daily Usage (Last 90 Days)</h2>
+    <canvas id="trendChart" height="120"></canvas>
+</div>
+
+<div class="card">
+    <h2>Monthly History (Last 12 Months)</h2>
+    <canvas id="monthlyChart" height="100"></canvas>
+</div>
+
+<div class="card">
+    <h2>Repos by Minutes (This Month)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Repo</th>
+                <th>Minutes</th>
+                <th>% of Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set total = repos_ranked | map(attribute='minutes') | sum or 1 %}
+            {% for r in repos_ranked %}
+            <tr>
+                <td><a href="repo_{{ r.repo | replace('/', '_') }}.html">{{ r.repo }}</a></td>
+                <td class="mono">{{ r.minutes | round(1) }}</td>
+                <td class="muted">{{ (r.minutes / total * 100) | round(1) }}%</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="3" class="muted">No data this month yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h2>Top Workflows (All Repos)</h2>
+    <table>
+        <thead>
+            <tr><th>Repo</th><th>Workflow</th><th>Runs</th><th>Minutes</th></tr>
+        </thead>
+        <tbody>
+            {% for w in top_workflows %}
+            <tr>
+                <td><a href="repo_{{ w.repo | replace('/', '_') }}.html">{{ w.repo }}</a></td>
+                <td class="mono">{{ w.workflow_name }}</td>
+                <td>{{ w.runs }}</td>
+                <td class="mono">{{ (w.minutes or 0) | round(1) }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" class="muted">No data</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if dead_workflows %}
+<div class="card">
+    <h2>Dormant Workflows</h2>
+    <p class="muted">No successful run in 30+ days — may be disabled or forgotten.</p>
+    <table>
+        <thead><tr><th>Repo</th><th>Workflow</th><th>Last Success</th></tr></thead>
+        <tbody>
+            {% for d in dead_workflows %}
+            <tr>
+                <td><a href="repo_{{ d.repo | replace('/', '_') }}.html">{{ d.repo }}</a></td>
+                <td class="mono">{{ d.workflow_name }}</td>
+                <td class="mono">{{ d.last_success[:10] if d.last_success else '—' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+<div class="card">
+    <h2>Recent Collections</h2>
+    <table>
+        <thead>
+            <tr><th>Started</th><th>Repos</th><th>Runs</th><th>API Calls</th><th>Errors</th></tr>
+        </thead>
+        <tbody>
+            {% for c in collection_log[:5] %}
+            <tr>
+                <td class="mono">{{ c.started_at[:19] if c.started_at else '—' }}</td>
+                <td>{{ c.repos_scanned or 0 }} ({{ c.repos_with_runs or 0 }} with runs)</td>
+                <td>{{ c.runs_collected or 0 }} → {{ c.runs_updated or 0 }} total</td>
+                <td class="mono">{{ c.api_calls or 0 }}</td>
+                <td>{% if c.error_count %}<span class="badge badge-failure">{{ c.error_count }}</span>{% else %}—{% endif %}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" class="muted">No collection logs yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p class="muted" style="margin-top: 0.5rem;"><a href="logs.html">View full log →</a></p>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const trendData = {{ daily_trend | map(attribute='minutes') | list | tojson }};
+const trendLabels = {{ daily_trend | map(attribute='day') | list | tojson }};
+new Chart(document.getElementById('trendChart'), {
+    type: 'line',
+    data: {
+        labels: trendLabels,
+        datasets: [{
+            label: 'Minutes',
+            data: trendData,
+            borderColor: '#58a6ff',
+            backgroundColor: 'rgba(88, 166, 255, 0.1)',
+            fill: true,
+            tension: 0.3
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+            x: { grid: { color: '#30363d' }, ticks: { color: '#8b949e', maxTicksLimit: 12 } },
+            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
+        }
+    }
+});
+const monthlyData = {{ monthly_usage | map(attribute='minutes') | list | tojson }};
+const monthlyLabels = {{ monthly_usage | map(attribute='month') | list | tojson }};
+new Chart(document.getElementById('monthlyChart'), {
+    type: 'bar',
+    data: {
+        labels: monthlyLabels,
+        datasets: [{
+            label: 'Minutes',
+            data: monthlyData,
+            backgroundColor: 'rgba(88, 166, 255, 0.6)',
+            borderColor: '#58a6ff',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+            x: { grid: { display: false }, ticks: { color: '#8b949e' } },
+            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
+        }
+    }
+});
+</script>
+{% endblock %}

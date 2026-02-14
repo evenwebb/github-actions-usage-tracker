@@ -1,0 +1,56 @@
+name: Collect & Deploy
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    inputs:
+      backfill:
+        description: 'Fetch 90 days (initial setup)'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ACTIONS_USAGE_TOKEN || secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - run: pip install --no-cache-dir -q -r requirements.txt
+
+      - name: Collect
+        env:
+          ACTIONS_USAGE_TOKEN: ${{ secrets.ACTIONS_USAGE_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTIONS_ALLOWANCE: ${{ vars.GITHUB_ACTIONS_ALLOWANCE || '2000' }}
+          APPRISE_URL: ${{ secrets.APPRISE_URL }}
+        run: python collect.py ${{ github.event.inputs.backfill == 'true' && '--backfill' || '' }}
+
+      - name: Generate
+        env:
+          GITHUB_ACTIONS_ALLOWANCE: ${{ vars.GITHUB_ACTIONS_ALLOWANCE || '2000' }}
+        run: python generate.py
+
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/ docs/
+          git diff --staged --quiet || (git commit -m "chore: update usage data [skip ci]" && git push)
+
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          force_orphan: true

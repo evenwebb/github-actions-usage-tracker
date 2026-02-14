@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Collection Logs — GitHub Actions{% endblock %}
+{% block content %}
+<h1>Collection Logs</h1>
+<p class="muted">History of data collection runs. Backfill = initial 90-day fetch.</p>
+
+<div class="card">
+    <table>
+        <thead>
+            <tr>
+                <th>Started</th>
+                <th>Completed</th>
+                <th>Repos</th>
+                <th>Runs</th>
+                <th>API Calls</th>
+                <th>Backfill</th>
+                <th>Errors</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in collection_log %}
+            <tr>
+                <td class="mono">{{ c.started_at[:19] if c.started_at else '—' }}</td>
+                <td class="mono">{{ c.completed_at[:19] if c.completed_at else '—' }}</td>
+                <td>{{ c.repos_scanned or 0 }} ({{ c.repos_with_runs or 0 }} with runs)</td>
+                <td>{{ c.runs_collected or 0 }} collected → {{ c.runs_updated or 0 }} total in DB</td>
+                <td class="mono">{{ c.api_calls or 0 }}</td>
+                <td>{% if c.backfill %}<span class="badge badge-amber">Yes</span>{% else %}—{% endif %}</td>
+                <td>
+                    {% if c.error_count %}
+                    <span class="badge badge-failure">{{ c.error_count }}</span>
+                    <details style="margin-top: 0.25rem;">
+                        <summary class="muted" style="cursor: pointer;">Show</summary>
+                        <ul style="margin: 0.25rem 0 0 1rem; font-size: 0.875rem;">
+                            {% for err in c.error_list %}
+                            <li>{{ err }}</li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                    {% else %}
+                    <span class="muted">—</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="7" class="muted">No collection logs yet. Run collect.py first.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

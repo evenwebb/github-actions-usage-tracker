@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Monthly History — GitHub Actions{% endblock %}
+{% block content %}
+<h1>Monthly History</h1>
+<p class="muted">Billable minutes per month. Allowance: {{ allowance }} min/month.</p>
+
+<div class="card">
+    <h2>Last 12 Months</h2>
+    <canvas id="historyChart" height="180"></canvas>
+</div>
+
+<div class="card">
+    <table>
+        <thead>
+            <tr><th>Month</th><th>Minutes</th><th>% of Allowance</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+            {% for m in monthly_usage | reverse %}
+            <tr>
+                <td class="mono">{{ m.month }}</td>
+                <td class="mono">{{ (m.minutes or 0) | round(1) }}</td>
+                <td>{{ ((m.minutes or 0) / allowance * 100) | round(1) }}%</td>
+                <td>
+                    {% set pct = ((m.minutes or 0) / allowance * 100) if allowance else 0 %}
+                    {% if pct < 70 %}<span class="badge badge-success">OK</span>
+                    {% elif pct < 90 %}<span class="badge badge-amber">High</span>
+                    {% else %}<span class="badge badge-failure">Over</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" class="muted">No historical data yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const data = {{ monthly_usage | map(attribute='minutes') | list | tojson }};
+const labels = {{ monthly_usage | map(attribute='month') | list | tojson }};
+const allowance = {{ allowance }};
+new Chart(document.getElementById('historyChart'), {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Minutes used',
+                data: data,
+                backgroundColor: data.map(m => m > allowance ? 'rgba(248, 81, 73, 0.6)' : (m > allowance * 0.8 ? 'rgba(210, 153, 34, 0.6)' : 'rgba(63, 185, 80, 0.6)')),
+                borderColor: data.map(m => m > allowance ? '#f85149' : (m > allowance * 0.8 ? '#d29922' : '#3fb950')),
+                borderWidth: 1
+            },
+            {
+                label: 'Allowance',
+                data: labels.map(() => allowance),
+                type: 'line',
+                borderColor: '#8b949e',
+                borderDash: [4, 4],
+                fill: false,
+                pointRadius: 0
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            x: { grid: { display: false }, ticks: { color: '#8b949e' } },
+            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
+        }
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block title %}{{ repo }} — GitHub Actions{% endblock %}
+{% block content %}
+<nav style="margin-bottom: 0.5rem;">
+    <a href="index.html">Overview</a> ·
+    <a href="history.html">History</a> ·
+    <a href="failures.html">Failures</a>
+</nav>
+<h1>{{ repo }}</h1>
+<p class="muted"><a href="https://github.com/{{ repo }}" target="_blank" rel="noopener">View on GitHub</a></p>
+
+<div class="card">
+    <h2>Workflows (This Month)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Workflow</th>
+                <th>Runs</th>
+                <th>Avg Duration</th>
+                <th>Total Minutes</th>
+                <th>Success Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for w in workflows %}
+            <tr>
+                <td class="mono">{{ w.workflow_name }}</td>
+                <td>{{ w.run_count }}</td>
+                <td class="mono">{{ (w.avg_duration or 0) | round(1) }}s</td>
+                <td class="mono">{{ (w.total_minutes or 0) | round(1) }}</td>
+                <td>
+                    {% set total = w.success_count + w.failure_count %}
+                    {% if total > 0 %}
+                    <span class="badge badge-{{ 'success' if (w.success_count / total * 100) >= 80 else 'failure' }}">
+                        {{ (w.success_count / total * 100) | round(0) }}%
+                    </span>
+                    {% else %}
+                    <span class="muted">—</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" class="muted">No workflow runs this month.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if workflow_efficiency %}
+<div class="card">
+    <h2>Workflow Efficiency</h2>
+    <p class="muted">Minutes consumed per successful run — higher = more expensive per success. Consider optimizing top offenders.</p>
+    <table>
+        <thead>
+            <tr><th>Workflow</th><th>Runs</th><th>Successes</th><th>Total Min</th><th>Min/Success</th></tr>
+        </thead>
+        <tbody>
+            {% for w in workflow_efficiency %}
+            <tr>
+                <td class="mono">{{ w.workflow_name }}</td>
+                <td>{{ w.runs }}</td>
+                <td>{{ w.success_count }}</td>
+                <td class="mono">{{ (w.total_minutes or 0) | round(1) }}</td>
+                <td class="mono">{{ w.mins_per_success }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if repo_monthly %}
+<div class="card">
+    <h2>Monthly History (Last 6 Months)</h2>
+    <canvas id="repoMonthlyChart" height="100"></canvas>
+    <table style="margin-top: 1rem;">
+        <thead><tr><th>Month</th><th>Minutes</th><th>Runs</th></tr></thead>
+        <tbody>
+            {% for m in repo_monthly | reverse %}
+            <tr>
+                <td class="mono">{{ m.month }}</td>
+                <td class="mono">{{ (m.minutes or 0) | round(1) }}</td>
+                <td>{{ m.runs }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+<div class="card">
+    <h2>Recent Runs (Sparkline)</h2>
+    <canvas id="sparkline" height="80"></canvas>
+    <p class="muted" style="margin-top: 0.5rem; font-size: 0.875rem;">
+        Last {{ recent_runs | length }} runs · Green = success, Red = failure
+    </p>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+const recent = {{ recent_runs | reverse | list | tojson }};
+new Chart(document.getElementById('sparkline'), {
+    type: 'bar',
+    data: {
+        labels: recent.map((_, i) => i + 1),
+        datasets: [{
+            label: 'Minutes',
+            data: recent.map(r => r.billable_minutes_total || 0),
+            backgroundColor: recent.map(r => 
+                (r.conclusion === 'success') ? 'rgba(63, 185, 80, 0.7)' : 'rgba(248, 81, 73, 0.7)'
+            ),
+            borderColor: recent.map(r => 
+                (r.conclusion === 'success') ? '#3fb950' : '#f85149'
+            ),
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+            x: { grid: { display: false }, ticks: { color: '#8b949e', maxTicksLimit: 15 } },
+            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
+        }
+    }
+});
+{% if repo_monthly %}
+const repoMonthlyData = {{ repo_monthly | map(attribute='minutes') | list | tojson }};
+const repoMonthlyLabels = {{ repo_monthly | map(attribute='month') | list | tojson }};
+new Chart(document.getElementById('repoMonthlyChart'), {
+    type: 'bar',
+    data: {
+        labels: repoMonthlyLabels,
+        datasets: [{
+            label: 'Minutes',
+            data: repoMonthlyData,
+            backgroundColor: 'rgba(88, 166, 255, 0.6)',
+            borderColor: '#58a6ff',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+            x: { grid: { display: false }, ticks: { color: '#8b949e' } },
+            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
+        }
+    }
+});
+{% endif %}
+</script>
+{% endblock %}
