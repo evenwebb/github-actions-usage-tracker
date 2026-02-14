@@ -1,6 +1,423 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>GitHub Actions Usage</title></head>
-<body style="font-family:sans-serif;max-width:600px;margin:2rem auto;padding:1rem">
-<h1>No data yet</h1>
-<p>Run the workflow or <code>python collect.py</code> first. Data will appear after the first collection.</p>
-<nav><a href="index.html">Overview</a> · <a href="history.html">History</a> · <a href="failures.html">Failures</a> · <a href="logs.html">Logs</a></nav>
-</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Actions Usage — Overview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-card: #161b22;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --success: #3fb950;
+            --warning: #d29922;
+            --danger: #f85149;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 1.5rem;
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        nav a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        nav a:hover { text-decoration: underline; }
+        h1 { font-size: 1.75rem; font-weight: 600; margin: 0 0 1rem; }
+        h2 { font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .muted { color: var(--text-muted); }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { color: var(--text-muted); font-weight: 500; font-size: 0.875rem; }
+        tr:hover { background: rgba(88, 166, 255, 0.05); }
+        a { color: var(--accent); }
+        .badge { display: inline-block; padding: 0.2em 0.5em; border-radius: 4px; font-size: 0.8rem; }
+        .badge-success { background: rgba(63, 185, 80, 0.2); color: var(--success); }
+        .badge-failure { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
+        .badge-amber { background: rgba(210, 153, 34, 0.2); color: var(--warning); }
+        .stat-big { font-size: 2.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+        .progress-bar {
+            height: 12px;
+            background: var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.3s ease;
+        }
+        .progress-green { background: var(--success); }
+        .progress-amber { background: var(--warning); }
+        .progress-red { background: var(--danger); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+        .stats-row { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html">Overview</a>
+            <a href="history.html">History</a>
+            <a href="failures.html">Failures</a>
+            <a href="logs.html">Collection Logs</a>
+        </nav>
+        
+<h1>GitHub Actions Usage</h1>
+
+<div class="stats-grid">
+    <div class="card">
+        <h2>This Month</h2>
+        <div class="stat-big">468 <span class="muted" style="font-size: 1rem;">/ 2000 min</span></div>
+        <div class="progress-bar">
+            
+            
+            <div class="progress-fill progress-green" style="width: 23.400000000000002%"></div>
+            
+        </div>
+    </div>
+    <div class="card">
+        <h2>Cost Projection</h2>
+        <p>At current pace: <strong class="mono">134</strong> / 2000 min</p>
+        <span class="badge badge-green">6.7% of allowance</span>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Summary (This Month)</h2>
+    <div class="stats-row">
+        <span><strong class="mono">399</strong> total runs</span>
+        <span><strong class="mono">98.7%</strong> success rate</span>
+        <span><strong class="mono">21.1s</strong> avg duration</span>
+        <span class="muted">Linux: 468.0 min · macOS: 0 · Windows: 0 min</span>
+    </div>
+</div>
+
+<div class="card">
+    <h2>By Trigger</h2>
+    <table>
+        <thead><tr><th>Trigger</th><th>Runs</th><th>Minutes</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">schedule</td>
+                <td>368</td>
+                <td class="mono">404.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">dynamic</td>
+                <td>16</td>
+                <td class="mono">48.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">push</td>
+                <td>7</td>
+                <td class="mono">8.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">workflow_dispatch</td>
+                <td>8</td>
+                <td class="mono">8.0</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h2>Daily Usage (Last 90 Days)</h2>
+    <canvas id="trendChart" height="120"></canvas>
+</div>
+
+<div class="card">
+    <h2>Monthly History (Last 12 Months)</h2>
+    <canvas id="monthlyChart" height="100"></canvas>
+</div>
+
+<div class="card">
+    <h2>Repos by Minutes (This Month)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Repo</th>
+                <th>Minutes</th>
+                <th>% of Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            
+            <tr>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">289.0</td>
+                <td class="muted">61.8%</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_epic-free-games-scraper.html">evenwebb/epic-free-games-scraper</a></td>
+                <td class="mono">61.0</td>
+                <td class="muted">13.0%</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_wtw-cinemas-calendar.html">evenwebb/wtw-cinemas-calendar</a></td>
+                <td class="mono">42.0</td>
+                <td class="muted">9.0%</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_wtw-whats-on.html">evenwebb/wtw-whats-on</a></td>
+                <td class="mono">22.0</td>
+                <td class="muted">4.7%</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">20.0</td>
+                <td class="muted">4.3%</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_cornwall-waste-collection-calendar-generator.html">evenwebb/cornwall-waste-collection-calendar-generator</a></td>
+                <td class="mono">14.0</td>
+                <td class="muted">3.0%</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_penrice-calendar-scraper.html">evenwebb/penrice-calendar-scraper</a></td>
+                <td class="mono">14.0</td>
+                <td class="muted">3.0%</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_evenwebb.html">evenwebb/evenwebb</a></td>
+                <td class="mono">3.0</td>
+                <td class="muted">0.6%</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_unraid-user-scripts.html">evenwebb/unraid-user-scripts</a></td>
+                <td class="mono">3.0</td>
+                <td class="muted">0.6%</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h2>Top Workflows (All Repos)</h2>
+    <table>
+        <thead>
+            <tr><th>Repo</th><th>Workflow</th><th>Runs</th><th>Minutes</th></tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">Scrape Octopus Energy Free Electricity</td>
+                <td>257</td>
+                <td class="mono">286.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_epic-free-games-scraper.html">evenwebb/epic-free-games-scraper</a></td>
+                <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
+                <td>53</td>
+                <td class="mono">61.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_wtw-cinemas-calendar.html">evenwebb/wtw-cinemas-calendar</a></td>
+                <td class="mono">pages build and deployment</td>
+                <td>9</td>
+                <td class="mono">27.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_wtw-cinemas-calendar.html">evenwebb/wtw-cinemas-calendar</a></td>
+                <td class="mono">Update Cinema iCal Feed</td>
+                <td>15</td>
+                <td class="mono">15.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_cornwall-waste-collection-calendar-generator.html">evenwebb/cornwall-waste-collection-calendar-generator</a></td>
+                <td class="mono">Run Cornwall scraper</td>
+                <td>14</td>
+                <td class="mono">14.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_penrice-calendar-scraper.html">evenwebb/penrice-calendar-scraper</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td>14</td>
+                <td class="mono">14.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td>14</td>
+                <td class="mono">14.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_wtw-whats-on.html">evenwebb/wtw-whats-on</a></td>
+                <td class="mono">pages build and deployment</td>
+                <td>4</td>
+                <td class="mono">12.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_wtw-whats-on.html">evenwebb/wtw-whats-on</a></td>
+                <td class="mono">What's On HTML</td>
+                <td>10</td>
+                <td class="mono">10.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">pages build and deployment</td>
+                <td>2</td>
+                <td class="mono">6.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">pages build and deployment</td>
+                <td>1</td>
+                <td class="mono">3.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_evenwebb.html">evenwebb/evenwebb</a></td>
+                <td class="mono">Update Profile README</td>
+                <td>3</td>
+                <td class="mono">3.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_unraid-user-scripts.html">evenwebb/unraid-user-scripts</a></td>
+                <td class="mono">Generate User Scripts Plugin Folders</td>
+                <td>3</td>
+                <td class="mono">3.0</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+
+
+<div class="card">
+    <h2>Recent Collections</h2>
+    <table>
+        <thead>
+            <tr><th>Started</th><th>Repos</th><th>Runs</th><th>API Calls</th><th>Errors</th></tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">2026-02-14T20:46:57</td>
+                <td>24 (9 with runs)</td>
+                <td>1765 → 1765 total</td>
+                <td class="mono">1803</td>
+                <td><span class="badge badge-failure">1</span></td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <p class="muted" style="margin-top: 0.5rem;"><a href="logs.html">View full log →</a></p>
+</div>
+
+        <footer class="muted" style="margin-top: 2rem; font-size: 0.875rem;">
+            Last updated: 2026-02-14 20:48 UTC · GitHub Actions Usage Tracker
+        </footer>
+    </div>
+    
+<script>
+const trendData = [8.0, 8.0, 9.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 10.0, 8.0, 11.0, 11.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 8.0, 12.0, 8.0, 8.0, 17.0, 51.0, 99.0, 99.0, 99.0, 106.0, 96.0, 128.0, 102.0, 41.0, 29.0, 33.0, 30.0, 30.0, 29.0, 29.0, 29.0, 29.0, 29.0, 30.0, 30.0, 29.0, 29.0, 29.0, 30.0, 28.0, 28.0, 29.0, 28.0, 54.0, 27.0, 28.0, 28.0, 27.0, 32.0, 38.0, 45.0, 27.0, 28.0, 42.0, 31.0, 33.0];
+const trendLabels = ["2025-11-17", "2025-11-18", "2025-11-19", "2025-11-20", "2025-11-21", "2025-11-22", "2025-11-23", "2025-11-24", "2025-11-25", "2025-11-26", "2025-11-27", "2025-11-28", "2025-11-29", "2025-11-30", "2025-12-01", "2025-12-02", "2025-12-03", "2025-12-04", "2025-12-05", "2025-12-06", "2025-12-07", "2025-12-08", "2025-12-09", "2025-12-10", "2025-12-11", "2025-12-12", "2025-12-13", "2025-12-14", "2025-12-15", "2025-12-16", "2025-12-17", "2025-12-18", "2025-12-19", "2025-12-20", "2025-12-21", "2025-12-22", "2025-12-23", "2025-12-24", "2025-12-25", "2025-12-26", "2025-12-27", "2025-12-28", "2025-12-29", "2025-12-30", "2025-12-31", "2026-01-01", "2026-01-02", "2026-01-03", "2026-01-04", "2026-01-05", "2026-01-06", "2026-01-07", "2026-01-08", "2026-01-09", "2026-01-10", "2026-01-11", "2026-01-12", "2026-01-13", "2026-01-14", "2026-01-15", "2026-01-16", "2026-01-17", "2026-01-18", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-24", "2026-01-25", "2026-01-26", "2026-01-27", "2026-01-28", "2026-01-29", "2026-01-30", "2026-01-31", "2026-02-01", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-05", "2026-02-06", "2026-02-07", "2026-02-08", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-12", "2026-02-13", "2026-02-14"];
+new Chart(document.getElementById('trendChart'), {
+    type: 'line',
+    data: {
+        labels: trendLabels,
+        datasets: [{
+            label: 'Minutes',
+            data: trendData,
+            borderColor: '#58a6ff',
+            backgroundColor: 'rgba(88, 166, 255, 0.1)',
+            fill: true,
+            tension: 0.3
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+            x: { grid: { color: '#30363d' }, ticks: { color: '#8b949e', maxTicksLimit: 12 } },
+            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
+        }
+    }
+});
+const monthlyData = [113.0, 256.0, 1395.0, 468.0];
+const monthlyLabels = ["2025-11", "2025-12", "2026-01", "2026-02"];
+new Chart(document.getElementById('monthlyChart'), {
+    type: 'bar',
+    data: {
+        labels: monthlyLabels,
+        datasets: [{
+            label: 'Minutes',
+            data: monthlyData,
+            backgroundColor: 'rgba(88, 166, 255, 0.6)',
+            borderColor: '#58a6ff',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+            x: { grid: { display: false }, ticks: { color: '#8b949e' } },
+            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
+        }
+    }
+});
+</script>
+
+</body>
+</html>

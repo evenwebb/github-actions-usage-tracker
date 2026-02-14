@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>evenwebb/epic-free-games-scraper — GitHub Actions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-card: #161b22;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --success: #3fb950;
+            --warning: #d29922;
+            --danger: #f85149;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 1.5rem;
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        nav a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        nav a:hover { text-decoration: underline; }
+        h1 { font-size: 1.75rem; font-weight: 600; margin: 0 0 1rem; }
+        h2 { font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .muted { color: var(--text-muted); }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { color: var(--text-muted); font-weight: 500; font-size: 0.875rem; }
+        tr:hover { background: rgba(88, 166, 255, 0.05); }
+        a { color: var(--accent); }
+        .badge { display: inline-block; padding: 0.2em 0.5em; border-radius: 4px; font-size: 0.8rem; }
+        .badge-success { background: rgba(63, 185, 80, 0.2); color: var(--success); }
+        .badge-failure { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
+        .badge-amber { background: rgba(210, 153, 34, 0.2); color: var(--warning); }
+        .stat-big { font-size: 2.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+        .progress-bar {
+            height: 12px;
+            background: var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.3s ease;
+        }
+        .progress-green { background: var(--success); }
+        .progress-amber { background: var(--warning); }
+        .progress-red { background: var(--danger); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+        .stats-row { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html">Overview</a>
+            <a href="history.html">History</a>
+            <a href="failures.html">Failures</a>
+            <a href="logs.html">Collection Logs</a>
+        </nav>
+        
+<nav style="margin-bottom: 0.5rem;">
+    <a href="index.html">Overview</a> ·
+    <a href="history.html">History</a> ·
+    <a href="failures.html">Failures</a>
+</nav>
+<h1>evenwebb/epic-free-games-scraper</h1>
+<p class="muted"><a href="https://github.com/evenwebb/epic-free-games-scraper" target="_blank" rel="noopener">View on GitHub</a></p>
+
+<div class="card">
+    <h2>Workflows (This Month)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Workflow</th>
+                <th>Runs</th>
+                <th>Avg Duration</th>
+                <th>Total Minutes</th>
+                <th>Success Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
+                <td>53</td>
+                <td class="mono">28.4s</td>
+                <td class="mono">61.0</td>
+                <td>
+                    
+                    
+                    <span class="badge badge-success">
+                        100.0%
+                    </span>
+                    
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+
+<div class="card">
+    <h2>Workflow Efficiency</h2>
+    <p class="muted">Minutes consumed per successful run — higher = more expensive per success. Consider optimizing top offenders.</p>
+    <table>
+        <thead>
+            <tr><th>Workflow</th><th>Runs</th><th>Successes</th><th>Total Min</th><th>Min/Success</th></tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
+                <td>53</td>
+                <td>53</td>
+                <td class="mono">61.0</td>
+                <td class="mono">1.2</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+
+
+<div class="card">
+    <h2>Monthly History (Last 6 Months)</h2>
+    <canvas id="repoMonthlyChart" height="100"></canvas>
+    <table style="margin-top: 1rem;">
+        <thead><tr><th>Month</th><th>Minutes</th><th>Runs</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">2026-02</td>
+                <td class="mono">61.0</td>
+                <td>53</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2026-01</td>
+                <td class="mono">147.0</td>
+                <td>134</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12</td>
+                <td class="mono">124.0</td>
+                <td>124</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-11</td>
+                <td class="mono">57.0</td>
+                <td>56</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+
+<div class="card">
+    <h2>Recent Runs (Sparkline)</h2>
+    <canvas id="sparkline" height="80"></canvas>
+    <p class="muted" style="margin-top: 0.5rem; font-size: 0.875rem;">
+        Last 30 runs · Green = success, Red = failure
+    </p>
+</div>
+
+        <footer class="muted" style="margin-top: 2rem; font-size: 0.875rem;">
+            Last updated: 2026-02-14 20:48 UTC · GitHub Actions Usage Tracker
+        </footer>
+    </div>
+    
+<script>
+const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-06T18:35:59Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-07T01:12:12Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-07T06:31:29Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-07T12:28:35Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-07T18:22:22Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-08T01:49:39Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-08T06:39:26Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-08T12:29:19Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-08T18:23:42Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-09T01:20:00Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-09T06:55:21Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-09T12:45:09Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-09T18:45:02Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-10T00:12:00Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-10T01:28:37Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-10T06:55:10Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-10T12:52:28Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-10T18:54:06Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-11T01:26:01Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-11T06:52:06Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-11T12:46:15Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-11T18:51:21Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-12T00:45:24Z"}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-02-12T01:00:25Z"}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-02-12T15:55:49Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-12T17:00:30Z"}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-02-13T15:44:35Z"}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-02-13T16:50:34Z"}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-02-14T15:28:14Z"}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-02-14T16:32:23Z"}];
+new Chart(document.getElementById('sparkline'), {
+    type: 'bar',
+    data: {
+        labels: recent.map((_, i) => i + 1),
+        datasets: [{
+            label: 'Minutes',
+            data: recent.map(r => r.billable_minutes_total || 0),
+            backgroundColor: recent.map(r => 
+                (r.conclusion === 'success') ? 'rgba(63, 185, 80, 0.7)' : 'rgba(248, 81, 73, 0.7)'
+            ),
+            borderColor: recent.map(r => 
+                (r.conclusion === 'success') ? '#3fb950' : '#f85149'
+            ),
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+            x: { grid: { display: false }, ticks: { color: '#8b949e', maxTicksLimit: 15 } },
+            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
+        }
+    }
+});
+
+const repoMonthlyData = [57.0, 124.0, 147.0, 61.0];
+const repoMonthlyLabels = ["2025-11", "2025-12", "2026-01", "2026-02"];
+new Chart(document.getElementById('repoMonthlyChart'), {
+    type: 'bar',
+    data: {
+        labels: repoMonthlyLabels,
+        datasets: [{
+            label: 'Minutes',
+            data: repoMonthlyData,
+            backgroundColor: 'rgba(88, 166, 255, 0.6)',
+            borderColor: '#58a6ff',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+            x: { grid: { display: false }, ticks: { color: '#8b949e' } },
+            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
+        }
+    }
+});
+
+</script>
+
+</body>
+</html>

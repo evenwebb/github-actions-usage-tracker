@@ -1,6 +1,482 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>GitHub Actions Usage</title></head>
-<body style="font-family:sans-serif;max-width:600px;margin:2rem auto;padding:1rem">
-<h1>No data yet</h1>
-<p>Run the workflow or <code>python collect.py</code> first. Data will appear after the first collection.</p>
-<nav><a href="index.html">Overview</a> · <a href="history.html">History</a> · <a href="failures.html">Failures</a> · <a href="logs.html">Logs</a></nav>
-</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Failed Runs — GitHub Actions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-card: #161b22;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --success: #3fb950;
+            --warning: #d29922;
+            --danger: #f85149;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 1.5rem;
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        nav a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        nav a:hover { text-decoration: underline; }
+        h1 { font-size: 1.75rem; font-weight: 600; margin: 0 0 1rem; }
+        h2 { font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .muted { color: var(--text-muted); }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { color: var(--text-muted); font-weight: 500; font-size: 0.875rem; }
+        tr:hover { background: rgba(88, 166, 255, 0.05); }
+        a { color: var(--accent); }
+        .badge { display: inline-block; padding: 0.2em 0.5em; border-radius: 4px; font-size: 0.8rem; }
+        .badge-success { background: rgba(63, 185, 80, 0.2); color: var(--success); }
+        .badge-failure { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
+        .badge-amber { background: rgba(210, 153, 34, 0.2); color: var(--warning); }
+        .stat-big { font-size: 2.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+        .progress-bar {
+            height: 12px;
+            background: var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.3s ease;
+        }
+        .progress-green { background: var(--success); }
+        .progress-amber { background: var(--warning); }
+        .progress-red { background: var(--danger); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+        .stats-row { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html">Overview</a>
+            <a href="history.html">History</a>
+            <a href="failures.html">Failures</a>
+            <a href="logs.html">Collection Logs</a>
+        </nav>
+        
+<h1>Failed Runs</h1>
+<p class="muted">All failed, cancelled, or timed-out workflow runs across repos. Click through to view logs.</p>
+
+<div class="card">
+    <table>
+        <thead>
+            <tr>
+                <th>When</th>
+                <th>Repo</th>
+                <th>Workflow</th>
+                <th>Conclusion</th>
+                <th>Logs</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">2026-02-02T22:29:51</td>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">Scrape Octopus Energy Free Electricity</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/OctoCal/actions/runs/21608727360" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2026-02-02T21:30:52</td>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">Scrape Octopus Energy Free Electricity</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/OctoCal/actions/runs/21607398393" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2026-02-02T20:33:43</td>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">Scrape Octopus Energy Free Electricity</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/OctoCal/actions/runs/21606029275" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2026-02-02T19:32:46</td>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">Scrape Octopus Energy Free Electricity</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/OctoCal/actions/runs/21604438390" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2026-02-02T18:50:44</td>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">Scrape Octopus Energy Free Electricity</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/OctoCal/actions/runs/21603111822" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2026-01-13T18:21:36</td>
+                <td><a href="repo_evenwebb_epic-free-games-scraper.html">evenwebb/epic-free-games-scraper</a></td>
+                <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/epic-free-games-scraper/actions/runs/20967802825" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2026-01-11T17:17:06</td>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">pages build and deployment</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/OctoCal/actions/runs/20898929385" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2026-01-04T20:27:01</td>
+                <td><a href="repo_evenwebb_epic-free-games-scraper.html">evenwebb/epic-free-games-scraper</a></td>
+                <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/epic-free-games-scraper/actions/runs/20698667121" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2026-01-04T20:24:46</td>
+                <td><a href="repo_evenwebb_epic-free-games-scraper.html">evenwebb/epic-free-games-scraper</a></td>
+                <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/epic-free-games-scraper/actions/runs/20698641355" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-31T11:18:44</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20617928514" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-30T11:18:52</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20595330597" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-29T11:18:43</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20571622009" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-28T11:17:18</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20553000791" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-27T11:16:30</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20538333039" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-26T11:18:11</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20521524975" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-25T11:17:31</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20504224399" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-24T11:18:17</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20485048436" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-23T11:18:30</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20459303897" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-22T11:18:15</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20430356564" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-21T11:16:15</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20409013852" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-20T11:15:58</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20393590031" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-19T11:18:00</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20368418241" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-18T11:18:27</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20335187374" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-17T11:19:34</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20301039839" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-16T11:19:24</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20266111156" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-15T11:18:45</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20230312304" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-14T11:15:49</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20207139857" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-13T11:15:29</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20191275180" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-12T11:19:33</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20165139557" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2025-12-11T11:18:49</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/stmewan-parish-council-calendar/actions/runs/20131328435" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+        <footer class="muted" style="margin-top: 2rem; font-size: 0.875rem;">
+            Last updated: 2026-02-14 20:48 UTC · GitHub Actions Usage Tracker
+        </footer>
+    </div>
+    
+</body>
+</html>
