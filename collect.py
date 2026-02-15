@@ -106,8 +106,8 @@ def fetch_workflow_runs(
     while url:
         resp = session.get(url, params=params, headers=get_headers(token), timeout=REQUEST_TIMEOUT)
         params = None
-        if resp.status_code == 404:
-            # Repo has no Actions or no access
+        if resp.status_code in (404, 451):
+            # 404: repo has no Actions or no access; 451: DMCA removed
             break
         resp.raise_for_status()
         data = resp.json()
@@ -347,7 +347,7 @@ def main() -> None:
         try:
             runs = fetch_workflow_runs(session, token, owner, name, created_after)
         except requests.HTTPError as e:
-            if e.response.status_code in (403, 404):
+            if e.response.status_code in (403, 404, 451):
                 continue
             errors.append(f"{full_name}: {e}")
             log.warning("Error %s: %s", full_name, e)
