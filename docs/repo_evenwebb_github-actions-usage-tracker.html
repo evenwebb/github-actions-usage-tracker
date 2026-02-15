@@ -117,9 +117,9 @@
             
             <tr>
                 <td class="mono">pages build and deployment</td>
-                <td>1</td>
-                <td class="mono">32.0s</td>
-                <td class="mono">3.0</td>
+                <td>3</td>
+                <td class="mono">30.7s</td>
+                <td class="mono">9.0</td>
                 <td>
                     
                     
@@ -132,9 +132,9 @@
             
             <tr>
                 <td class="mono">Collect & Deploy</td>
-                <td>1</td>
-                <td class="mono">130.0s</td>
-                <td class="mono">3.0</td>
+                <td>3</td>
+                <td class="mono">94.3s</td>
+                <td class="mono">7.0</td>
                 <td>
                     
                     
@@ -161,9 +161,9 @@
             
             <tr>
                 <td class="mono">pages build and deployment</td>
-                <td>1</td>
-                <td>1</td>
-                <td class="mono">3.0</td>
+                <td>3</td>
+                <td>3</td>
+                <td class="mono">9.0</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -182,8 +182,8 @@
             
             <tr>
                 <td class="mono">2026-02</td>
-                <td class="mono">6.0</td>
-                <td>2</td>
+                <td class="mono">16.0</td>
+                <td>6</td>
             </tr>
             
         </tbody>
@@ -195,17 +195,17 @@
     <h2>Recent Runs (Sparkline)</h2>
     <canvas id="sparkline" height="80"></canvas>
     <p class="muted" style="margin-top: 0.5rem; font-size: 0.875rem;">
-        Last 2 runs · Green = success, Red = failure
+        Last 6 runs · Green = success, Red = failure
     </p>
 </div>
 
         <footer class="muted" style="margin-top: 2rem; font-size: 0.875rem;">
-            Last updated: 2026-02-15 02:42 UTC · GitHub Actions Usage Tracker
+            Last updated: 2026-02-15 13:44 UTC · GitHub Actions Usage Tracker
         </footer>
     </div>
     
 <script>
-const recent = [{"billable_minutes_total": 3.0, "conclusion": "failure", "created_at": "2026-02-14T20:46:48Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-14T20:52:06Z"}];
+const recent = [{"billable_minutes_total": 3.0, "conclusion": "failure", "created_at": "2026-02-14T20:46:48Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-14T20:52:06Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-02-15T02:42:15Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-15T02:42:30Z"}, {"billable_minutes_total": 3.0, "conclusion": "failure", "created_at": "2026-02-15T13:38:42Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-15T13:41:04Z"}];
 new Chart(document.getElementById('sparkline'), {
     type: 'bar',
     data: {
@@ -232,7 +232,7 @@ new Chart(document.getElementById('sparkline'), {
     }
 });
 
-const repoMonthlyData = [6.0];
+const repoMonthlyData = [16.0];
 const repoMonthlyLabels = ["2026-02"];
 new Chart(document.getElementById('repoMonthlyChart'), {
     type: 'bar',
