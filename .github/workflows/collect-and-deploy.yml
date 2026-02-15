@@ -28,7 +28,7 @@ jobs:
           python-version: '3.12'
           cache: 'pip'
 
-      - run: pip install --no-cache-dir -q -r requirements.txt
+      - run: pip install -q -r requirements.txt
 
       - name: Collect
         env:
