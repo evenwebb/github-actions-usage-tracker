@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>evenwebb/wtw-cinemas-calendar — GitHub Actions</title>
+    <title>evenwebb/tesla-owners-club-uk-events-calendar — GitHub Actions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -98,8 +98,8 @@
     <a href="history.html">History</a> ·
     <a href="failures.html">Failures</a>
 </nav>
-<h1>evenwebb/wtw-cinemas-calendar</h1>
-<p class="muted"><a href="https://github.com/evenwebb/wtw-cinemas-calendar" target="_blank" rel="noopener">View on GitHub</a></p>
+<h1>evenwebb/tesla-owners-club-uk-events-calendar</h1>
+<p class="muted"><a href="https://github.com/evenwebb/tesla-owners-club-uk-events-calendar" target="_blank" rel="noopener">View on GitHub</a></p>
 
 <div class="card">
     <h2>Workflows (This Month)</h2>
@@ -117,9 +117,9 @@
             
             <tr>
                 <td class="mono">pages build and deployment</td>
-                <td>9</td>
-                <td class="mono">32.4s</td>
-                <td class="mono">27.0</td>
+                <td>10</td>
+                <td class="mono">30.6s</td>
+                <td class="mono">30.0</td>
                 <td>
                     
                     
@@ -131,10 +131,10 @@
             </tr>
             
             <tr>
-                <td class="mono">Update Cinema iCal Feed</td>
-                <td>16</td>
-                <td class="mono">19.8s</td>
-                <td class="mono">16.0</td>
+                <td class="mono">Scrape Tesla Owners UK Events</td>
+                <td>3</td>
+                <td class="mono">8.3s</td>
+                <td class="mono">3.0</td>
                 <td>
                     
                     
@@ -161,17 +161,17 @@
             
             <tr>
                 <td class="mono">pages build and deployment</td>
-                <td>9</td>
-                <td>9</td>
-                <td class="mono">27.0</td>
+                <td>10</td>
+                <td>10</td>
+                <td class="mono">30.0</td>
                 <td class="mono">3.0</td>
             </tr>
             
             <tr>
-                <td class="mono">Update Cinema iCal Feed</td>
-                <td>16</td>
-                <td>16</td>
-                <td class="mono">16.0</td>
+                <td class="mono">Scrape Tesla Owners UK Events</td>
+                <td>3</td>
+                <td>3</td>
+                <td class="mono">3.0</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -190,26 +190,8 @@
             
             <tr>
                 <td class="mono">2026-02</td>
-                <td class="mono">43.0</td>
-                <td>25</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-01</td>
-                <td class="mono">31.0</td>
-                <td>31</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2025-12</td>
                 <td class="mono">33.0</td>
-                <td>31</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2025-11</td>
-                <td class="mono">14.0</td>
-                <td>14</td>
+                <td>13</td>
             </tr>
             
         </tbody>
@@ -221,7 +203,7 @@
     <h2>Recent Runs (Sparkline)</h2>
     <canvas id="sparkline" height="80"></canvas>
     <p class="muted" style="margin-top: 0.5rem; font-size: 0.875rem;">
-        Last 30 runs · Green = success, Red = failure
+        Last 13 runs · Green = success, Red = failure
     </p>
 </div>
 
@@ -231,7 +213,7 @@
     </div>
     
 <script>
-const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-01-27T09:26:57Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-01-28T09:28:23Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-01-29T09:35:30Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-01-30T09:32:06Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-01-31T09:21:41Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-01T09:24:18Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-02T09:39:36Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-03T09:34:15Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-04T09:36:47Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-05T09:37:16Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-06T09:36:10Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-07T09:24:59Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-08T09:23:59Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-09T09:56:14Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-09T22:12:05Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-09T22:38:50Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-09T22:49:02Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-09T22:49:21Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-09T22:57:47Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-10T09:54:46Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-10T09:55:04Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-11T09:45:20Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-11T09:46:04Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-12T09:41:33Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-12T09:41:57Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-13T09:36:58Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-13T09:37:26Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-14T09:24:19Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-14T09:24:33Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-15T09:24:59Z"}];
+const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-15T12:14:56Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-15T12:15:33Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-15T12:23:59Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-15T12:25:52Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-15T12:26:01Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-15T12:31:37Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-15T12:44:50Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-15T12:50:33Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-15T12:56:48Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-15T13:13:51Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-15T13:16:34Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-15T13:17:43Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-15T13:17:54Z"}];
 new Chart(document.getElementById('sparkline'), {
     type: 'bar',
     data: {
@@ -258,8 +240,8 @@ new Chart(document.getElementById('sparkline'), {
     }
 });
 
-const repoMonthlyData = [14.0, 33.0, 31.0, 43.0];
-const repoMonthlyLabels = ["2025-11", "2025-12", "2026-01", "2026-02"];
+const repoMonthlyData = [33.0];
+const repoMonthlyLabels = ["2026-02"];
 new Chart(document.getElementById('repoMonthlyChart'), {
     type: 'bar',
     data: {
