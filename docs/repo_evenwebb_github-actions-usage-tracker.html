@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>evenwebb/unraid-user-scripts — GitHub Actions</title>
+    <title>evenwebb/github-actions-usage-tracker — GitHub Actions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -98,8 +98,8 @@
     <a href="history.html">History</a> ·
     <a href="failures.html">Failures</a>
 </nav>
-<h1>evenwebb/unraid-user-scripts</h1>
-<p class="muted"><a href="https://github.com/evenwebb/unraid-user-scripts" target="_blank" rel="noopener">View on GitHub</a></p>
+<h1>evenwebb/github-actions-usage-tracker</h1>
+<p class="muted"><a href="https://github.com/evenwebb/github-actions-usage-tracker" target="_blank" rel="noopener">View on GitHub</a></p>
 
 <div class="card">
     <h2>Workflows (This Month)</h2>
@@ -116,15 +116,30 @@
         <tbody>
             
             <tr>
-                <td class="mono">Generate User Scripts Plugin Folders</td>
-                <td>3</td>
-                <td class="mono">5.3s</td>
+                <td class="mono">pages build and deployment</td>
+                <td>1</td>
+                <td class="mono">32.0s</td>
                 <td class="mono">3.0</td>
                 <td>
                     
                     
                     <span class="badge badge-success">
                         100.0%
+                    </span>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">Collect & Deploy</td>
+                <td>1</td>
+                <td class="mono">130.0s</td>
+                <td class="mono">3.0</td>
+                <td>
+                    
+                    
+                    <span class="badge badge-failure">
+                        0.0%
                     </span>
                     
                 </td>
@@ -145,11 +160,11 @@
         <tbody>
             
             <tr>
-                <td class="mono">Generate User Scripts Plugin Folders</td>
-                <td>3</td>
-                <td>3</td>
+                <td class="mono">pages build and deployment</td>
+                <td>1</td>
+                <td>1</td>
                 <td class="mono">3.0</td>
-                <td class="mono">1.0</td>
+                <td class="mono">3.0</td>
             </tr>
             
         </tbody>
@@ -167,8 +182,8 @@
             
             <tr>
                 <td class="mono">2026-02</td>
-                <td class="mono">3.0</td>
-                <td>3</td>
+                <td class="mono">6.0</td>
+                <td>2</td>
             </tr>
             
         </tbody>
@@ -180,7 +195,7 @@
     <h2>Recent Runs (Sparkline)</h2>
     <canvas id="sparkline" height="80"></canvas>
     <p class="muted" style="margin-top: 0.5rem; font-size: 0.875rem;">
-        Last 3 runs · Green = success, Red = failure
+        Last 2 runs · Green = success, Red = failure
     </p>
 </div>
 
@@ -190,7 +205,7 @@
     </div>
     
 <script>
-const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-05T23:48:10Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-12T00:16:22Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-12T00:42:35Z"}];
+const recent = [{"billable_minutes_total": 3.0, "conclusion": "failure", "created_at": "2026-02-14T20:46:48Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-14T20:52:06Z"}];
 new Chart(document.getElementById('sparkline'), {
     type: 'bar',
     data: {
@@ -217,7 +232,7 @@ new Chart(document.getElementById('sparkline'), {
     }
 });
 
-const repoMonthlyData = [3.0];
+const repoMonthlyData = [6.0];
 const repoMonthlyLabels = ["2026-02"];
 new Chart(document.getElementById('repoMonthlyChart'), {
     type: 'bar',
