@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Workflow Audit — GitHub Actions{% endblock %}
+{% block content %}
+<h1>Workflow Cost & Risk Audit</h1>
+<p class="muted">Scans workflow YAML files across repos for expensive or risky patterns.</p>
+
+{% if audit_by_repo %}
+<div class="card">
+    <h2>Issues by Repo</h2>
+    <table>
+        <thead>
+            <tr><th>Repo</th><th>Issues</th><th>High</th><th>Medium</th><th>Details</th></tr>
+        </thead>
+        <tbody>
+            {% for item in audit_by_repo %}
+            <tr>
+                <td><a href="repo_{{ item.repo | replace('/', '_') }}.html">{{ item.repo }}</a></td>
+                <td class="mono">{{ item.count }}</td>
+                <td>{% if item.high %}<span class="badge badge-failure">{{ item.high }}</span>{% else %}—{% endif %}</td>
+                <td>{% if item.medium %}<span class="badge badge-amber">{{ item.medium }}</span>{% else %}—{% endif %}</td>
+                <td>
+                    {% for i in item.issues[:3] %}
+                    <span class="muted" style="font-size: 0.85rem;">{{ i.check }}: {{ i.message[:50] }}…</span><br>
+                    {% endfor %}
+                    {% if item.issues | length > 3 %}
+                    <span class="muted">+{{ item.issues | length - 3 }} more</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h2>All Issues</h2>
+    {% for item in audit_by_repo %}
+    {% if item.issues %}
+    <h3 style="margin-top: 1rem;">{{ item.repo }}</h3>
+    <table>
+        <thead><tr><th>Severity</th><th>Check</th><th>Location</th><th>Message</th><th>Suggestion</th></tr></thead>
+        <tbody>
+            {% for i in item.issues %}
+            <tr>
+                <td><span class="badge badge-{{ 'failure' if i.severity == 'high' else 'amber' }}">{{ i.severity }}</span></td>
+                <td class="mono">{{ i.check }}</td>
+                <td class="mono">{{ i.file }} › {{ i.job or '—' }}</td>
+                <td>{{ i.message }}</td>
+                <td class="muted">{{ i.suggestion }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% endfor %}
+</div>
+{% else %}
+<div class="card">
+    <p class="muted">No audit results yet. Run <code>python collect.py --audit</code> to scan workflow files across your repos.</p>
+</div>
+{% endif %}
+{% endblock %}

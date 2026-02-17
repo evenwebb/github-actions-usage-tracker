@@ -1,0 +1,66 @@
+name: Audit Workflows (PR)
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - run: pip install -q -r requirements.txt
+
+      - name: Run auditor
+        id: audit
+        run: |
+          python audit.py --markdown > audit_report.md
+          echo "exit=$?" >> $GITHUB_OUTPUT
+        continue-on-error: true
+
+      - name: Post audit summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let body = fs.existsSync('audit_report.md')
+              ? fs.readFileSync('audit_report.md', 'utf8')
+              : '## GitHub Actions Audit\n\nNo workflow files changed or no issues found.';
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const botComment = comments.find(c =>
+              c.user.type === 'Bot' && c.body.includes('## GitHub Actions Cost & Risk Audit')
+            );
+            const commentBody = body + '\n\n---\n*Powered by [GitHub Actions Usage Tracker](https://github.com/evenwebb/github-actions-usage-tracker)*';
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: commentBody,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: commentBody,
+              });
+            }

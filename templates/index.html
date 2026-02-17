@@ -22,8 +22,49 @@
         <h2>Cost Projection</h2>
         <p>At current pace: <strong class="mono">{{ projection.projected }}</strong> / {{ projection.allowance }} min</p>
         <span class="badge badge-{{ projection.status }}">{{ projection.percent }}% of allowance</span>
+        {% if projection.estimated_cost_usd and projection.estimated_cost_usd > 0 %}
+        <p class="muted" style="margin-top: 0.5rem; font-size: 0.9rem;">Est. overage: ~${{ projection.estimated_cost_usd | round(2) }}/mo</p>
+        {% endif %}
+    </div>
+    {% if audit_summary and audit_summary.total_issues > 0 %}
+    <div class="card">
+        <h2>Workflow Audit</h2>
+        <p><strong class="mono">{{ audit_summary.repos_with_issues }}</strong> repos with issues · <strong class="mono">{{ audit_summary.total_issues }}</strong> total</p>
+        <p style="margin-top: 0.5rem;"><a href="audit.html">View audit results →</a></p>
+    </div>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h2>Quick Links</h2>
+    <div class="stats-row">
+        <a href="explore.html">Explore & filter runs</a>
+        <a href="audit.html">Workflow audit</a>
+        <a href="export/usage.json">Export JSON</a>
+        <a href="export/usage.csv">Export CSV</a>
+        <a href="failures.html">Failed runs</a>
+        <a href="history.html">Monthly history</a>
     </div>
 </div>
+
+{% if month_comparison or year_over_year %}
+<div class="card">
+    <h2>Trends & Comparisons</h2>
+    <div class="stats-row">
+        {% if month_comparison %}
+        <span>This month vs last: <strong class="mono">{{ (month_comparison.this_month or 0) | round(0) }}</strong> vs <strong class="mono">{{ (month_comparison.last_month or 0) | round(0) }}</strong> min
+        {% set delta = (month_comparison.this_month or 0) - (month_comparison.last_month or 0) %}
+        {% if month_comparison.last_month and month_comparison.last_month > 0 %}
+        ({{ ((delta / month_comparison.last_month) * 100) | round(1) }}%)
+        {% endif %}
+        </span>
+        {% endif %}
+        {% if year_over_year and year_over_year.same_month_last_year %}
+        <span>YoY: <strong class="mono">{{ (year_over_year.this_month or 0) | round(0) }}</strong> vs <strong class="mono">{{ (year_over_year.same_month_last_year or 0) | round(0) }}</strong> min (same month last year)</span>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
 
 <div class="card">
     <h2>Summary (This Month)</h2>

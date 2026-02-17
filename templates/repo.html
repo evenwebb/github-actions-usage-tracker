@@ -4,10 +4,20 @@
 <nav style="margin-bottom: 0.5rem;">
     <a href="index.html">Overview</a> ·
     <a href="history.html">History</a> ·
+    <a href="explore.html">Explore</a> ·
+    <a href="audit.html">Audit</a> ·
     <a href="failures.html">Failures</a>
 </nav>
 <h1>{{ repo }}</h1>
 <p class="muted"><a href="https://github.com/{{ repo }}" target="_blank" rel="noopener">View on GitHub</a></p>
+
+{% if repo_audit and repo_audit.get('count', 0) > 0 %}
+<div class="card">
+    <h2>Workflow Audit</h2>
+    <p><span class="badge badge-{{ 'failure' if repo_audit.high else 'amber' }}">{{ repo_audit.count }}</span> issues found in this repo's workflows.</p>
+    <p><a href="audit.html">View all audit results →</a></p>
+</div>
+{% endif %}
 
 <div class="card">
     <h2>Workflows (This Month)</h2>

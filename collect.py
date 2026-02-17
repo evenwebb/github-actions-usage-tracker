@@ -213,6 +213,12 @@ def init_db(conn: sqlite3.Connection) -> None:
             errors TEXT,
             backfill INTEGER DEFAULT 0
         );
+
+        CREATE TABLE IF NOT EXISTS audit_results (
+            repo TEXT PRIMARY KEY,
+            issues_json TEXT NOT NULL,
+            audited_at TEXT DEFAULT CURRENT_TIMESTAMP
+        );
     """)
 
 
@@ -294,6 +300,11 @@ def main() -> None:
         "--backfill",
         action="store_true",
         help="Fetch up to 90 days of history (for initial setup)",
+    )
+    parser.add_argument(
+        "--audit",
+        action="store_true",
+        help="Also audit workflow files across repos and store results",
     )
     args = parser.parse_args()
 
@@ -422,6 +433,27 @@ def main() -> None:
             log_id,
         ),
     )
+
+    if args.audit:
+        log.info("Running workflow audit across repos...")
+        try:
+            from audit import audit_repo_api
+            repos_to_audit = list({r["repo"] for r in run_data_list})
+            for full_name in repos_to_audit:
+                owner, name = full_name.split("/", 1)
+                try:
+                    issues = audit_repo_api(session, token, owner, name)
+                    conn.execute(
+                        "INSERT OR REPLACE INTO audit_results (repo, issues_json, audited_at) VALUES (?, ?, ?)",
+                        (full_name, json.dumps(issues), datetime.now(timezone.utc).isoformat()),
+                    )
+                    if issues:
+                        log.info("  %s: %d audit issues", full_name, len(issues))
+                except Exception as e:
+                    log.warning("Audit failed for %s: %s", full_name, e)
+            conn.commit()
+        except ImportError:
+            log.warning("audit module not available, skipping audit")
 
     conn.commit()
     check_alerts(conn, apprise_urls)

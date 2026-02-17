@@ -52,6 +52,12 @@
 | ❌ **Failures page** | All failed runs with direct links to logs |
 | 📋 **Collection logs** | API call counts, errors, backfill runs |
 | 🔔 **Apprise alerts** | Notify when usage exceeds 80% of allowance |
+| 🔍 **Cost & Risk Auditor** | Scans workflows for expensive/risky patterns and suggests fixes |
+| 📋 **Audit in dashboard** | Stored audit results shown on main site |
+| 📈 **Trends & comparisons** | This month vs last month, year-over-year |
+| 📤 **Export** | CSV/JSON export of usage data (last 90 days) |
+| 🔎 **Explore & filter** | Filter by repo, workflow, event, date range |
+| 🐳 **Docker** | Run collect, generate, and audit in containers |
 
 ---
 
@@ -150,6 +156,57 @@ python -m http.server 8000 --directory docs
 # Open http://localhost:8000
 ```
 
+### Cost & Risk Auditor
+
+Scans workflow YAML files and flags expensive or risky patterns:
+
+| Check | Description |
+|-------|-------------|
+| **Missing cache** | Jobs that install packages (pip, npm, etc.) without caching |
+| **Huge matrix** | Matrix builds producing >20 jobs |
+| **Unpinned actions** | Actions using `@main`, `@master`, or no ref |
+| **Secrets exposure** | Echo/print/log of secrets (may leak in logs) |
+| **Excessive checkout depth** | `fetch-depth: 0` (full history — slow) |
+
+```bash
+# Audit local .github/workflows
+python audit.py
+
+# Audit a remote repo (requires token)
+python audit.py --repo owner/repo
+
+# Output formats
+python audit.py --json      # JSON for tooling
+python audit.py --markdown  # Markdown for PR comments
+```
+
+**PR comment bot:** When you open a PR that touches `.github/workflows/`, the `Audit Workflows (PR)` workflow runs and posts a summary comment automatically.
+
+**Dashboard integration:** Run `python collect.py --audit` (or use the default workflow) to store audit results. They appear on the **Audit** page of the dashboard.
+
+### Docker
+
+```bash
+# Build
+docker build -t github-actions-usage-tracker .
+
+# Run collect + generate (set token first)
+export ACTIONS_USAGE_TOKEN=ghp_xxx
+docker run --rm -e ACTIONS_USAGE_TOKEN \
+  -v $(pwd)/data:/app/data -v $(pwd)/docs:/app/docs \
+  github-actions-usage-tracker
+
+# Or with docker-compose
+docker compose run --rm tracker
+```
+
+For backfill or audit:
+
+```bash
+docker compose run --rm tracker python collect.py --backfill
+docker compose run --rm tracker python audit.py --markdown
+```
+
 ---
 
 ## 📁 Project Structure
@@ -157,19 +214,26 @@ python -m http.server 8000 --directory docs
 ```
 github-actions-usage-tracker/
 ├── .github/workflows/
-│   └── collect-and-deploy.yml    # Daily cron + manual trigger
+│   ├── collect-and-deploy.yml    # Daily cron + manual trigger
+│   └── audit-pr.yml              # PR comment bot for workflow audits
 ├── collect.py                     # Fetches data from GitHub API
 ├── generate.py                    # Builds static site from SQLite
+├── audit.py                       # Cost & risk auditor for workflows
 ├── templates/
 │   ├── base.html                  # Layout
 │   ├── index.html                 # Overview
 │   ├── history.html               # Monthly history
+│   ├── explore.html               # Filterable runs
+│   ├── audit.html                 # Workflow audit results
 │   ├── repo.html                  # Per-repo detail
 │   ├── failures.html              # Failed runs
 │   └── logs.html                  # Collection logs
 ├── data/
 │   └── actions.db                 # SQLite (committed)
 ├── docs/                          # Generated site (GitHub Pages)
+│   └── export/                    # usage.json, usage.csv
+├── Dockerfile                     # Container image
+├── docker-compose.yml
 ├── requirements.txt
 └── README.md
 ```

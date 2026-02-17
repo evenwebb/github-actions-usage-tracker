@@ -89,12 +89,65 @@
         <nav>
             <a href="index.html">Overview</a>
             <a href="history.html">History</a>
+            <a href="explore.html">Explore</a>
+            <a href="audit.html">Audit</a>
             <a href="failures.html">Failures</a>
-            <a href="logs.html">Collection Logs</a>
+            <a href="logs.html">Logs</a>
+            <a href="export/usage.json">Export JSON</a>
+            <a href="export/usage.csv">Export CSV</a>
         </nav>
         
 <h1>Failed Runs</h1>
 <p class="muted">All failed, cancelled, or timed-out workflow runs across repos. Click through to view logs.</p>
+
+<div class="card">
+    <h2>Filters</h2>
+    <div class="stats-row" style="flex-wrap: wrap; gap: 1rem; margin-bottom: 0.5rem;">
+        <label>
+            <span class="muted">Repo</span>
+            <select id="filter-repo" class="mono" style="margin-left: 0.5rem; padding: 0.3rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px;">
+                <option value="">All repos</option>
+                
+                <option value="evenwebb/OctoCal">evenwebb/OctoCal</option>
+                
+                <option value="evenwebb/epic-free-games-scraper">evenwebb/epic-free-games-scraper</option>
+                
+                <option value="evenwebb/github-actions-usage-tracker">evenwebb/github-actions-usage-tracker</option>
+                
+                <option value="evenwebb/stmewan-parish-council-calendar">evenwebb/stmewan-parish-council-calendar</option>
+                
+            </select>
+        </label>
+        <label>
+            <span class="muted">Workflow</span>
+            <select id="filter-workflow" class="mono" style="margin-left: 0.5rem; padding: 0.3rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px;">
+                <option value="">All workflows</option>
+                
+                <option value="Collect & Deploy">Collect & Deploy</option>
+                
+                <option value="Scrape Epic Games and Deploy to GitHub Pages">Scrape Epic Games and Deploy to GitHub Pages</option>
+                
+                <option value="Scrape Octopus Energy Free Electricity">Scrape Octopus Energy Free Electricity</option>
+                
+                <option value="Update iCal Feed">Update iCal Feed</option>
+                
+                <option value="pages build and deployment">pages build and deployment</option>
+                
+            </select>
+        </label>
+        <label>
+            <span class="muted">Conclusion</span>
+            <select id="filter-conclusion" class="mono" style="margin-left: 0.5rem; padding: 0.3rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px;">
+                <option value="">All</option>
+                
+                <option value="failure">failure</option>
+                
+            </select>
+        </label>
+        <button id="btn-reset" style="padding: 0.4rem 0.8rem; background: var(--border); color: var(--text); border: none; border-radius: 4px; cursor: pointer;">Reset</button>
+    </div>
+    <p class="muted"><span id="result-count">33</span> failures</p>
+</div>
 
 <div class="card">
     <table>
@@ -107,9 +160,9 @@
                 <th>Logs</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="failures-tbody">
             
-            <tr>
+            <tr data-repo="evenwebb/github-actions-usage-tracker" data-workflow="Collect & Deploy" data-conclusion="failure">
                 <td class="mono">2026-02-15T13:38:42</td>
                 <td><a href="repo_evenwebb_github-actions-usage-tracker.html">evenwebb/github-actions-usage-tracker</a></td>
                 <td class="mono">Collect & Deploy</td>
@@ -121,7 +174,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/github-actions-usage-tracker" data-workflow="Collect & Deploy" data-conclusion="failure">
                 <td class="mono">2026-02-15T02:42:15</td>
                 <td><a href="repo_evenwebb_github-actions-usage-tracker.html">evenwebb/github-actions-usage-tracker</a></td>
                 <td class="mono">Collect & Deploy</td>
@@ -133,7 +186,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/github-actions-usage-tracker" data-workflow="Collect & Deploy" data-conclusion="failure">
                 <td class="mono">2026-02-14T20:46:48</td>
                 <td><a href="repo_evenwebb_github-actions-usage-tracker.html">evenwebb/github-actions-usage-tracker</a></td>
                 <td class="mono">Collect & Deploy</td>
@@ -145,7 +198,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-conclusion="failure">
                 <td class="mono">2026-02-02T22:29:51</td>
                 <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
@@ -157,7 +210,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-conclusion="failure">
                 <td class="mono">2026-02-02T21:30:52</td>
                 <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
@@ -169,7 +222,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-conclusion="failure">
                 <td class="mono">2026-02-02T20:33:43</td>
                 <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
@@ -181,7 +234,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-conclusion="failure">
                 <td class="mono">2026-02-02T19:32:46</td>
                 <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
@@ -193,7 +246,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-conclusion="failure">
                 <td class="mono">2026-02-02T18:50:44</td>
                 <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
@@ -205,7 +258,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/epic-free-games-scraper" data-workflow="Scrape Epic Games and Deploy to GitHub Pages" data-conclusion="failure">
                 <td class="mono">2026-01-13T18:21:36</td>
                 <td><a href="repo_evenwebb_epic-free-games-scraper.html">evenwebb/epic-free-games-scraper</a></td>
                 <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
@@ -217,7 +270,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/OctoCal" data-workflow="pages build and deployment" data-conclusion="failure">
                 <td class="mono">2026-01-11T17:17:06</td>
                 <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
                 <td class="mono">pages build and deployment</td>
@@ -229,7 +282,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/epic-free-games-scraper" data-workflow="Scrape Epic Games and Deploy to GitHub Pages" data-conclusion="failure">
                 <td class="mono">2026-01-04T20:27:01</td>
                 <td><a href="repo_evenwebb_epic-free-games-scraper.html">evenwebb/epic-free-games-scraper</a></td>
                 <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
@@ -241,7 +294,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/epic-free-games-scraper" data-workflow="Scrape Epic Games and Deploy to GitHub Pages" data-conclusion="failure">
                 <td class="mono">2026-01-04T20:24:46</td>
                 <td><a href="repo_evenwebb_epic-free-games-scraper.html">evenwebb/epic-free-games-scraper</a></td>
                 <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
@@ -253,7 +306,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-31T11:18:44</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -265,7 +318,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-30T11:18:52</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -277,7 +330,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-29T11:18:43</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -289,7 +342,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-28T11:17:18</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -301,7 +354,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-27T11:16:30</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -313,7 +366,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-26T11:18:11</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -325,7 +378,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-25T11:17:31</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -337,7 +390,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-24T11:18:17</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -349,7 +402,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-23T11:18:30</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -361,7 +414,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-22T11:18:15</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -373,7 +426,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-21T11:16:15</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -385,7 +438,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-20T11:15:58</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -397,7 +450,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-19T11:18:00</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -409,7 +462,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-18T11:18:27</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -421,7 +474,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-17T11:19:34</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -433,7 +486,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-16T11:19:24</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -445,7 +498,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-15T11:18:45</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -457,7 +510,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-14T11:15:49</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -469,7 +522,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-13T11:15:29</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -481,7 +534,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-12T11:19:33</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -493,7 +546,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-conclusion="failure">
                 <td class="mono">2025-12-11T11:18:49</td>
                 <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
                 <td class="mono">Update iCal Feed</td>
@@ -510,9 +563,48 @@
 </div>
 
         <footer class="muted" style="margin-top: 2rem; font-size: 0.875rem;">
-            Last updated: 2026-02-17 10:24 UTC · GitHub Actions Usage Tracker
+            Last updated: 2026-02-17 10:33 UTC · GitHub Actions Usage Tracker
         </footer>
     </div>
     
+<script>
+(function() {
+    const rows = document.querySelectorAll('#failures-tbody tr[data-repo]');
+    const countEl = document.getElementById('result-count');
+    const filterRepo = document.getElementById('filter-repo');
+    const filterWorkflow = document.getElementById('filter-workflow');
+    const filterConclusion = document.getElementById('filter-conclusion');
+    const btnReset = document.getElementById('btn-reset');
+    if (!rows.length || !countEl) return;
+
+    function applyFilters() {
+        const repo = filterRepo?.value || '';
+        const workflow = filterWorkflow?.value || '';
+        const conclusion = filterConclusion?.value || '';
+        let visible = 0;
+        rows.forEach(row => {
+            const matchRepo = !repo || row.dataset.repo === repo;
+            const matchWorkflow = !workflow || row.dataset.workflow === workflow;
+            const matchConclusion = !conclusion || row.dataset.conclusion === conclusion;
+            const show = matchRepo && matchWorkflow && matchConclusion;
+            row.style.display = show ? '' : 'none';
+            if (show) visible++;
+        });
+        countEl.textContent = visible;
+    }
+
+    [filterRepo, filterWorkflow, filterConclusion].forEach(el => {
+        if (el) el.addEventListener('change', applyFilters);
+    });
+    if (btnReset) btnReset.addEventListener('click', () => {
+        if (filterRepo) filterRepo.value = '';
+        if (filterWorkflow) filterWorkflow.value = '';
+        if (filterConclusion) filterConclusion.value = '';
+        applyFilters();
+    });
+    applyFilters();
+})();
+</script>
+
 </body>
 </html>

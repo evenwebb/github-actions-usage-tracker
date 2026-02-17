@@ -5,6 +5,41 @@
 <p class="muted">All failed, cancelled, or timed-out workflow runs across repos. Click through to view logs.</p>
 
 <div class="card">
+    <h2>Filters</h2>
+    <div class="stats-row" style="flex-wrap: wrap; gap: 1rem; margin-bottom: 0.5rem;">
+        <label>
+            <span class="muted">Repo</span>
+            <select id="filter-repo" class="mono" style="margin-left: 0.5rem; padding: 0.3rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px;">
+                <option value="">All repos</option>
+                {% for r in failure_repos %}
+                <option value="{{ r }}">{{ r }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>
+            <span class="muted">Workflow</span>
+            <select id="filter-workflow" class="mono" style="margin-left: 0.5rem; padding: 0.3rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px;">
+                <option value="">All workflows</option>
+                {% for w in failure_workflows %}
+                <option value="{{ w }}">{{ w }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>
+            <span class="muted">Conclusion</span>
+            <select id="filter-conclusion" class="mono" style="margin-left: 0.5rem; padding: 0.3rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px;">
+                <option value="">All</option>
+                {% for c in failure_conclusions %}
+                <option value="{{ c }}">{{ c }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <button id="btn-reset" style="padding: 0.4rem 0.8rem; background: var(--border); color: var(--text); border: none; border-radius: 4px; cursor: pointer;">Reset</button>
+    </div>
+    <p class="muted"><span id="result-count">{{ failures | length }}</span> failures</p>
+</div>
+
+<div class="card">
     <table>
         <thead>
             <tr>
@@ -15,9 +50,9 @@
                 <th>Logs</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="failures-tbody">
             {% for f in failures %}
-            <tr>
+            <tr data-repo="{{ f.repo }}" data-workflow="{{ f.workflow_name or '' }}" data-conclusion="{{ f.conclusion or '' }}">
                 <td class="mono">{{ f.created_at[:19] if f.created_at else '—' }}</td>
                 <td><a href="repo_{{ f.repo | replace('/', '_') }}.html">{{ f.repo }}</a></td>
                 <td class="mono">{{ f.workflow_name or '—' }}</td>
@@ -36,4 +71,44 @@
         </tbody>
     </table>
 </div>
+{% endblock %}
+{% block scripts %}
+<script>
+(function() {
+    const rows = document.querySelectorAll('#failures-tbody tr[data-repo]');
+    const countEl = document.getElementById('result-count');
+    const filterRepo = document.getElementById('filter-repo');
+    const filterWorkflow = document.getElementById('filter-workflow');
+    const filterConclusion = document.getElementById('filter-conclusion');
+    const btnReset = document.getElementById('btn-reset');
+    if (!rows.length || !countEl) return;
+
+    function applyFilters() {
+        const repo = filterRepo?.value || '';
+        const workflow = filterWorkflow?.value || '';
+        const conclusion = filterConclusion?.value || '';
+        let visible = 0;
+        rows.forEach(row => {
+            const matchRepo = !repo || row.dataset.repo === repo;
+            const matchWorkflow = !workflow || row.dataset.workflow === workflow;
+            const matchConclusion = !conclusion || row.dataset.conclusion === conclusion;
+            const show = matchRepo && matchWorkflow && matchConclusion;
+            row.style.display = show ? '' : 'none';
+            if (show) visible++;
+        });
+        countEl.textContent = visible;
+    }
+
+    [filterRepo, filterWorkflow, filterConclusion].forEach(el => {
+        if (el) el.addEventListener('change', applyFilters);
+    });
+    if (btnReset) btnReset.addEventListener('click', () => {
+        if (filterRepo) filterRepo.value = '';
+        if (filterWorkflow) filterWorkflow.value = '';
+        if (filterConclusion) filterConclusion.value = '';
+        applyFilters();
+    });
+    applyFilters();
+})();
+</script>
 {% endblock %}

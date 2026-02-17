@@ -1,0 +1,15 @@
+services:
+  tracker:
+    build: .
+    image: github-actions-usage-tracker
+    environment:
+      - ACTIONS_USAGE_TOKEN=${ACTIONS_USAGE_TOKEN}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITHUB_ACTIONS_ALLOWANCE=${GITHUB_ACTIONS_ALLOWANCE:-2000}
+      - APPRISE_URL=${APPRISE_URL}
+    volumes:
+      - ./data:/app/data
+      - ./docs:/app/docs
+    # Override CMD for one-off runs, e.g.:
+    # docker compose run --rm tracker python collect.py --backfill
+    # docker compose run --rm tracker python audit.py --markdown

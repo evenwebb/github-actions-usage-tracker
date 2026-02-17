@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block title %}Explore & Filter — GitHub Actions{% endblock %}
+{% block content %}
+<h1>Explore Usage Data</h1>
+<p class="muted">Filter by repo, workflow, event, or date range. Data: last 90 days.</p>
+
+<div class="card">
+    <h2>Filters</h2>
+    <div class="stats-row" style="flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+        <label>
+            <span class="muted">Repo</span>
+            <select id="filter-repo" class="mono" style="margin-left: 0.5rem; padding: 0.3rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px;">
+                <option value="">All repos</option>
+                {% for r in filter_options.repos %}
+                <option value="{{ r }}">{{ r }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>
+            <span class="muted">Workflow</span>
+            <select id="filter-workflow" class="mono" style="margin-left: 0.5rem; padding: 0.3rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px;">
+                <option value="">All workflows</option>
+                {% for w in filter_options.workflows %}
+                <option value="{{ w }}">{{ w }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>
+            <span class="muted">Event</span>
+            <select id="filter-event" class="mono" style="margin-left: 0.5rem; padding: 0.3rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px;">
+                <option value="">All events</option>
+                {% for e in filter_options.events %}
+                <option value="{{ e }}">{{ e }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>
+            <span class="muted">Date from</span>
+            <input type="date" id="filter-date-from" class="mono" style="margin-left: 0.5rem; padding: 0.3rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px;">
+        </label>
+        <label>
+            <span class="muted">Date to</span>
+            <input type="date" id="filter-date-to" class="mono" style="margin-left: 0.5rem; padding: 0.3rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px;">
+        </label>
+        <button id="btn-reset" style="padding: 0.4rem 0.8rem; background: var(--border); color: var(--text); border: none; border-radius: 4px; cursor: pointer;">Reset</button>
+    </div>
+    <p class="muted" style="margin-top: 0.5rem;"><span id="result-count">{{ export_data | length }}</span> runs · <a href="export/usage.json">Download JSON</a> · <a href="export/usage.csv">Download CSV</a></p>
+</div>
+
+<div class="card">
+    <h2>Runs</h2>
+    <table>
+        <thead>
+            <tr><th>Date</th><th>Repo</th><th>Workflow</th><th>Event</th><th>Conclusion</th><th>Minutes</th></tr>
+        </thead>
+        <tbody id="runs-tbody">
+            {% for r in export_data %}
+            <tr data-repo="{{ r.repo }}" data-workflow="{{ r.workflow_name or '' }}" data-event="{{ r.event or '' }}" data-date="{{ (r.created_at or '')[:10] }}">
+                <td class="mono">{{ (r.created_at or '')[:19] }}</td>
+                <td><a href="repo_{{ r.repo | replace('/', '_') }}.html">{{ r.repo }}</a></td>
+                <td class="mono">{{ r.workflow_name or '—' }}</td>
+                <td class="mono">{{ r.event or '—' }}</td>
+                <td><span class="badge badge-{{ 'success' if r.conclusion == 'success' else 'failure' }}">{{ r.conclusion or '—' }}</span></td>
+                <td class="mono">{{ (r.billable_minutes_total or 0) | round(1) }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6" class="muted">No data. Run collection first.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+(function() {
+    const rows = document.querySelectorAll('#runs-tbody tr[data-repo]');
+    const countEl = document.getElementById('result-count');
+    const filterRepo = document.getElementById('filter-repo');
+    const filterWorkflow = document.getElementById('filter-workflow');
+    const filterEvent = document.getElementById('filter-event');
+    const filterDateFrom = document.getElementById('filter-date-from');
+    const filterDateTo = document.getElementById('filter-date-to');
+    const btnReset = document.getElementById('btn-reset');
+
+    function applyFilters() {
+        const repo = filterRepo.value;
+        const workflow = filterWorkflow.value;
+        const event = filterEvent.value;
+        const dateFrom = filterDateFrom.value;
+        const dateTo = filterDateTo.value;
+
+        let visible = 0;
+        rows.forEach(row => {
+            const matchRepo = !repo || row.dataset.repo === repo;
+            const matchWorkflow = !workflow || row.dataset.workflow === workflow;
+            const matchEvent = !event || row.dataset.event === event;
+            const rowDate = row.dataset.date || '';
+            const matchDateFrom = !dateFrom || rowDate >= dateFrom;
+            const matchDateTo = !dateTo || rowDate <= dateTo;
+
+            const show = matchRepo && matchWorkflow && matchEvent && matchDateFrom && matchDateTo;
+            row.style.display = show ? '' : 'none';
+            if (show) visible++;
+        });
+        countEl.textContent = visible;
+    }
+
+    [filterRepo, filterWorkflow, filterEvent, filterDateFrom, filterDateTo].forEach(el => {
+        if (el) el.addEventListener('change', applyFilters);
+    });
+    if (filterDateFrom) filterDateFrom.addEventListener('input', applyFilters);
+    if (filterDateTo) filterDateTo.addEventListener('input', applyFilters);
+
+    btnReset.addEventListener('click', () => {
+        filterRepo.value = filterWorkflow.value = filterEvent.value = '';
+        filterDateFrom.value = filterDateTo.value = '';
+        applyFilters();
+    });
+
+    applyFilters();
+})();
+</script>
+{% endblock %}

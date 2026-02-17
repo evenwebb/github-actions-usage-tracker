@@ -4,6 +4,8 @@ Generate static HTML dashboard from SQLite data.
 Outputs to docs/ for GitHub Pages deployment.
 """
 
+import csv
+import json
 import sqlite3
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -110,7 +112,7 @@ def get_all_repos(conn: sqlite3.Connection) -> list[str]:
 
 
 def get_cost_projection(month_total: float, allowance: int) -> dict:
-    """Project end-of-month usage based on current pace."""
+    """Project end-of-month usage based on current pace. Includes estimated overage cost."""
     now = datetime.now()
     days_in_month = (now.replace(day=28) + timedelta(days=4)).day
     day_of_month = now.day
@@ -128,11 +130,16 @@ def get_cost_projection(month_total: float, allowance: int) -> dict:
         status = "amber"
     else:
         status = "red"
+    # GitHub overage: ~$0.008/min Linux, $0.016 Windows, $0.08 macOS (blended ~$0.008 for estimate)
+    overage_mins = max(0, projected - allowance)
+    estimated_cost = round(overage_mins * 0.008, 2) if overage_mins > 0 else 0
     return {
         "projected": round(projected),
         "allowance": allowance,
         "percent": round(pct, 1),
         "status": status,
+        "overage_minutes": round(overage_mins),
+        "estimated_cost_usd": estimated_cost,
     }
 
 
@@ -255,6 +262,34 @@ def get_repo_monthly(conn: sqlite3.Connection, repo: str, months: int = 6) -> li
     return [dict(r) for r in rows]
 
 
+def get_audit_results(conn: sqlite3.Connection) -> list[dict]:
+    """Audit results by repo with issue counts."""
+    try:
+        rows = conn.execute("""
+            SELECT repo, issues_json, audited_at FROM audit_results
+            ORDER BY repo
+        """).fetchall()
+        result = []
+        for r in rows:
+            try:
+                issues = json.loads(r["issues_json"]) if r["issues_json"] else []
+            except (json.JSONDecodeError, TypeError):
+                issues = []
+            high = sum(1 for i in issues if i.get("severity") == "high")
+            medium = sum(1 for i in issues if i.get("severity") == "medium")
+            result.append({
+                "repo": r["repo"],
+                "issues": issues,
+                "count": len(issues),
+                "high": high,
+                "medium": medium,
+                "audited_at": r["audited_at"],
+            })
+        return [x for x in result if x["count"] > 0]
+    except sqlite3.OperationalError:
+        return []
+
+
 def get_workflow_efficiency(conn: sqlite3.Connection, repo: str) -> list[dict]:
     """Workflows ranked by minutes per successful run (efficiency)."""
     rows = conn.execute("""
@@ -276,6 +311,78 @@ def get_workflow_efficiency(conn: sqlite3.Connection, repo: str) -> list[dict]:
     return result
 
 
+def get_month_comparison(conn: sqlite3.Connection) -> dict:
+    """This month vs last month comparison."""
+    rows = conn.execute("""
+        SELECT strftime('%Y-%m', created_at) AS month, SUM(billable_minutes_total) AS minutes, COUNT(*) AS runs
+        FROM workflow_runs
+        WHERE created_at >= date('now', '-2 months')
+        GROUP BY strftime('%Y-%m', created_at)
+        ORDER BY month DESC
+        LIMIT 2
+    """).fetchall()
+    data = {r["month"]: dict(r) for r in rows}
+    this_month = datetime.now().strftime("%Y-%m")
+    last_month = (datetime.now().replace(day=1) - timedelta(days=1)).strftime("%Y-%m")
+    return {
+        "this_month": data.get(this_month, {}).get("minutes", 0) or 0,
+        "last_month": data.get(last_month, {}).get("minutes", 0) or 0,
+        "this_month_runs": data.get(this_month, {}).get("runs", 0) or 0,
+        "last_month_runs": data.get(last_month, {}).get("runs", 0) or 0,
+    }
+
+
+def get_year_over_year(conn: sqlite3.Connection) -> dict:
+    """This month vs same month last year."""
+    this_month = datetime.now().strftime("%Y-%m")
+    last_year = (datetime.now().year - 1, datetime.now().month)
+    last_year_month = f"{last_year[0]}-{last_year[1]:02d}"
+    rows = conn.execute("""
+        SELECT strftime('%Y-%m', created_at) AS month, SUM(billable_minutes_total) AS minutes
+        FROM workflow_runs
+        WHERE strftime('%Y-%m', created_at) IN (?, ?)
+        GROUP BY strftime('%Y-%m', created_at)
+    """, (this_month, last_year_month)).fetchall()
+    data = {r["month"]: r["minutes"] for r in rows}
+    return {
+        "this_month": data.get(this_month, 0) or 0,
+        "same_month_last_year": data.get(last_year_month, 0) or 0,
+    }
+
+
+def get_export_data(conn: sqlite3.Connection, days: int = 90) -> list[dict]:
+    """Runs for export (CSV/JSON) - last N days."""
+    rows = conn.execute("""
+        SELECT run_id, repo, workflow_name, event, conclusion, created_at,
+               duration_seconds, billable_minutes_total
+        FROM workflow_runs
+        WHERE created_at >= date('now', ?)
+        ORDER BY created_at DESC
+    """, (f"-{days} days",)).fetchall()
+    return [dict(r) for r in rows]
+
+
+def get_audit_summary(audit_by_repo: list[dict]) -> dict | None:
+    """Summary of audit results for index card."""
+    if not audit_by_repo:
+        return None
+    total = sum(r["count"] for r in audit_by_repo)
+    if total == 0:
+        return None
+    return {
+        "repos_with_issues": len(audit_by_repo),
+        "total_issues": total,
+    }
+
+
+def get_filter_options(conn: sqlite3.Connection) -> dict:
+    """Unique repos, workflows, events for filter dropdowns."""
+    repos = [r[0] for r in conn.execute("SELECT DISTINCT repo FROM workflow_runs ORDER BY repo").fetchall()]
+    workflows = [r[0] for r in conn.execute("SELECT DISTINCT workflow_name FROM workflow_runs WHERE workflow_name IS NOT NULL ORDER BY workflow_name").fetchall()]
+    events = [r[0] for r in conn.execute("SELECT DISTINCT event FROM workflow_runs WHERE event IS NOT NULL ORDER BY event").fetchall()]
+    return {"repos": repos, "workflows": workflows, "events": events}
+
+
 def main() -> None:
     import os
     allowance = int(os.environ.get("GITHUB_ACTIONS_ALLOWANCE", str(DEFAULT_ALLOWANCE)))
@@ -286,9 +393,9 @@ def main() -> None:
 <body style="font-family:sans-serif;max-width:600px;margin:2rem auto;padding:1rem">
 <h1>No data yet</h1>
 <p>Run the workflow or <code>python collect.py</code> first. Data will appear after the first collection.</p>
-<nav><a href="index.html">Overview</a> · <a href="history.html">History</a> · <a href="failures.html">Failures</a> · <a href="logs.html">Logs</a></nav>
+<nav><a href="index.html">Overview</a> · <a href="history.html">History</a> · <a href="explore.html">Explore</a> · <a href="audit.html">Audit</a> · <a href="failures.html">Failures</a> · <a href="logs.html">Logs</a></nav>
 </body></html>"""
-        for name in ("index.html", "history.html", "failures.html", "logs.html"):
+        for name in ("index.html", "history.html", "explore.html", "audit.html", "failures.html", "logs.html"):
             (OUTPUT_DIR / name).write_text(placeholder)
         print("No database found. Created placeholder pages.")
         return
@@ -306,6 +413,12 @@ def main() -> None:
     top_workflows = get_top_workflows(conn)
     dead_workflows = get_dead_workflows(conn)
     collection_log = get_collection_log(conn)
+    audit_by_repo = get_audit_results(conn)
+    audit_summary = get_audit_summary(audit_by_repo)
+    month_comparison = get_month_comparison(conn)
+    year_over_year = get_year_over_year(conn)
+    export_data = get_export_data(conn, 90)
+    filter_options = get_filter_options(conn)
 
     env = Environment(loader=FileSystemLoader(TEMPLATES_DIR))
     env.globals["now"] = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
@@ -327,19 +440,35 @@ def main() -> None:
             top_workflows=top_workflows,
             dead_workflows=dead_workflows,
             collection_log=collection_log,
+            month_comparison=month_comparison,
+            year_over_year=year_over_year,
+            audit_summary=audit_summary,
         )
     )
 
-    # Failures page
+    # Failures page (with filter options from failures data)
+    failure_repos = sorted({f["repo"] for f in failures})
+    failure_workflows = sorted({f.get("workflow_name") or "" for f in failures if f.get("workflow_name")})
+    failure_conclusions = sorted({f.get("conclusion") or "" for f in failures if f.get("conclusion")})
     failures_tpl = env.get_template("failures.html")
     (OUTPUT_DIR / "failures.html").write_text(
-        failures_tpl.render(failures=failures)
+        failures_tpl.render(
+            failures=failures,
+            failure_repos=failure_repos,
+            failure_workflows=failure_workflows,
+            failure_conclusions=failure_conclusions,
+        )
     )
 
     # History page
     history_tpl = env.get_template("history.html")
     (OUTPUT_DIR / "history.html").write_text(
-        history_tpl.render(monthly_usage=monthly_usage, allowance=allowance)
+        history_tpl.render(
+            monthly_usage=monthly_usage,
+            allowance=allowance,
+            month_comparison=month_comparison,
+            year_over_year=year_over_year,
+        )
     )
 
     # Logs page
@@ -348,13 +477,44 @@ def main() -> None:
         logs_tpl.render(collection_log=collection_log)
     )
 
+    # Audit page
+    audit_tpl = env.get_template("audit.html")
+    (OUTPUT_DIR / "audit.html").write_text(
+        audit_tpl.render(audit_by_repo=audit_by_repo)
+    )
+
+    # Explore page (filterable)
+    explore_tpl = env.get_template("explore.html")
+    (OUTPUT_DIR / "explore.html").write_text(
+        explore_tpl.render(
+            filter_options=filter_options,
+            export_data=export_data,
+        )
+    )
+
+    # Export files
+    export_dir = OUTPUT_DIR / "export"
+    export_dir.mkdir(exist_ok=True)
+    (export_dir / "usage.json").write_text(
+        json.dumps(export_data, indent=2, default=str)
+    )
+    if export_data:
+        with open(export_dir / "usage.csv", "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=export_data[0].keys(), extrasaction="ignore")
+            writer.writeheader()
+            writer.writerows(export_data)
+    else:
+        (export_dir / "usage.csv").write_text("run_id,repo,workflow_name,event,conclusion,created_at,duration_seconds,billable_minutes_total\n")
+
     # Per-repo pages
     repo_tpl = env.get_template("repo.html")
+    audit_by_repo_map = {r["repo"]: r for r in audit_by_repo}
     for repo in all_repos:
         workflows = get_repo_workflows(conn, repo)
         recent = get_repo_recent_runs(conn, repo)
         repo_monthly = get_repo_monthly(conn, repo)
         workflow_efficiency = get_workflow_efficiency(conn, repo)
+        repo_audit = audit_by_repo_map.get(repo, {})
         safe_name = repo.replace("/", "_")
         (OUTPUT_DIR / f"repo_{safe_name}.html").write_text(
             repo_tpl.render(
@@ -363,6 +523,7 @@ def main() -> None:
                 recent_runs=recent,
                 repo_monthly=repo_monthly,
                 workflow_efficiency=workflow_efficiency,
+                repo_audit=repo_audit,
             )
         )
     conn.close()

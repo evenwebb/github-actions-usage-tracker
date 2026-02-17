@@ -36,7 +36,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTIONS_ALLOWANCE: ${{ vars.GITHUB_ACTIONS_ALLOWANCE || '2000' }}
           APPRISE_URL: ${{ secrets.APPRISE_URL }}
-        run: python collect.py ${{ github.event.inputs.backfill == 'true' && '--backfill' || '' }}
+        run: python collect.py ${{ github.event.inputs.backfill == 'true' && '--backfill' || '' }} --audit
 
       - name: Generate
         env:
