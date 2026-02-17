@@ -102,12 +102,149 @@
 
 
 <div class="card">
-    <p class="muted">No audit results yet. Run <code>python collect.py --audit</code> to scan workflow files across your repos.</p>
+    <h2>Issues by Repo</h2>
+    <table>
+        <thead>
+            <tr><th>Repo</th><th>Issues</th><th>High</th><th>Medium</th><th>Details</th></tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td><a href="repo_evenwebb_cornwall-waste-collection-calendar-generator.html">evenwebb/cornwall-waste-collection-calendar-generator</a></td>
+                <td class="mono">1</td>
+                <td>—</td>
+                <td><span class="badge badge-amber">1</span></td>
+                <td>
+                    
+                    <span class="muted" style="font-size: 0.85rem;">missing_cache: Job appears to install packages but has no cache s…</span><br>
+                    
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_penrice-calendar-scraper.html">evenwebb/penrice-calendar-scraper</a></td>
+                <td class="mono">1</td>
+                <td>—</td>
+                <td><span class="badge badge-amber">1</span></td>
+                <td>
+                    
+                    <span class="muted" style="font-size: 0.85rem;">missing_cache: Job appears to install packages but has no cache s…</span><br>
+                    
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">1</td>
+                <td>—</td>
+                <td><span class="badge badge-amber">1</span></td>
+                <td>
+                    
+                    <span class="muted" style="font-size: 0.85rem;">missing_cache: Job appears to install packages but has no cache s…</span><br>
+                    
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_wtw-cinemas-calendar.html">evenwebb/wtw-cinemas-calendar</a></td>
+                <td class="mono">1</td>
+                <td>—</td>
+                <td><span class="badge badge-amber">1</span></td>
+                <td>
+                    
+                    <span class="muted" style="font-size: 0.85rem;">missing_cache: Job appears to install packages but has no cache s…</span><br>
+                    
+                    
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h2>All Issues</h2>
+    
+    
+    <h3 style="margin-top: 1rem;">evenwebb/cornwall-waste-collection-calendar-generator</h3>
+    <table>
+        <thead><tr><th>Severity</th><th>Check</th><th>Location</th><th>Message</th><th>Suggestion</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td><span class="badge badge-amber">medium</span></td>
+                <td class="mono">missing_cache</td>
+                <td class="mono">evenwebb/cornwall-waste-collection-calendar-generator/.github/workflows/scrape.yml › scrape</td>
+                <td>Job appears to install packages but has no cache step</td>
+                <td class="muted">Add actions/cache for pip, npm, cargo, etc. to speed builds and reduce API usage</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+    
+    
+    <h3 style="margin-top: 1rem;">evenwebb/penrice-calendar-scraper</h3>
+    <table>
+        <thead><tr><th>Severity</th><th>Check</th><th>Location</th><th>Message</th><th>Suggestion</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td><span class="badge badge-amber">medium</span></td>
+                <td class="mono">missing_cache</td>
+                <td class="mono">evenwebb/penrice-calendar-scraper/.github/workflows/scrape.yml › build</td>
+                <td>Job appears to install packages but has no cache step</td>
+                <td class="muted">Add actions/cache for pip, npm, cargo, etc. to speed builds and reduce API usage</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+    
+    
+    <h3 style="margin-top: 1rem;">evenwebb/stmewan-parish-council-calendar</h3>
+    <table>
+        <thead><tr><th>Severity</th><th>Check</th><th>Location</th><th>Message</th><th>Suggestion</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td><span class="badge badge-amber">medium</span></td>
+                <td class="mono">missing_cache</td>
+                <td class="mono">evenwebb/stmewan-parish-council-calendar/.github/workflows/scrape.yml › build</td>
+                <td>Job appears to install packages but has no cache step</td>
+                <td class="muted">Add actions/cache for pip, npm, cargo, etc. to speed builds and reduce API usage</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+    
+    
+    <h3 style="margin-top: 1rem;">evenwebb/wtw-cinemas-calendar</h3>
+    <table>
+        <thead><tr><th>Severity</th><th>Check</th><th>Location</th><th>Message</th><th>Suggestion</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td><span class="badge badge-amber">medium</span></td>
+                <td class="mono">missing_cache</td>
+                <td class="mono">evenwebb/wtw-cinemas-calendar/.github/workflows/scrape_cinema.yml › build</td>
+                <td>Job appears to install packages but has no cache step</td>
+                <td class="muted">Add actions/cache for pip, npm, cargo, etc. to speed builds and reduce API usage</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+    
 </div>
 
 
         <footer class="muted" style="margin-top: 2rem; font-size: 0.875rem;">
-            Last updated: 2026-02-17 10:33 UTC · GitHub Actions Usage Tracker
+            Last updated: 2026-02-17 10:41 UTC · GitHub Actions Usage Tracker
         </footer>
     </div>
     

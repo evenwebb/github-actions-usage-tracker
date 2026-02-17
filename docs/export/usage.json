@@ -1,5 +1,35 @@
 [
   {
+    "run_id": 22095152616,
+    "repo": "evenwebb/github-actions-usage-tracker",
+    "workflow_name": "pages build and deployment",
+    "event": "dynamic",
+    "conclusion": "success",
+    "created_at": "2026-02-17T10:37:03Z",
+    "duration_seconds": 31.0,
+    "billable_minutes_total": 3.0
+  },
+  {
+    "run_id": 22094754215,
+    "repo": "evenwebb/github-actions-usage-tracker",
+    "workflow_name": "pages build and deployment",
+    "event": "dynamic",
+    "conclusion": "success",
+    "created_at": "2026-02-17T10:24:33Z",
+    "duration_seconds": 32.0,
+    "billable_minutes_total": 3.0
+  },
+  {
+    "run_id": 22094738547,
+    "repo": "evenwebb/github-actions-usage-tracker",
+    "workflow_name": "Collect & Deploy",
+    "event": "workflow_dispatch",
+    "conclusion": "success",
+    "created_at": "2026-02-17T10:24:04Z",
+    "duration_seconds": 28.0,
+    "billable_minutes_total": 1.0
+  },
+  {
     "run_id": 22093775456,
     "repo": "evenwebb/OctoCal",
     "workflow_name": "Scrape Octopus Energy Free Electricity",

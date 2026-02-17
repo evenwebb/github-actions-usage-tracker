@@ -1,4 +1,7 @@
 run_id,repo,workflow_name,event,conclusion,created_at,duration_seconds,billable_minutes_total
+22095152616,evenwebb/github-actions-usage-tracker,pages build and deployment,dynamic,success,2026-02-17T10:37:03Z,31.0,3.0
+22094754215,evenwebb/github-actions-usage-tracker,pages build and deployment,dynamic,success,2026-02-17T10:24:33Z,32.0,3.0
+22094738547,evenwebb/github-actions-usage-tracker,Collect & Deploy,workflow_dispatch,success,2026-02-17T10:24:04Z,28.0,1.0
 22093775456,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-17T09:53:36Z,9.0,1.0
 22093367500,evenwebb/wtw-cinemas-calendar,pages build and deployment,dynamic,success,2026-02-17T09:40:42Z,32.0,3.0
 22093358593,evenwebb/wtw-cinemas-calendar,Update Cinema iCal Feed,schedule,success,2026-02-17T09:40:25Z,15.0,1.0
