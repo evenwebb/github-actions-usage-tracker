@@ -116,6 +116,8 @@
                 
                 <option value="evenwebb/stmewan-parish-council-calendar">evenwebb/stmewan-parish-council-calendar</option>
                 
+                <option value="evenwebb/wtw-whats-on">evenwebb/wtw-whats-on</option>
+                
             </select>
         </label>
         <label>
@@ -130,6 +132,8 @@
                 <option value="Scrape Octopus Energy Free Electricity">Scrape Octopus Energy Free Electricity</option>
                 
                 <option value="Update iCal Feed">Update iCal Feed</option>
+                
+                <option value="What's On HTML">What's On HTML</option>
                 
                 <option value="pages build and deployment">pages build and deployment</option>
                 
@@ -146,7 +150,7 @@
         </label>
         <button id="btn-reset" style="padding: 0.4rem 0.8rem; background: var(--border); color: var(--text); border: none; border-radius: 4px; cursor: pointer;">Reset</button>
     </div>
-    <p class="muted"><span id="result-count">33</span> failures</p>
+    <p class="muted"><span id="result-count">34</span> failures</p>
 </div>
 
 <div class="card">
@@ -161,6 +165,18 @@
             </tr>
         </thead>
         <tbody id="failures-tbody">
+            
+            <tr data-repo="evenwebb/wtw-whats-on" data-workflow="What's On HTML" data-conclusion="failure">
+                <td class="mono">2026-02-25T09:45:23</td>
+                <td><a href="repo_evenwebb_wtw-whats-on.html">evenwebb/wtw-whats-on</a></td>
+                <td class="mono">What's On HTML</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td>
+                    
+                    <a href="https://github.com/evenwebb/wtw-whats-on/actions/runs/22391270726" target="_blank" rel="noopener">View run →</a>
+                    
+                </td>
+            </tr>
             
             <tr data-repo="evenwebb/github-actions-usage-tracker" data-workflow="Collect & Deploy" data-conclusion="failure">
                 <td class="mono">2026-02-15T13:38:42</td>
@@ -563,7 +579,7 @@
 </div>
 
         <footer class="muted" style="margin-top: 2rem; font-size: 0.875rem;">
-            Last updated: 2026-02-25 02:35 UTC · GitHub Actions Usage Tracker
+            Last updated: 2026-02-26 02:32 UTC · GitHub Actions Usage Tracker
         </footer>
     </div>
     
