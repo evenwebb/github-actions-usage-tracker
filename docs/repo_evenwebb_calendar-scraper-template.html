@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>evenwebb/unraid-user-scripts — GitHub Actions</title>
+    <title>evenwebb/calendar-scraper-template — GitHub Actions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -104,8 +104,8 @@
     <a href="audit.html">Audit</a> ·
     <a href="failures.html">Failures</a>
 </nav>
-<h1>evenwebb/unraid-user-scripts</h1>
-<p class="muted"><a href="https://github.com/evenwebb/unraid-user-scripts" target="_blank" rel="noopener">View on GitHub</a></p>
+<h1>evenwebb/calendar-scraper-template</h1>
+<p class="muted"><a href="https://github.com/evenwebb/calendar-scraper-template" target="_blank" rel="noopener">View on GitHub</a></p>
 
 
 
@@ -141,8 +141,8 @@
             
             <tr>
                 <td class="mono">2026-02</td>
-                <td class="mono">3.0</td>
-                <td>3</td>
+                <td class="mono">1.0</td>
+                <td>1</td>
             </tr>
             
         </tbody>
@@ -154,7 +154,7 @@
     <h2>Recent Runs (Sparkline)</h2>
     <canvas id="sparkline" height="80"></canvas>
     <p class="muted" style="margin-top: 0.5rem; font-size: 0.875rem;">
-        Last 3 runs · Green = success, Red = failure
+        Last 1 runs · Green = success, Red = failure
     </p>
 </div>
 
@@ -164,7 +164,7 @@
     </div>
     
 <script>
-const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-05T23:48:10Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-12T00:16:22Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-12T00:42:35Z"}];
+const recent = [{"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-02-28T09:22:29Z"}];
 new Chart(document.getElementById('sparkline'), {
     type: 'bar',
     data: {
@@ -191,7 +191,7 @@ new Chart(document.getElementById('sparkline'), {
     }
 });
 
-const repoMonthlyData = [3.0];
+const repoMonthlyData = [1.0];
 const repoMonthlyLabels = ["2026-02"];
 new Chart(document.getElementById('repoMonthlyChart'), {
     type: 'bar',
