@@ -131,9 +131,9 @@
             
             <tr>
                 <td class="mono">pages build and deployment</td>
-                <td>5</td>
-                <td class="mono">40.0s</td>
-                <td class="mono">15.0</td>
+                <td>6</td>
+                <td class="mono">39.3s</td>
+                <td class="mono">18.0</td>
                 <td>
                     
                     
@@ -146,9 +146,9 @@
             
             <tr>
                 <td class="mono">Update Cinema iCal Feed</td>
-                <td>4</td>
-                <td class="mono">24.2s</td>
-                <td class="mono">4.0</td>
+                <td>5</td>
+                <td class="mono">21.2s</td>
+                <td class="mono">5.0</td>
                 <td>
                     
                     
@@ -175,17 +175,17 @@
             
             <tr>
                 <td class="mono">pages build and deployment</td>
-                <td>5</td>
-                <td>5</td>
-                <td class="mono">15.0</td>
+                <td>6</td>
+                <td>6</td>
+                <td class="mono">18.0</td>
                 <td class="mono">3.0</td>
             </tr>
             
             <tr>
                 <td class="mono">Update Cinema iCal Feed</td>
-                <td>4</td>
-                <td>4</td>
-                <td class="mono">4.0</td>
+                <td>5</td>
+                <td>5</td>
+                <td class="mono">5.0</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -204,8 +204,8 @@
             
             <tr>
                 <td class="mono">2026-03</td>
-                <td class="mono">19.0</td>
-                <td>9</td>
+                <td class="mono">23.0</td>
+                <td>11</td>
             </tr>
             
         </tbody>
@@ -217,17 +217,17 @@
     <h2>Recent Runs (Sparkline)</h2>
     <canvas id="sparkline" height="80"></canvas>
     <p class="muted" style="margin-top: 0.5rem; font-size: 0.875rem;">
-        Last 9 runs · Green = success, Red = failure
+        Last 11 runs · Green = success, Red = failure
     </p>
 </div>
 
         <footer class="muted" style="margin-top: 2rem; font-size: 0.875rem;">
-            Last updated: 2026-03-07 02:23 UTC · GitHub Actions Usage Tracker
+            Last updated: 2026-03-08 02:35 UTC · GitHub Actions Usage Tracker
         </footer>
     </div>
     
 <script>
-const recent = [{"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-04T13:02:46Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-04T13:03:41Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-04T13:04:34Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-04T13:05:46Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-04T13:06:14Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-05T09:33:32Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-05T09:33:54Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-06T09:28:33Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-06T09:28:47Z"}];
+const recent = [{"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-04T13:02:46Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-04T13:03:41Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-04T13:04:34Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-04T13:05:46Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-04T13:06:14Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-05T09:33:32Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-05T09:33:54Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-06T09:28:33Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-06T09:28:47Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-07T09:19:36Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-07T09:19:46Z"}];
 new Chart(document.getElementById('sparkline'), {
     type: 'bar',
     data: {
@@ -254,7 +254,7 @@ new Chart(document.getElementById('sparkline'), {
     }
 });
 
-const repoMonthlyData = [19.0];
+const repoMonthlyData = [23.0];
 const repoMonthlyLabels = ["2026-03"];
 new Chart(document.getElementById('repoMonthlyChart'), {
     type: 'bar',
