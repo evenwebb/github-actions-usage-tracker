@@ -125,9 +125,9 @@
             
             <tr>
                 <td class="mono">Update Calendar Feed</td>
-                <td>9</td>
-                <td class="mono">34.9s</td>
-                <td class="mono">9.0</td>
+                <td>10</td>
+                <td class="mono">35.0s</td>
+                <td class="mono">10.0</td>
                 <td>
                     
                     
@@ -154,8 +154,8 @@
             
             <tr>
                 <td class="mono">2026-03</td>
-                <td class="mono">9.0</td>
-                <td>9</td>
+                <td class="mono">10.0</td>
+                <td>10</td>
             </tr>
             
             <tr>
@@ -173,17 +173,17 @@
     <h2>Recent Runs (Sparkline)</h2>
     <canvas id="sparkline" height="80"></canvas>
     <p class="muted" style="margin-top: 0.5rem; font-size: 0.875rem;">
-        Last 10 runs · Green = success, Red = failure
+        Last 11 runs · Green = success, Red = failure
     </p>
 </div>
 
         <footer class="muted" style="margin-top: 2rem; font-size: 0.875rem;">
-            Last updated: 2026-03-10 02:27 UTC · GitHub Actions Usage Tracker
+            Last updated: 2026-03-11 02:27 UTC · GitHub Actions Usage Tracker
         </footer>
     </div>
     
 <script>
-const recent = [{"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-02-28T09:22:29Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-01T09:26:18Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-02T09:43:45Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-03T09:38:17Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-04T09:36:33Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-05T09:38:40Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-06T09:34:27Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-07T09:25:24Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-08T09:26:15Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-09T09:45:07Z"}];
+const recent = [{"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-02-28T09:22:29Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-01T09:26:18Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-02T09:43:45Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-03T09:38:17Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-04T09:36:33Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-05T09:38:40Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-06T09:34:27Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-07T09:25:24Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-08T09:26:15Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-09T09:45:07Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-10T09:39:58Z"}];
 new Chart(document.getElementById('sparkline'), {
     type: 'bar',
     data: {
@@ -210,7 +210,7 @@ new Chart(document.getElementById('sparkline'), {
     }
 });
 
-const repoMonthlyData = [1.0, 9.0];
+const repoMonthlyData = [1.0, 10.0];
 const repoMonthlyLabels = ["2026-02", "2026-03"];
 new Chart(document.getElementById('repoMonthlyChart'), {
     type: 'bar',
