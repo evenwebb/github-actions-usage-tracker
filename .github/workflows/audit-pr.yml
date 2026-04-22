@@ -6,6 +6,11 @@ on:
       - '.github/workflows/**'
     types: [opened, synchronize, reopened]
 
+# Supersede in-flight runs when the PR branch updates (saves billable minutes on rapid pushes).
+concurrency:
+  group: audit-workflows-${{ github.repository }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
   pull-requests: write
@@ -13,6 +18,7 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
@@ -21,9 +27,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          cache: 'pip'
+          cache: pip
+          cache-dependency-path: requirements.txt
 
-      - run: pip install -q -r requirements.txt
+      - name: Install dependencies
+        run: python -m pip install -q --disable-pip-version-check -r requirements.txt
 
       - name: Run auditor
         id: audit
