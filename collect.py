@@ -82,7 +82,21 @@ def fetch_repos(session: requests.Session, token: str) -> list[dict]:
     while url:
         resp = session.get(url, params=params, headers=get_headers(token), timeout=REQUEST_TIMEOUT)
         params = None
-        resp.raise_for_status()
+        try:
+            resp.raise_for_status()
+        except requests.HTTPError:
+            # The default Actions `GITHUB_TOKEN` is repo-scoped and may not be allowed to list
+            # user repos. In that case, fall back to the current repo only.
+            if resp.status_code in (401, 403):
+                current = os.environ.get("GITHUB_REPOSITORY")
+                if current:
+                    log.warning(
+                        "Token cannot list /user/repos (HTTP %s). Falling back to current repo only: %s",
+                        resp.status_code,
+                        current,
+                    )
+                    return [{"full_name": current, "archived": False}]
+            raise
         data = resp.json()
         repos.extend(data)
         url = resp.links.get("next", {}).get("url")

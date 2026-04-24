@@ -25,6 +25,7 @@ jobs:
     timeout-minutes: 45
     env:
       GITHUB_ACTIONS_ALLOWANCE: ${{ vars.GITHUB_ACTIONS_ALLOWANCE || '2000' }}
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - uses: actions/checkout@v4
         with:
@@ -41,8 +42,8 @@ jobs:
 
       - name: Collect & generate
         env:
-          ACTIONS_USAGE_TOKEN: ${{ secrets.ACTIONS_USAGE_TOKEN || secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTIONS_USAGE_TOKEN: ${{ secrets.ACTIONS_USAGE_TOKEN || github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
           APPRISE_URL: ${{ secrets.APPRISE_URL }}
         run: |
           python collect.py ${{ github.event.inputs.backfill == 'true' && '--backfill' || '' }} --audit
@@ -66,6 +67,6 @@ jobs:
         if: steps.commit.outputs.changed == 'true'
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
           publish_dir: ./docs
           force_orphan: true
