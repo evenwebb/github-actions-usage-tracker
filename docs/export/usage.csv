@@ -1117,34 +1117,3 @@ run_id,repo,workflow_name,event,conclusion,created_at,duration_seconds,billable_
 21849573527,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-10T02:42:11Z,9.0,1.0
 21847940467,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,schedule,success,2026-02-10T01:28:37Z,33.0,1.0
 21846089751,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,push,success,2026-02-10T00:12:00Z,25.0,1.0
-21845285880,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-09T23:40:11Z,13.0,1.0
-21844161589,evenwebb/wtw-cinemas-calendar,pages build and deployment,dynamic,success,2026-02-09T22:57:47Z,37.0,3.0
-21843928836,evenwebb/wtw-cinemas-calendar,pages build and deployment,dynamic,success,2026-02-09T22:49:21Z,31.0,3.0
-21843920189,evenwebb/wtw-cinemas-calendar,Update Cinema iCal Feed,workflow_dispatch,success,2026-02-09T22:49:02Z,13.0,1.0
-21843659007,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-09T22:39:46Z,10.0,1.0
-21843631938,evenwebb/wtw-cinemas-calendar,pages build and deployment,dynamic,success,2026-02-09T22:38:50Z,32.0,3.0
-21843627849,evenwebb/wtw-whats-on,pages build and deployment,dynamic,success,2026-02-09T22:38:42Z,33.0,3.0
-21843053516,evenwebb/wtw-whats-on,pages build and deployment,dynamic,success,2026-02-09T22:20:33Z,35.0,3.0
-21842777823,evenwebb/wtw-cinemas-calendar,pages build and deployment,dynamic,success,2026-02-09T22:12:05Z,34.0,3.0
-21841803634,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-09T21:41:23Z,10.0,1.0
-21839900800,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-09T20:43:09Z,14.0,1.0
-21837411801,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-09T19:19:40Z,15.0,1.0
-21836998437,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,schedule,success,2026-02-09T18:45:02Z,28.0,1.0
-21833865562,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-09T17:07:36Z,142.0,3.0
-21832317453,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-09T15:59:59Z,14.0,1.0
-21829960902,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-09T14:55:17Z,17.0,1.0
-21826594143,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-09T13:16:45Z,14.0,1.0
-21825611125,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,schedule,success,2026-02-09T12:45:09Z,27.0,1.0
-21823854709,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-09T11:49:02Z,15.0,1.0
-21823697235,evenwebb/stmewan-parish-council-calendar,Update iCal Feed,schedule,success,2026-02-09T11:43:37Z,13.0,1.0
-21823553285,evenwebb/penrice-calendar-scraper,Update iCal Feed,schedule,success,2026-02-09T11:38:45Z,12.0,1.0
-21820841224,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-09T10:10:15Z,15.0,1.0
-21820372762,evenwebb/wtw-cinemas-calendar,Update Cinema iCal Feed,schedule,success,2026-02-09T09:56:14Z,17.0,1.0
-21820341840,evenwebb/wtw-whats-on,What's On HTML,schedule,success,2026-02-09T09:55:19Z,16.0,1.0
-21818542073,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-09T08:57:35Z,11.0,1.0
-21815660604,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-09T07:08:32Z,12.0,1.0
-21815482020,evenwebb/cornwall-waste-collection-calendar-generator,Run Cornwall scraper,schedule,success,2026-02-09T07:00:47Z,12.0,1.0
-21815353414,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,schedule,success,2026-02-09T06:55:21Z,22.0,1.0
-21813037497,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-09T05:03:09Z,17.0,1.0
-21810380245,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-02-09T02:33:50Z,11.0,1.0
-21809124886,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,schedule,success,2026-02-09T01:20:00Z,24.0,1.0
