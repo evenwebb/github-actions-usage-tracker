@@ -61,7 +61,9 @@
         a { color: var(--accent); }
         .badge { display: inline-block; padding: 0.2em 0.5em; border-radius: 4px; font-size: 0.8rem; }
         .badge-success { background: rgba(63, 185, 80, 0.2); color: var(--success); }
+        .badge-green { background: rgba(63, 185, 80, 0.2); color: var(--success); }
         .badge-failure { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
+        .badge-red { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
         .badge-amber { background: rgba(210, 153, 34, 0.2); color: var(--warning); }
         .stat-big { font-size: 2.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
         .progress-bar {
@@ -201,7 +203,7 @@
     <h2>Runs</h2>
     <table>
         <thead>
-            <tr><th>Date</th><th>Repo</th><th>Workflow</th><th>Event</th><th>Conclusion</th><th>Minutes</th></tr>
+            <tr><th>Date</th><th>Repo</th><th>Workflow</th><th>Event</th><th>Conclusion</th><th>Queue</th><th>Minutes</th></tr>
         </thead>
         <tbody id="runs-tbody">
             
@@ -211,6 +213,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -220,6 +223,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -229,6 +233,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -238,6 +243,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -247,6 +253,7 @@
                 <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">2.0</td>
             </tr>
             
@@ -256,6 +263,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -265,6 +273,7 @@
                 <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">2.0</td>
             </tr>
             
@@ -274,6 +283,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -283,6 +293,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -292,6 +303,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -301,6 +313,7 @@
                 <td class="mono">Update iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -310,6 +323,7 @@
                 <td class="mono">Update iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -319,6 +333,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -328,6 +343,7 @@
                 <td class="mono">Update Calendar Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -337,6 +353,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -346,6 +363,7 @@
                 <td class="mono">Update Cinema iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -355,6 +373,7 @@
                 <td class="mono">What's On HTML</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -364,6 +383,7 @@
                 <td class="mono">What's On HTML</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">2.0</td>
             </tr>
             
@@ -373,6 +393,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -382,6 +403,7 @@
                 <td class="mono">Update Cinema iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -391,6 +413,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -400,6 +423,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -409,6 +433,7 @@
                 <td class="mono">Run Cornwall scraper</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -418,6 +443,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -427,6 +453,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -436,6 +463,7 @@
                 <td class="mono">Collect & Deploy</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -445,6 +473,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -454,6 +483,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -463,6 +493,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -472,6 +503,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -481,6 +513,7 @@
                 <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">2.0</td>
             </tr>
             
@@ -490,6 +523,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -499,6 +533,7 @@
                 <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">2.0</td>
             </tr>
             
@@ -508,6 +543,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -517,6 +553,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -526,6 +563,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -535,6 +573,7 @@
                 <td class="mono">Update iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -544,6 +583,7 @@
                 <td class="mono">Update iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -553,6 +593,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -562,6 +603,7 @@
                 <td class="mono">Update Calendar Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -571,6 +613,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -580,6 +623,7 @@
                 <td class="mono">Update Cinema iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -589,6 +633,7 @@
                 <td class="mono">What's On HTML</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -598,6 +643,7 @@
                 <td class="mono">What's On HTML</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">2.0</td>
             </tr>
             
@@ -607,6 +653,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -616,6 +663,7 @@
                 <td class="mono">Update Cinema iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -625,6 +673,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -634,6 +683,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -643,6 +693,7 @@
                 <td class="mono">Run Cornwall scraper</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -652,6 +703,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -661,6 +713,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -670,6 +723,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -679,6 +733,7 @@
                 <td class="mono">Collect & Deploy</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -688,6 +743,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -697,6 +753,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -706,6 +763,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -715,6 +773,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -724,6 +783,7 @@
                 <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">2.0</td>
             </tr>
             
@@ -733,6 +793,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -742,6 +803,7 @@
                 <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">2.0</td>
             </tr>
             
@@ -751,6 +813,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -760,6 +823,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -769,6 +833,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -778,6 +843,7 @@
                 <td class="mono">Update iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -787,6 +853,7 @@
                 <td class="mono">Update iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -796,6 +863,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -805,6 +873,7 @@
                 <td class="mono">Update Calendar Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -814,6 +883,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -823,6 +893,7 @@
                 <td class="mono">What's On HTML</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -832,6 +903,7 @@
                 <td class="mono">Update Cinema iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -841,6 +913,7 @@
                 <td class="mono">What's On HTML</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">2.0</td>
             </tr>
             
@@ -850,6 +923,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -859,6 +933,7 @@
                 <td class="mono">Update Cinema iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -868,6 +943,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -877,6 +953,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -886,6 +963,7 @@
                 <td class="mono">Run Cornwall scraper</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -895,6 +973,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -904,6 +983,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -913,6 +993,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -922,6 +1003,7 @@
                 <td class="mono">Collect & Deploy</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -931,6 +1013,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -940,6 +1023,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -949,6 +1033,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -958,6 +1043,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -967,6 +1053,7 @@
                 <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">2.0</td>
             </tr>
             
@@ -976,6 +1063,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -985,6 +1073,7 @@
                 <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">2.0</td>
             </tr>
             
@@ -994,6 +1083,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1003,6 +1093,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1012,6 +1103,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -1021,6 +1113,7 @@
                 <td class="mono">Update iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1030,6 +1123,7 @@
                 <td class="mono">Update iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1039,6 +1133,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1048,6 +1143,7 @@
                 <td class="mono">Update Calendar Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1057,6 +1153,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -1066,6 +1163,7 @@
                 <td class="mono">Update Cinema iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1075,6 +1173,7 @@
                 <td class="mono">What's On HTML</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1084,6 +1183,7 @@
                 <td class="mono">What's On HTML</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">2.0</td>
             </tr>
             
@@ -1093,6 +1193,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -1102,6 +1203,7 @@
                 <td class="mono">Update Cinema iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1111,6 +1213,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1120,6 +1223,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1129,6 +1233,7 @@
                 <td class="mono">Run Cornwall scraper</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1138,6 +1243,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1147,6 +1253,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1156,6 +1263,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -1165,6 +1273,7 @@
                 <td class="mono">Collect & Deploy</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1174,6 +1283,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1183,6 +1293,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1192,6 +1303,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1201,6 +1313,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1210,6 +1323,7 @@
                 <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">2.0</td>
             </tr>
             
@@ -1219,6 +1333,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1228,6 +1343,7 @@
                 <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">2.0</td>
             </tr>
             
@@ -1237,6 +1353,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1246,6 +1363,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1255,6 +1373,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -1264,6 +1383,7 @@
                 <td class="mono">Update iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1273,6 +1393,7 @@
                 <td class="mono">Update iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1282,6 +1403,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1291,6 +1413,7 @@
                 <td class="mono">Update Calendar Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1300,6 +1423,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -1309,6 +1433,7 @@
                 <td class="mono">Update Cinema iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1318,6 +1443,7 @@
                 <td class="mono">What's On HTML</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1327,6 +1453,7 @@
                 <td class="mono">What's On HTML</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">2.0</td>
             </tr>
             
@@ -1336,6 +1463,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -1345,6 +1473,7 @@
                 <td class="mono">Update Cinema iCal Feed</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1354,6 +1483,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1363,6 +1493,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1372,6 +1503,7 @@
                 <td class="mono">Run Cornwall scraper</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1381,6 +1513,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1390,6 +1523,7 @@
                 <td class="mono">Scrape Octopus Energy Free Electricity</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1399,6 +1533,7 @@
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">dynamic</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">3.0</td>
             </tr>
             
@@ -1408,6 +1543,7 @@
                 <td class="mono">Collect & Deploy</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1417,6 +1553,7 @@
                 <td class="mono">Update Profile README</td>
                 <td class="mono">schedule</td>
                 <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -1425,7 +1562,7 @@
 </div>
 
         <footer class="muted" style="margin-top: 2rem; font-size: 0.875rem;">
-            Last updated: 2026-06-09 03:56 UTC · GitHub Actions Usage Tracker
+            Last updated: 2026-06-09 23:28 UTC · GitHub Actions Usage Tracker
         </footer>
     </div>
     

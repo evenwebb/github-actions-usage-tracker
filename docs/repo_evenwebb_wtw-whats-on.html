@@ -61,7 +61,9 @@
         a { color: var(--accent); }
         .badge { display: inline-block; padding: 0.2em 0.5em; border-radius: 4px; font-size: 0.8rem; }
         .badge-success { background: rgba(63, 185, 80, 0.2); color: var(--success); }
+        .badge-green { background: rgba(63, 185, 80, 0.2); color: var(--success); }
         .badge-failure { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
+        .badge-red { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
         .badge-amber { background: rgba(210, 153, 34, 0.2); color: var(--warning); }
         .stat-big { font-size: 2.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
         .progress-bar {
@@ -109,6 +111,20 @@
 
 
 
+<div class="stats-grid">
+    <div class="card">
+        <h2>Queue Time</h2>
+        <p>Avg queue: <strong class="mono">0</strong>s</p>
+        <p class="muted">p95: 0s · max: 0s</p>
+    </div>
+    <div class="card">
+        <h2>Failure Streaks</h2>
+        
+        <p class="muted">No active streaks in this repo.</p>
+        
+    </div>
+</div>
+
 <div class="card">
     <h2>Workflows (This Month)</h2>
     <table>
@@ -117,19 +133,48 @@
                 <th>Workflow</th>
                 <th>Runs</th>
                 <th>Avg Duration</th>
+                <th>Avg Queue</th>
                 <th>Total Minutes</th>
+                <th>Wasted Min</th>
                 <th>Success Rate</th>
             </tr>
         </thead>
         <tbody>
             
-            <tr><td colspan="5" class="muted">No workflow runs this month.</td></tr>
+            <tr><td colspan="7" class="muted">No workflow runs this month.</td></tr>
             
         </tbody>
     </table>
 </div>
 
 
+
+
+
+<div class="stats-grid">
+    <div class="card">
+        <h2>Expensive Jobs (30 Days)</h2>
+        <table>
+            <thead><tr><th>Job</th><th>Runs</th><th>Billable Min</th></tr></thead>
+            <tbody>
+                
+                <tr><td colspan="3" class="muted">No job-level data yet.</td></tr>
+                
+            </tbody>
+        </table>
+    </div>
+    <div class="card">
+        <h2>Slow Steps (30 Days)</h2>
+        <table>
+            <thead><tr><th>Step</th><th>Runs</th><th>Total Sec</th></tr></thead>
+            <tbody>
+                
+                <tr><td colspan="3" class="muted">No step-level data yet.</td></tr>
+                
+            </tbody>
+        </table>
+    </div>
+</div>
 
 
 <div class="card">
@@ -165,12 +210,12 @@
 </div>
 
         <footer class="muted" style="margin-top: 2rem; font-size: 0.875rem;">
-            Last updated: 2026-06-09 03:56 UTC · GitHub Actions Usage Tracker
+            Last updated: 2026-06-09 23:28 UTC · GitHub Actions Usage Tracker
         </footer>
     </div>
     
 <script>
-const recent = [{"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-27T10:30:37Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-27T11:20:21Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-28T09:19:48Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-28T09:20:07Z"}, {"billable_minutes_total": 7.0, "conclusion": "failure", "created_at": "2026-03-01T09:22:15Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-02T09:40:14Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-02T09:40:33Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-03T09:34:17Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-03T09:34:35Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-04T09:33:08Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-04T09:33:24Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-04T12:53:06Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-04T13:03:59Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-05T09:35:12Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-05T09:35:36Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-06T09:31:05Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-06T09:31:26Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-07T09:21:57Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-07T09:22:11Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-08T09:22:10Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-08T09:22:26Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-09T09:41:07Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-09T09:41:29Z"}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-10T09:36:36Z"}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-10T09:36:55Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-11T09:35:13Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-12T09:35:35Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-13T09:32:51Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-14T09:25:22Z"}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-15T09:27:13Z"}];
+const recent = [{"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-27T10:30:37Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-27T11:20:21Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-28T09:19:48Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-02-28T09:20:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 7.0, "conclusion": "failure", "created_at": "2026-03-01T09:22:15Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-02T09:40:14Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-02T09:40:33Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-03T09:34:17Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-03T09:34:35Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-04T09:33:08Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-04T09:33:24Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-04T12:53:06Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-04T13:03:59Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-05T09:35:12Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-05T09:35:36Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-06T09:31:05Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-06T09:31:26Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-07T09:21:57Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-07T09:22:11Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-08T09:22:10Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-08T09:22:26Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-09T09:41:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-09T09:41:29Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-10T09:36:36Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-10T09:36:55Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-11T09:35:13Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-12T09:35:35Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-13T09:32:51Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-14T09:25:22Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-15T09:27:13Z", "queue_seconds": 0.0}];
 new Chart(document.getElementById('sparkline'), {
     type: 'bar',
     data: {
@@ -178,10 +223,10 @@ new Chart(document.getElementById('sparkline'), {
         datasets: [{
             label: 'Minutes',
             data: recent.map(r => r.billable_minutes_total || 0),
-            backgroundColor: recent.map(r => 
+            backgroundColor: recent.map(r =>
                 (r.conclusion === 'success') ? 'rgba(63, 185, 80, 0.7)' : 'rgba(248, 81, 73, 0.7)'
             ),
-            borderColor: recent.map(r => 
+            borderColor: recent.map(r =>
                 (r.conclusion === 'success') ? '#3fb950' : '#f85149'
             ),
             borderWidth: 1
