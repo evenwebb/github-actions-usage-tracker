@@ -26,6 +26,16 @@
         <p class="muted" style="margin-top: 0.5rem; font-size: 0.9rem;">Est. overage: ~${{ projection.estimated_cost_usd | round(2) }}/mo</p>
         {% endif %}
     </div>
+    <div class="card">
+        <h2>Wasted Minutes</h2>
+        <p><strong class="mono">{{ wasted_summary.wasted_minutes }}</strong> min wasted this month</p>
+        <p class="muted">{{ wasted_summary.failed_runs }} unsuccessful runs · {{ wasted_summary.wasted_pct }}% of monthly usage</p>
+    </div>
+    <div class="card">
+        <h2>Queue Time</h2>
+        <p>Avg queue: <strong class="mono">{{ queue_summary.avg_queue_seconds }}</strong>s</p>
+        <p class="muted">p95: {{ queue_summary.p95_queue_seconds }}s · max: {{ queue_summary.max_queue_seconds }}s</p>
+    </div>
     {% if audit_summary and audit_summary.total_issues > 0 %}
     <div class="card">
         <h2>Workflow Audit</h2>
@@ -43,7 +53,7 @@
         <a href="export/usage.json">Export JSON</a>
         <a href="export/usage.csv">Export CSV</a>
         <a href="failures.html">Failed runs</a>
-        <a href="history.html">Monthly history</a>
+        <a href="history.html">Monthly history & burn-down</a>
     </div>
 </div>
 
@@ -60,7 +70,7 @@
         </span>
         {% endif %}
         {% if year_over_year and year_over_year.same_month_last_year %}
-        <span>YoY: <strong class="mono">{{ (year_over_year.this_month or 0) | round(0) }}</strong> vs <strong class="mono">{{ (year_over_year.same_month_last_year or 0) | round(0) }}</strong> min (same month last year)</span>
+        <span>YoY: <strong class="mono">{{ (year_over_year.this_month or 0) | round(0) }}</strong> vs <strong class="mono">{{ (year_over_year.same_month_last_year or 0) | round(0) }}</strong> min</span>
         {% endif %}
     </div>
 </div>
@@ -72,7 +82,9 @@
         <span><strong class="mono">{{ global_stats.total_runs }}</strong> total runs</span>
         <span><strong class="mono">{{ global_stats.success_rate }}%</strong> success rate</span>
         <span><strong class="mono">{{ global_stats.avg_duration }}s</strong> avg duration</span>
-        <span class="muted">Linux: {{ global_stats.linux_mins }} min · macOS: {{ global_stats.macos_mins }} · Windows: {{ global_stats.windows_mins }} min</span>
+        <span><strong class="mono">{{ global_stats.avg_queue_seconds }}s</strong> avg queue</span>
+        <span><strong class="mono">{{ global_stats.wasted_minutes }}</strong> wasted min</span>
+        <span class="muted">Linux: {{ global_stats.linux_mins }} · macOS: {{ global_stats.macos_mins }} · Windows: {{ global_stats.windows_mins }}</span>
     </div>
 </div>
 
@@ -104,6 +116,43 @@
     <canvas id="monthlyChart" height="100"></canvas>
 </div>
 
+<div class="stats-grid">
+    <div class="card">
+        <h2>Failure Streaks by Repo</h2>
+        <table>
+            <thead><tr><th>Repo</th><th>Streak</th><th>Wasted Min</th></tr></thead>
+            <tbody>
+                {% for item in failure_streaks.repos %}
+                <tr>
+                    <td><a href="repo_{{ item.repo | replace('/', '_') }}.html">{{ item.repo }}</a></td>
+                    <td><span class="badge badge-failure">{{ item.count }}</span></td>
+                    <td class="mono">{{ item.minutes | round(1) }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="3" class="muted">No active repo streaks.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card">
+        <h2>Failure Streaks by Workflow</h2>
+        <table>
+            <thead><tr><th>Workflow</th><th>Streak</th><th>Wasted Min</th></tr></thead>
+            <tbody>
+                {% for item in failure_streaks.workflows %}
+                <tr>
+                    <td class="mono">{{ item.repo }} / {{ item.workflow_name }}</td>
+                    <td><span class="badge badge-failure">{{ item.count }}</span></td>
+                    <td class="mono">{{ item.minutes | round(1) }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="3" class="muted">No active workflow streaks.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <div class="card">
     <h2>Repos by Minutes (This Month)</h2>
     <table>
@@ -130,6 +179,49 @@
 </div>
 
 <div class="card">
+    <h2>Failure Cost Leaderboard</h2>
+    <table>
+        <thead><tr><th>Repo</th><th>Workflow</th><th>Failed Runs</th><th>Wasted Min</th></tr></thead>
+        <tbody>
+            {% for item in failure_costs %}
+            <tr>
+                <td><a href="repo_{{ item.repo | replace('/', '_') }}.html">{{ item.repo }}</a></td>
+                <td class="mono">{{ item.workflow_name }}</td>
+                <td>{{ item.failed_runs }}</td>
+                <td class="mono">{{ (item.wasted_minutes or 0) | round(1) }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" class="muted">No failed runs this month.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h2>Biggest Movers</h2>
+    <table>
+        <thead><tr><th>Repo</th><th>This Month</th><th>Last Month</th><th>Delta</th></tr></thead>
+        <tbody>
+            {% for item in biggest_movers %}
+            <tr>
+                <td><a href="repo_{{ item.repo | replace('/', '_') }}.html">{{ item.repo }}</a></td>
+                <td class="mono">{{ item.this_month | round(1) }}</td>
+                <td class="mono">{{ item.last_month | round(1) }}</td>
+                <td class="mono">
+                    {{ item.delta | round(1) }}
+                    {% if item.pct_change is not none %}
+                    <span class="muted">({{ item.pct_change }}%)</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" class="muted">Not enough history yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
     <h2>Top Workflows (All Repos)</h2>
     <table>
         <thead>
@@ -148,6 +240,43 @@
             {% endfor %}
         </tbody>
     </table>
+</div>
+
+<div class="stats-grid">
+    <div class="card">
+        <h2>Expensive Jobs (30 Days)</h2>
+        <table>
+            <thead><tr><th>Job</th><th>Runs</th><th>Billable Min</th></tr></thead>
+            <tbody>
+                {% for item in job_hotspots %}
+                <tr>
+                    <td class="mono">{{ item.repo }} / {{ item.job_name }}</td>
+                    <td>{{ item.job_runs }}</td>
+                    <td class="mono">{{ (item.billable_minutes or 0) | round(1) }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="3" class="muted">No job-level data yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card">
+        <h2>Slow Steps (30 Days)</h2>
+        <table>
+            <thead><tr><th>Step</th><th>Runs</th><th>Total Sec</th></tr></thead>
+            <tbody>
+                {% for item in step_hotspots %}
+                <tr>
+                    <td class="mono">{{ item.step_name }}</td>
+                    <td>{{ item.step_runs }}</td>
+                    <td class="mono">{{ (item.total_duration or 0) | round(1) }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="3" class="muted">No step timing data yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 {% if dead_workflows %}

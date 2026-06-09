@@ -6,7 +6,9 @@ Outputs to docs/ for GitHub Pages deployment.
 
 import csv
 import json
+import os
 import sqlite3
+from calendar import monthrange
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -16,8 +18,8 @@ DB_PATH = Path(__file__).parent / "data" / "actions.db"
 TEMPLATES_DIR = Path(__file__).parent / "templates"
 OUTPUT_DIR = Path(__file__).parent / "docs"
 
-# Configurable via env
-DEFAULT_ALLOWANCE = 2000  # Free plan
+DEFAULT_ALLOWANCE = 2000
+FAILURE_CONCLUSIONS = ("failure", "cancelled", "timed_out", "action_required")
 
 
 def get_conn() -> sqlite3.Connection:
@@ -27,102 +29,104 @@ def get_conn() -> sqlite3.Connection:
 
 
 def get_month_total(conn: sqlite3.Connection) -> float:
-    """Total billable minutes for current month."""
-    row = conn.execute("""
+    row = conn.execute(
+        """
         SELECT COALESCE(SUM(billable_minutes_total), 0) AS total
         FROM workflow_runs
         WHERE strftime('%Y-%m', created_at) = strftime('%Y-%m', 'now')
-    """).fetchone()
-    return float(row["total"])
+        """
+    ).fetchone()
+    return float(row["total"] or 0)
 
 
 def get_repos_by_minutes(conn: sqlite3.Connection) -> list[dict]:
-    """Repos ranked by minutes consumed this month."""
-    rows = conn.execute("""
+    rows = conn.execute(
+        """
         SELECT repo, SUM(billable_minutes_total) AS minutes
         FROM workflow_runs
         WHERE strftime('%Y-%m', created_at) = strftime('%Y-%m', 'now')
         GROUP BY repo
         ORDER BY minutes DESC
-    """).fetchall()
-    return [dict(r) for r in rows]
+        """
+    ).fetchall()
+    return [dict(row) for row in rows]
 
 
 def get_daily_trend(conn: sqlite3.Connection, days: int = 90) -> list[dict]:
-    """Daily usage for the last N days."""
-    rows = conn.execute("""
+    rows = conn.execute(
+        """
         SELECT date(created_at) AS day, SUM(billable_minutes_total) AS minutes
         FROM workflow_runs
         WHERE created_at >= date('now', ?)
         GROUP BY date(created_at)
         ORDER BY day ASC
-    """, (f"-{days} days",)).fetchall()
-    return [dict(r) for r in rows]
+        """,
+        (f"-{days} days",),
+    ).fetchall()
+    return [dict(row) for row in rows]
 
 
 def get_failures(conn: sqlite3.Connection, limit: int = 200) -> list[dict]:
-    """Failed runs across all repos, reverse chronological."""
-    rows = conn.execute("""
-        SELECT run_id, repo, workflow_name, conclusion, created_at, html_url
+    rows = conn.execute(
+        """
+        SELECT run_id, repo, workflow_name, conclusion, created_at, html_url, billable_minutes_total
         FROM workflow_runs
         WHERE conclusion IN ('failure', 'cancelled', 'timed_out', 'action_required')
         ORDER BY created_at DESC
         LIMIT ?
-    """, (limit,)).fetchall()
-    return [dict(r) for r in rows]
+        """,
+        (limit,),
+    ).fetchall()
+    return [dict(row) for row in rows]
 
 
 def get_repo_workflows(conn: sqlite3.Connection, repo: str) -> list[dict]:
-    """Workflow stats for a specific repo."""
-    rows = conn.execute("""
+    rows = conn.execute(
+        """
         SELECT
             workflow_name,
             COUNT(*) AS run_count,
             AVG(duration_seconds) AS avg_duration,
+            AVG(queue_seconds) AS avg_queue_seconds,
             SUM(billable_minutes_total) AS total_minutes,
             SUM(CASE WHEN conclusion = 'success' THEN 1 ELSE 0 END) AS success_count,
-            SUM(CASE WHEN conclusion IN ('failure','cancelled','timed_out') THEN 1 ELSE 0 END) AS failure_count
+            SUM(CASE WHEN conclusion IN ('failure', 'cancelled', 'timed_out', 'action_required') THEN 1 ELSE 0 END) AS failure_count,
+            SUM(CASE WHEN conclusion IN ('failure', 'cancelled', 'timed_out', 'action_required') THEN billable_minutes_total ELSE 0 END) AS wasted_minutes
         FROM workflow_runs
         WHERE repo = ?
-        AND strftime('%Y-%m', created_at) = strftime('%Y-%m', 'now')
+          AND strftime('%Y-%m', created_at) = strftime('%Y-%m', 'now')
         GROUP BY workflow_name
         ORDER BY total_minutes DESC
-    """, (repo,)).fetchall()
-    return [dict(r) for r in rows]
+        """,
+        (repo,),
+    ).fetchall()
+    return [dict(row) for row in rows]
 
 
 def get_repo_recent_runs(conn: sqlite3.Connection, repo: str, limit: int = 30) -> list[dict]:
-    """Recent runs for a repo (for sparkline data)."""
-    rows = conn.execute("""
-        SELECT created_at, billable_minutes_total, conclusion
+    rows = conn.execute(
+        """
+        SELECT created_at, billable_minutes_total, conclusion, queue_seconds
         FROM workflow_runs
         WHERE repo = ?
         ORDER BY created_at DESC
         LIMIT ?
-    """, (repo, limit)).fetchall()
-    return [dict(r) for r in rows]
+        """,
+        (repo, limit),
+    ).fetchall()
+    return [dict(row) for row in rows]
 
 
 def get_all_repos(conn: sqlite3.Connection) -> list[str]:
-    """List of all repos that have runs."""
-    rows = conn.execute("""
-        SELECT DISTINCT repo FROM workflow_runs ORDER BY repo
-    """).fetchall()
-    return [r["repo"] for r in rows]
+    rows = conn.execute("SELECT DISTINCT repo FROM workflow_runs ORDER BY repo").fetchall()
+    return [row["repo"] for row in rows]
 
 
 def get_cost_projection(month_total: float, allowance: int) -> dict:
-    """Project end-of-month usage based on current pace. Includes estimated overage cost."""
     now = datetime.now()
-    days_in_month = (now.replace(day=28) + timedelta(days=4)).day
-    day_of_month = now.day
-    if day_of_month <= 0:
-        day_of_month = 1
-    if month_total <= 0:
-        projected = 0
-    else:
-        # Linear extrapolation
-        projected = month_total * (days_in_month / day_of_month)
+    days_in_month = monthrange(now.year, now.month)[1]
+    day_of_month = max(now.day, 1)
+    projected = month_total * (days_in_month / day_of_month) if month_total > 0 else 0
     pct = (projected / allowance * 100) if allowance else 0
     if pct < 70:
         status = "green"
@@ -130,7 +134,6 @@ def get_cost_projection(month_total: float, allowance: int) -> dict:
         status = "amber"
     else:
         status = "red"
-    # GitHub overage: ~$0.008/min Linux, $0.016 Windows, $0.08 macOS (blended ~$0.008 for estimate)
     overage_mins = max(0, projected - allowance)
     estimated_cost = round(overage_mins * 0.008, 2) if overage_mins > 0 else 0
     return {
@@ -144,155 +147,177 @@ def get_cost_projection(month_total: float, allowance: int) -> dict:
 
 
 def get_global_stats(conn: sqlite3.Connection) -> dict:
-    """Overall stats for current month."""
-    row = conn.execute("""
+    row = conn.execute(
+        """
         SELECT
             COUNT(*) AS total_runs,
             SUM(CASE WHEN conclusion = 'success' THEN 1 ELSE 0 END) AS success_count,
-            SUM(CASE WHEN conclusion IN ('failure','cancelled','timed_out') THEN 1 ELSE 0 END) AS failure_count,
+            SUM(CASE WHEN conclusion IN ('failure', 'cancelled', 'timed_out', 'action_required') THEN 1 ELSE 0 END) AS failure_count,
             AVG(duration_seconds) AS avg_duration,
+            AVG(queue_seconds) AS avg_queue_seconds,
             SUM(billable_minutes_linux) AS linux_mins,
             SUM(billable_minutes_macos) AS macos_mins,
-            SUM(billable_minutes_windows) AS windows_mins
+            SUM(billable_minutes_windows) AS windows_mins,
+            SUM(CASE WHEN conclusion IN ('failure', 'cancelled', 'timed_out', 'action_required') THEN billable_minutes_total ELSE 0 END) AS wasted_minutes
         FROM workflow_runs
         WHERE strftime('%Y-%m', created_at) = strftime('%Y-%m', 'now')
-    """).fetchone()
-    d = dict(row)
-    total = (d["success_count"] or 0) + (d["failure_count"] or 0)
+        """
+    ).fetchone()
+    data = dict(row)
+    total = (data["success_count"] or 0) + (data["failure_count"] or 0)
+    total_minutes = (data["linux_mins"] or 0) + (data["macos_mins"] or 0) + (data["windows_mins"] or 0)
+    wasted_minutes = data["wasted_minutes"] or 0
     return {
-        "total_runs": d["total_runs"] or 0,
-        "success_count": d["success_count"] or 0,
-        "failure_count": d["failure_count"] or 0,
-        "success_rate": round((d["success_count"] or 0) / total * 100, 1) if total else 0,
-        "avg_duration": round(d["avg_duration"] or 0, 1),
-        "linux_mins": round(d["linux_mins"] or 0, 1),
-        "macos_mins": round(d["macos_mins"] or 0, 1),
-        "windows_mins": round(d["windows_mins"] or 0, 1),
+        "total_runs": data["total_runs"] or 0,
+        "success_count": data["success_count"] or 0,
+        "failure_count": data["failure_count"] or 0,
+        "success_rate": round((data["success_count"] or 0) / total * 100, 1) if total else 0,
+        "avg_duration": round(data["avg_duration"] or 0, 1),
+        "avg_queue_seconds": round(data["avg_queue_seconds"] or 0, 1),
+        "linux_mins": round(data["linux_mins"] or 0, 1),
+        "macos_mins": round(data["macos_mins"] or 0, 1),
+        "windows_mins": round(data["windows_mins"] or 0, 1),
+        "wasted_minutes": round(wasted_minutes, 1),
+        "wasted_pct": round((wasted_minutes / total_minutes) * 100, 1) if total_minutes else 0,
     }
 
 
 def get_trigger_breakdown(conn: sqlite3.Connection) -> list[dict]:
-    """Runs by trigger event this month."""
-    rows = conn.execute("""
+    rows = conn.execute(
+        """
         SELECT event AS trigger, COUNT(*) AS runs, SUM(billable_minutes_total) AS minutes
         FROM workflow_runs
         WHERE strftime('%Y-%m', created_at) = strftime('%Y-%m', 'now')
         GROUP BY event
         ORDER BY minutes DESC
-    """).fetchall()
-    return [dict(r) for r in rows]
+        """
+    ).fetchall()
+    return [dict(row) for row in rows]
 
 
 def get_monthly_usage(conn: sqlite3.Connection, months: int = 12) -> list[dict]:
-    """Monthly billable minutes for the last N months."""
-    rows = conn.execute("""
+    rows = conn.execute(
+        """
         SELECT strftime('%Y-%m', created_at) AS month, SUM(billable_minutes_total) AS minutes
         FROM workflow_runs
         WHERE created_at >= date('now', ?)
         GROUP BY strftime('%Y-%m', created_at)
         ORDER BY month ASC
-    """, (f"-{months} months",)).fetchall()
-    return [dict(r) for r in rows]
+        """,
+        (f"-{months} months",),
+    ).fetchall()
+    return [dict(row) for row in rows]
 
 
 def get_top_workflows(conn: sqlite3.Connection, limit: int = 15) -> list[dict]:
-    """Top workflows by minutes across all repos this month."""
-    rows = conn.execute("""
+    rows = conn.execute(
+        """
         SELECT repo, workflow_name, COUNT(*) AS runs, SUM(billable_minutes_total) AS minutes
         FROM workflow_runs
         WHERE strftime('%Y-%m', created_at) = strftime('%Y-%m', 'now')
         GROUP BY repo, workflow_name
         ORDER BY minutes DESC
         LIMIT ?
-    """, (limit,)).fetchall()
-    return [dict(r) for r in rows]
+        """,
+        (limit,),
+    ).fetchall()
+    return [dict(row) for row in rows]
 
 
 def get_dead_workflows(conn: sqlite3.Connection, days: int = 30) -> list[dict]:
-    """Workflows that haven't had a successful run in N+ days."""
-    rows = conn.execute("""
+    rows = conn.execute(
+        """
         SELECT repo, workflow_name, MAX(created_at) AS last_success
         FROM workflow_runs
         WHERE conclusion = 'success'
         GROUP BY repo, workflow_name
         HAVING last_success < date('now', ?)
-    """, (f"-{days} days",)).fetchall()
-    return [dict(r) for r in rows]
+        """,
+        (f"-{days} days",),
+    ).fetchall()
+    return [dict(row) for row in rows]
 
 
 def get_collection_log(conn: sqlite3.Connection, limit: int = 20) -> list[dict]:
-    """Recent collection run logs."""
-    import json
     try:
-        rows = conn.execute("""
+        rows = conn.execute(
+            """
             SELECT started_at, completed_at, repos_scanned, repos_with_runs,
                    runs_collected, runs_updated, api_calls, errors, backfill
             FROM collection_log
             ORDER BY id DESC
             LIMIT ?
-        """, (limit,)).fetchall()
-        result = []
-        for r in rows:
-            d = dict(r)
-            if d.get("errors"):
-                try:
-                    d["error_list"] = json.loads(d["errors"])
-                    d["error_count"] = len(d["error_list"])
-                except (json.JSONDecodeError, TypeError):
-                    d["error_list"] = []
-                    d["error_count"] = 0
-            else:
-                d["error_list"] = []
-                d["error_count"] = 0
-            result.append(d)
-        return result
+            """,
+            (limit,),
+        ).fetchall()
     except sqlite3.OperationalError:
         return []
+    result = []
+    for row in rows:
+        data = dict(row)
+        if data.get("errors"):
+            try:
+                data["error_list"] = json.loads(data["errors"])
+                data["error_count"] = len(data["error_list"])
+            except (json.JSONDecodeError, TypeError):
+                data["error_list"] = []
+                data["error_count"] = 0
+        else:
+            data["error_list"] = []
+            data["error_count"] = 0
+        result.append(data)
+    return result
 
 
 def get_repo_monthly(conn: sqlite3.Connection, repo: str, months: int = 6) -> list[dict]:
-    """Monthly usage for a specific repo."""
-    rows = conn.execute("""
+    rows = conn.execute(
+        """
         SELECT strftime('%Y-%m', created_at) AS month, SUM(billable_minutes_total) AS minutes, COUNT(*) AS runs
         FROM workflow_runs
         WHERE repo = ? AND created_at >= date('now', ?)
         GROUP BY strftime('%Y-%m', created_at)
         ORDER BY month ASC
-    """, (repo, f"-{months} months")).fetchall()
-    return [dict(r) for r in rows]
+        """,
+        (repo, f"-{months} months"),
+    ).fetchall()
+    return [dict(row) for row in rows]
 
 
 def get_audit_results(conn: sqlite3.Connection) -> list[dict]:
-    """Audit results by repo with issue counts."""
     try:
-        rows = conn.execute("""
-            SELECT repo, issues_json, audited_at FROM audit_results
+        rows = conn.execute(
+            """
+            SELECT repo, issues_json, audited_at
+            FROM audit_results
             ORDER BY repo
-        """).fetchall()
-        result = []
-        for r in rows:
-            try:
-                issues = json.loads(r["issues_json"]) if r["issues_json"] else []
-            except (json.JSONDecodeError, TypeError):
-                issues = []
-            high = sum(1 for i in issues if i.get("severity") == "high")
-            medium = sum(1 for i in issues if i.get("severity") == "medium")
-            result.append({
-                "repo": r["repo"],
+            """
+        ).fetchall()
+    except sqlite3.OperationalError:
+        return []
+    result = []
+    for row in rows:
+        try:
+            issues = json.loads(row["issues_json"]) if row["issues_json"] else []
+        except (json.JSONDecodeError, TypeError):
+            issues = []
+        high = sum(1 for issue in issues if issue.get("severity") == "high")
+        medium = sum(1 for issue in issues if issue.get("severity") == "medium")
+        result.append(
+            {
+                "repo": row["repo"],
                 "issues": issues,
                 "count": len(issues),
                 "high": high,
                 "medium": medium,
-                "audited_at": r["audited_at"],
-            })
-        return [x for x in result if x["count"] > 0]
-    except sqlite3.OperationalError:
-        return []
+                "audited_at": row["audited_at"],
+            }
+        )
+    return [item for item in result if item["count"] > 0]
 
 
 def get_workflow_efficiency(conn: sqlite3.Connection, repo: str) -> list[dict]:
-    """Workflows ranked by minutes per successful run (efficiency)."""
-    rows = conn.execute("""
+    rows = conn.execute(
+        """
         SELECT workflow_name, COUNT(*) AS runs,
                SUM(CASE WHEN conclusion = 'success' THEN 1 ELSE 0 END) AS success_count,
                SUM(billable_minutes_total) AS total_minutes
@@ -300,28 +325,30 @@ def get_workflow_efficiency(conn: sqlite3.Connection, repo: str) -> list[dict]:
         WHERE repo = ? AND strftime('%Y-%m', created_at) = strftime('%Y-%m', 'now')
         GROUP BY workflow_name
         HAVING success_count > 0
-    """, (repo,)).fetchall()
+        """,
+        (repo,),
+    ).fetchall()
     result = []
-    for r in rows:
-        d = dict(r)
-        mins_per_success = (d["total_minutes"] or 0) / (d["success_count"] or 1)
-        d["mins_per_success"] = round(mins_per_success, 1)
-        result.append(d)
-    result.sort(key=lambda x: x["mins_per_success"], reverse=True)
+    for row in rows:
+        data = dict(row)
+        data["mins_per_success"] = round((data["total_minutes"] or 0) / (data["success_count"] or 1), 1)
+        result.append(data)
+    result.sort(key=lambda item: item["mins_per_success"], reverse=True)
     return result
 
 
 def get_month_comparison(conn: sqlite3.Connection) -> dict:
-    """This month vs last month comparison."""
-    rows = conn.execute("""
+    rows = conn.execute(
+        """
         SELECT strftime('%Y-%m', created_at) AS month, SUM(billable_minutes_total) AS minutes, COUNT(*) AS runs
         FROM workflow_runs
         WHERE created_at >= date('now', '-2 months')
         GROUP BY strftime('%Y-%m', created_at)
         ORDER BY month DESC
         LIMIT 2
-    """).fetchall()
-    data = {r["month"]: dict(r) for r in rows}
+        """
+    ).fetchall()
+    data = {row["month"]: dict(row) for row in rows}
     this_month = datetime.now().strftime("%Y-%m")
     last_month = (datetime.now().replace(day=1) - timedelta(days=1)).strftime("%Y-%m")
     return {
@@ -333,17 +360,18 @@ def get_month_comparison(conn: sqlite3.Connection) -> dict:
 
 
 def get_year_over_year(conn: sqlite3.Connection) -> dict:
-    """This month vs same month last year."""
     this_month = datetime.now().strftime("%Y-%m")
-    last_year = (datetime.now().year - 1, datetime.now().month)
-    last_year_month = f"{last_year[0]}-{last_year[1]:02d}"
-    rows = conn.execute("""
+    last_year_month = f"{datetime.now().year - 1}-{datetime.now().month:02d}"
+    rows = conn.execute(
+        """
         SELECT strftime('%Y-%m', created_at) AS month, SUM(billable_minutes_total) AS minutes
         FROM workflow_runs
         WHERE strftime('%Y-%m', created_at) IN (?, ?)
         GROUP BY strftime('%Y-%m', created_at)
-    """, (this_month, last_year_month)).fetchall()
-    data = {r["month"]: r["minutes"] for r in rows}
+        """,
+        (this_month, last_year_month),
+    ).fetchall()
+    data = {row["month"]: row["minutes"] for row in rows}
     return {
         "this_month": data.get(this_month, 0) or 0,
         "same_month_last_year": data.get(last_year_month, 0) or 0,
@@ -351,40 +379,300 @@ def get_year_over_year(conn: sqlite3.Connection) -> dict:
 
 
 def get_export_data(conn: sqlite3.Connection, days: int = 90) -> list[dict]:
-    """Runs for export (CSV/JSON) - last N days."""
-    rows = conn.execute("""
+    rows = conn.execute(
+        """
         SELECT run_id, repo, workflow_name, event, conclusion, created_at,
-               duration_seconds, billable_minutes_total
+               duration_seconds, queue_seconds, billable_minutes_total
         FROM workflow_runs
         WHERE created_at >= date('now', ?)
         ORDER BY created_at DESC
-    """, (f"-{days} days",)).fetchall()
-    return [dict(r) for r in rows]
+        """,
+        (f"-{days} days",),
+    ).fetchall()
+    return [dict(row) for row in rows]
 
 
 def get_audit_summary(audit_by_repo: list[dict]) -> dict | None:
-    """Summary of audit results for index card."""
     if not audit_by_repo:
         return None
-    total = sum(r["count"] for r in audit_by_repo)
+    total = sum(item["count"] for item in audit_by_repo)
     if total == 0:
         return None
-    return {
-        "repos_with_issues": len(audit_by_repo),
-        "total_issues": total,
-    }
+    return {"repos_with_issues": len(audit_by_repo), "total_issues": total}
 
 
 def get_filter_options(conn: sqlite3.Connection) -> dict:
-    """Unique repos, workflows, events for filter dropdowns."""
-    repos = [r[0] for r in conn.execute("SELECT DISTINCT repo FROM workflow_runs ORDER BY repo").fetchall()]
-    workflows = [r[0] for r in conn.execute("SELECT DISTINCT workflow_name FROM workflow_runs WHERE workflow_name IS NOT NULL ORDER BY workflow_name").fetchall()]
-    events = [r[0] for r in conn.execute("SELECT DISTINCT event FROM workflow_runs WHERE event IS NOT NULL ORDER BY event").fetchall()]
+    repos = [row[0] for row in conn.execute("SELECT DISTINCT repo FROM workflow_runs ORDER BY repo").fetchall()]
+    workflows = [
+        row[0]
+        for row in conn.execute(
+            "SELECT DISTINCT workflow_name FROM workflow_runs WHERE workflow_name IS NOT NULL ORDER BY workflow_name"
+        ).fetchall()
+    ]
+    events = [
+        row[0]
+        for row in conn.execute("SELECT DISTINCT event FROM workflow_runs WHERE event IS NOT NULL ORDER BY event").fetchall()
+    ]
     return {"repos": repos, "workflows": workflows, "events": events}
 
 
+def get_wasted_minutes_summary(conn: sqlite3.Connection) -> dict:
+    row = conn.execute(
+        """
+        SELECT
+            COALESCE(SUM(CASE WHEN conclusion IN ('failure', 'cancelled', 'timed_out', 'action_required') THEN billable_minutes_total ELSE 0 END), 0) AS wasted_minutes,
+            COALESCE(SUM(billable_minutes_total), 0) AS total_minutes,
+            COUNT(CASE WHEN conclusion IN ('failure', 'cancelled', 'timed_out', 'action_required') THEN 1 END) AS failed_runs
+        FROM workflow_runs
+        WHERE strftime('%Y-%m', created_at) = strftime('%Y-%m', 'now')
+        """
+    ).fetchone()
+    wasted_minutes = float(row["wasted_minutes"] or 0)
+    total_minutes = float(row["total_minutes"] or 0)
+    return {
+        "wasted_minutes": round(wasted_minutes, 1),
+        "failed_runs": row["failed_runs"] or 0,
+        "wasted_pct": round((wasted_minutes / total_minutes) * 100, 1) if total_minutes else 0,
+    }
+
+
+def get_queue_summary(conn: sqlite3.Connection, repo: str | None = None) -> dict:
+    filters = ["queue_seconds IS NOT NULL", "queue_seconds > 0"]
+    params: list[str] = []
+    if repo:
+        filters.append("repo = ?")
+        params.append(repo)
+    row = conn.execute(
+        f"""
+        SELECT AVG(queue_seconds) AS avg_queue_seconds, MAX(queue_seconds) AS max_queue_seconds
+        FROM workflow_runs
+        WHERE {' AND '.join(filters)}
+        """,
+        params,
+    ).fetchone()
+    samples = conn.execute(
+        f"""
+        SELECT queue_seconds
+        FROM workflow_runs
+        WHERE {' AND '.join(filters)}
+        ORDER BY queue_seconds
+        """,
+        params,
+    ).fetchall()
+    values = [float(item["queue_seconds"]) for item in samples if item["queue_seconds"] is not None]
+    p95 = values[min(len(values) - 1, max(0, math_floor(len(values) * 0.95) - 1))] if values else 0
+    return {
+        "avg_queue_seconds": round(row["avg_queue_seconds"] or 0, 1),
+        "max_queue_seconds": round(row["max_queue_seconds"] or 0, 1),
+        "p95_queue_seconds": round(p95, 1),
+        "samples": len(values),
+    }
+
+
+def math_floor(value: float) -> int:
+    return int(value // 1)
+
+
+def get_failure_cost_leaderboard(conn: sqlite3.Connection, limit: int = 10) -> list[dict]:
+    rows = conn.execute(
+        """
+        SELECT repo, workflow_name,
+               COUNT(*) AS failed_runs,
+               SUM(billable_minutes_total) AS wasted_minutes
+        FROM workflow_runs
+        WHERE strftime('%Y-%m', created_at) = strftime('%Y-%m', 'now')
+          AND conclusion IN ('failure', 'cancelled', 'timed_out', 'action_required')
+        GROUP BY repo, workflow_name
+        ORDER BY wasted_minutes DESC
+        LIMIT ?
+        """,
+        (limit,),
+    ).fetchall()
+    return [dict(row) for row in rows]
+
+
+def _compute_streaks(rows: list[sqlite3.Row], key_fields: tuple[str, ...]) -> list[dict]:
+    streaks: dict[tuple, dict] = {}
+    closed: set[tuple] = set()
+    for row in rows:
+        key = tuple(row[field] for field in key_fields)
+        if key in closed:
+            continue
+        is_failure = row["conclusion"] in FAILURE_CONCLUSIONS
+        if key not in streaks:
+            if not is_failure:
+                closed.add(key)
+                continue
+            streaks[key] = {
+                "repo": row["repo"],
+                "workflow_name": row["workflow_name"],
+                "count": 1,
+                "last_created_at": row["created_at"],
+                "minutes": float(row["billable_minutes_total"] or 0),
+            }
+            continue
+        if is_failure:
+            streaks[key]["count"] += 1
+            streaks[key]["minutes"] += float(row["billable_minutes_total"] or 0)
+        else:
+            closed.add(key)
+    active = [item for key, item in streaks.items() if key not in closed]
+    active.sort(key=lambda item: (item["count"], item["minutes"]), reverse=True)
+    return active
+
+
+def get_failure_streaks(conn: sqlite3.Connection, repo: str | None = None) -> dict:
+    params: list[str] = []
+    where = "created_at >= date('now', '-180 days')"
+    if repo:
+        where += " AND repo = ?"
+        params.append(repo)
+    rows = conn.execute(
+        f"""
+        SELECT repo, workflow_name, conclusion, created_at, billable_minutes_total
+        FROM workflow_runs
+        WHERE {where}
+        ORDER BY created_at DESC
+        """
+        ,
+        params,
+    ).fetchall()
+    return {
+        "repos": _compute_streaks(rows, ("repo",))[:10],
+        "workflows": _compute_streaks(rows, ("repo", "workflow_name"))[:10],
+    }
+
+
+def get_monthly_burndown(conn: sqlite3.Connection, allowance: int) -> list[dict]:
+    now = datetime.now()
+    year = now.year
+    month = now.month
+    _, days_in_month = monthrange(year, month)
+    rows = conn.execute(
+        """
+        SELECT CAST(strftime('%d', created_at) AS INTEGER) AS day, SUM(billable_minutes_total) AS minutes
+        FROM workflow_runs
+        WHERE strftime('%Y-%m', created_at) = strftime('%Y-%m', 'now')
+        GROUP BY CAST(strftime('%d', created_at) AS INTEGER)
+        ORDER BY day ASC
+        """
+    ).fetchall()
+    minutes_by_day = {row["day"]: float(row["minutes"] or 0) for row in rows}
+    cumulative = 0.0
+    burndown = []
+    daily_allowance = allowance / days_in_month if days_in_month else 0
+    projected_end = 0.0
+    for day in range(1, days_in_month + 1):
+        cumulative += minutes_by_day.get(day, 0.0)
+        pace_projection = cumulative * (days_in_month / day) if day else 0
+        if day == now.day:
+            projected_end = pace_projection
+        burndown.append(
+            {
+                "day": day,
+                "label": f"{year}-{month:02d}-{day:02d}",
+                "daily_minutes": round(minutes_by_day.get(day, 0.0), 1),
+                "cumulative_minutes": round(cumulative, 1),
+                "remaining_allowance": round(max(0, allowance - cumulative), 1),
+                "safe_remaining": round(max(0, allowance - (daily_allowance * day)), 1),
+                "projected_end": round(pace_projection, 1),
+            }
+        )
+    return burndown
+
+
+def get_biggest_movers(conn: sqlite3.Connection, limit: int = 10) -> list[dict]:
+    rows = conn.execute(
+        """
+        WITH monthly AS (
+            SELECT
+                repo,
+                SUM(CASE WHEN strftime('%Y-%m', created_at) = strftime('%Y-%m', 'now') THEN billable_minutes_total ELSE 0 END) AS this_month,
+                SUM(CASE WHEN strftime('%Y-%m', created_at) = strftime('%Y-%m', date('now', '-1 month')) THEN billable_minutes_total ELSE 0 END) AS last_month
+            FROM workflow_runs
+            GROUP BY repo
+        )
+        SELECT repo, this_month, last_month, (this_month - last_month) AS delta
+        FROM monthly
+        WHERE this_month > 0 OR last_month > 0
+        ORDER BY delta DESC
+        LIMIT ?
+        """,
+        (limit,),
+    ).fetchall()
+    movers = []
+    for row in rows:
+        this_month = float(row["this_month"] or 0)
+        last_month = float(row["last_month"] or 0)
+        delta = float(row["delta"] or 0)
+        movers.append(
+            {
+                "repo": row["repo"],
+                "this_month": round(this_month, 1),
+                "last_month": round(last_month, 1),
+                "delta": round(delta, 1),
+                "pct_change": round(((this_month - last_month) / last_month) * 100, 1) if last_month > 0 else None,
+            }
+        )
+    return movers
+
+
+def get_job_hotspots(conn: sqlite3.Connection, repo: str | None = None, limit: int = 10) -> list[dict]:
+    try:
+        filters = ["created_at >= date('now', '-30 days')"]
+        params: list[object] = []
+        if repo:
+            filters.append("repo = ?")
+            params.append(repo)
+        params.append(limit)
+        rows = conn.execute(
+            f"""
+            SELECT repo, workflow_name, job_name,
+                   COUNT(*) AS job_runs,
+                   AVG(duration_seconds) AS avg_duration,
+                   SUM(billable_minutes) AS billable_minutes
+            FROM workflow_jobs
+            WHERE {' AND '.join(filters)}
+            GROUP BY repo, workflow_name, job_name
+            ORDER BY billable_minutes DESC, avg_duration DESC
+            LIMIT ?
+            """,
+            params,
+        ).fetchall()
+    except sqlite3.OperationalError:
+        return []
+    return [dict(row) for row in rows]
+
+
+def get_step_hotspots(conn: sqlite3.Connection, repo: str | None = None, limit: int = 10) -> list[dict]:
+    try:
+        filters = ["created_at >= date('now', '-30 days')", "duration_seconds IS NOT NULL"]
+        params: list[object] = []
+        if repo:
+            filters.append("repo = ?")
+            params.append(repo)
+        params.append(limit)
+        rows = conn.execute(
+            f"""
+            SELECT repo, workflow_name, job_name, step_name,
+                   COUNT(*) AS step_runs,
+                   AVG(duration_seconds) AS avg_duration,
+                   SUM(duration_seconds) AS total_duration
+            FROM job_steps
+            WHERE {' AND '.join(filters)}
+            GROUP BY repo, workflow_name, job_name, step_name
+            HAVING step_runs >= 2
+            ORDER BY total_duration DESC, avg_duration DESC
+            LIMIT ?
+            """,
+            params,
+        ).fetchall()
+    except sqlite3.OperationalError:
+        return []
+    return [dict(row) for row in rows]
+
+
 def main() -> None:
-    import os
     allowance = int(os.environ.get("GITHUB_ACTIONS_ALLOWANCE", str(DEFAULT_ALLOWANCE)))
 
     if not DB_PATH.exists():
@@ -419,13 +707,19 @@ def main() -> None:
     year_over_year = get_year_over_year(conn)
     export_data = get_export_data(conn, 90)
     filter_options = get_filter_options(conn)
+    wasted_summary = get_wasted_minutes_summary(conn)
+    queue_summary = get_queue_summary(conn)
+    failure_costs = get_failure_cost_leaderboard(conn)
+    failure_streaks = get_failure_streaks(conn)
+    burndown = get_monthly_burndown(conn, allowance)
+    biggest_movers = get_biggest_movers(conn)
+    job_hotspots = get_job_hotspots(conn)
+    step_hotspots = get_step_hotspots(conn)
 
     env = Environment(loader=FileSystemLoader(TEMPLATES_DIR))
     env.globals["now"] = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    # Main index
     index_tpl = env.get_template("index.html")
     (OUTPUT_DIR / "index.html").write_text(
         index_tpl.render(
@@ -443,13 +737,19 @@ def main() -> None:
             month_comparison=month_comparison,
             year_over_year=year_over_year,
             audit_summary=audit_summary,
+            wasted_summary=wasted_summary,
+            queue_summary=queue_summary,
+            failure_costs=failure_costs,
+            failure_streaks=failure_streaks,
+            biggest_movers=biggest_movers,
+            job_hotspots=job_hotspots,
+            step_hotspots=step_hotspots,
         )
     )
 
-    # Failures page (with filter options from failures data)
-    failure_repos = sorted({f["repo"] for f in failures})
-    failure_workflows = sorted({f.get("workflow_name") or "" for f in failures if f.get("workflow_name")})
-    failure_conclusions = sorted({f.get("conclusion") or "" for f in failures if f.get("conclusion")})
+    failure_repos = sorted({item["repo"] for item in failures})
+    failure_workflows = sorted({item.get("workflow_name") or "" for item in failures if item.get("workflow_name")})
+    failure_conclusions = sorted({item.get("conclusion") or "" for item in failures if item.get("conclusion")})
     failures_tpl = env.get_template("failures.html")
     (OUTPUT_DIR / "failures.html").write_text(
         failures_tpl.render(
@@ -460,7 +760,6 @@ def main() -> None:
         )
     )
 
-    # History page
     history_tpl = env.get_template("history.html")
     (OUTPUT_DIR / "history.html").write_text(
         history_tpl.render(
@@ -468,22 +767,16 @@ def main() -> None:
             allowance=allowance,
             month_comparison=month_comparison,
             year_over_year=year_over_year,
+            burndown=burndown,
         )
     )
 
-    # Logs page
     logs_tpl = env.get_template("logs.html")
-    (OUTPUT_DIR / "logs.html").write_text(
-        logs_tpl.render(collection_log=collection_log)
-    )
+    (OUTPUT_DIR / "logs.html").write_text(logs_tpl.render(collection_log=collection_log))
 
-    # Audit page
     audit_tpl = env.get_template("audit.html")
-    (OUTPUT_DIR / "audit.html").write_text(
-        audit_tpl.render(audit_by_repo=audit_by_repo)
-    )
+    (OUTPUT_DIR / "audit.html").write_text(audit_tpl.render(audit_by_repo=audit_by_repo))
 
-    # Explore page (filterable)
     explore_tpl = env.get_template("explore.html")
     (OUTPUT_DIR / "explore.html").write_text(
         explore_tpl.render(
@@ -492,42 +785,48 @@ def main() -> None:
         )
     )
 
-    # Export files
     export_dir = OUTPUT_DIR / "export"
     export_dir.mkdir(exist_ok=True)
-    (export_dir / "usage.json").write_text(
-        json.dumps(export_data, indent=2, default=str)
-    )
+    (export_dir / "usage.json").write_text(json.dumps(export_data, indent=2, default=str))
     if export_data:
-        with open(export_dir / "usage.csv", "w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=export_data[0].keys(), extrasaction="ignore")
+        with open(export_dir / "usage.csv", "w", newline="", encoding="utf-8") as file_obj:
+            writer = csv.DictWriter(file_obj, fieldnames=export_data[0].keys(), extrasaction="ignore")
             writer.writeheader()
             writer.writerows(export_data)
     else:
-        (export_dir / "usage.csv").write_text("run_id,repo,workflow_name,event,conclusion,created_at,duration_seconds,billable_minutes_total\n")
+        (export_dir / "usage.csv").write_text(
+            "run_id,repo,workflow_name,event,conclusion,created_at,duration_seconds,queue_seconds,billable_minutes_total\n"
+        )
 
-    # Per-repo pages
     repo_tpl = env.get_template("repo.html")
-    audit_by_repo_map = {r["repo"]: r for r in audit_by_repo}
+    audit_by_repo_map = {item["repo"]: item for item in audit_by_repo}
     for repo in all_repos:
         workflows = get_repo_workflows(conn, repo)
-        recent = get_repo_recent_runs(conn, repo)
+        recent_runs = get_repo_recent_runs(conn, repo)
         repo_monthly = get_repo_monthly(conn, repo)
         workflow_efficiency = get_workflow_efficiency(conn, repo)
         repo_audit = audit_by_repo_map.get(repo, {})
+        repo_queue_summary = get_queue_summary(conn, repo)
+        repo_streaks = get_failure_streaks(conn, repo)
+        repo_job_hotspots = get_job_hotspots(conn, repo, 8)
+        repo_step_hotspots = get_step_hotspots(conn, repo, 8)
         safe_name = repo.replace("/", "_")
         (OUTPUT_DIR / f"repo_{safe_name}.html").write_text(
             repo_tpl.render(
                 repo=repo,
                 workflows=workflows,
-                recent_runs=recent,
+                recent_runs=recent_runs,
                 repo_monthly=repo_monthly,
                 workflow_efficiency=workflow_efficiency,
                 repo_audit=repo_audit,
+                repo_queue_summary=repo_queue_summary,
+                repo_streaks=repo_streaks,
+                repo_job_hotspots=repo_job_hotspots,
+                repo_step_hotspots=repo_step_hotspots,
             )
         )
-    conn.close()
 
+    conn.close()
     print(f"Generated: {OUTPUT_DIR}")
 
 

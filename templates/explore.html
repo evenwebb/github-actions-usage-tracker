@@ -51,7 +51,7 @@
     <h2>Runs</h2>
     <table>
         <thead>
-            <tr><th>Date</th><th>Repo</th><th>Workflow</th><th>Event</th><th>Conclusion</th><th>Minutes</th></tr>
+            <tr><th>Date</th><th>Repo</th><th>Workflow</th><th>Event</th><th>Conclusion</th><th>Queue</th><th>Minutes</th></tr>
         </thead>
         <tbody id="runs-tbody">
             {% for r in export_data %}
@@ -61,10 +61,11 @@
                 <td class="mono">{{ r.workflow_name or '—' }}</td>
                 <td class="mono">{{ r.event or '—' }}</td>
                 <td><span class="badge badge-{{ 'success' if r.conclusion == 'success' else 'failure' }}">{{ r.conclusion or '—' }}</span></td>
+                <td class="mono">{{ (r.queue_seconds or 0) | round(1) }}s</td>
                 <td class="mono">{{ (r.billable_minutes_total or 0) | round(1) }}</td>
             </tr>
             {% else %}
-            <tr><td colspan="6" class="muted">No data. Run collection first.</td></tr>
+            <tr><td colspan="7" class="muted">No data. Run collection first.</td></tr>
             {% endfor %}
         </tbody>
     </table>

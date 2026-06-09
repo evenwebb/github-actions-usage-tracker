@@ -47,6 +47,7 @@
                 <th>Repo</th>
                 <th>Workflow</th>
                 <th>Conclusion</th>
+                <th>Wasted Min</th>
                 <th>Logs</th>
             </tr>
         </thead>
@@ -57,6 +58,7 @@
                 <td><a href="repo_{{ f.repo | replace('/', '_') }}.html">{{ f.repo }}</a></td>
                 <td class="mono">{{ f.workflow_name or '—' }}</td>
                 <td><span class="badge badge-failure">{{ f.conclusion or 'unknown' }}</span></td>
+                <td class="mono">{{ (f.billable_minutes_total or 0) | round(1) }}</td>
                 <td>
                     {% if f.html_url %}
                     <a href="{{ f.html_url }}" target="_blank" rel="noopener">View run →</a>
@@ -66,7 +68,7 @@
                 </td>
             </tr>
             {% else %}
-            <tr><td colspan="5" class="muted">No failures recorded. Nice!</td></tr>
+            <tr><td colspan="6" class="muted">No failures recorded. Nice!</td></tr>
             {% endfor %}
         </tbody>
     </table>

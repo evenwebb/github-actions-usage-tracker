@@ -19,6 +19,23 @@
 </div>
 {% endif %}
 
+<div class="stats-grid">
+    <div class="card">
+        <h2>Queue Time</h2>
+        <p>Avg queue: <strong class="mono">{{ repo_queue_summary.avg_queue_seconds }}</strong>s</p>
+        <p class="muted">p95: {{ repo_queue_summary.p95_queue_seconds }}s · max: {{ repo_queue_summary.max_queue_seconds }}s</p>
+    </div>
+    <div class="card">
+        <h2>Failure Streaks</h2>
+        {% if repo_streaks.workflows %}
+        <p><span class="badge badge-failure">{{ repo_streaks.workflows[0].count }}</span> current top workflow streak</p>
+        <p class="muted">{{ repo_streaks.workflows[0].workflow_name }} · {{ repo_streaks.workflows[0].minutes | round(1) }} wasted min</p>
+        {% else %}
+        <p class="muted">No active streaks in this repo.</p>
+        {% endif %}
+    </div>
+</div>
+
 <div class="card">
     <h2>Workflows (This Month)</h2>
     <table>
@@ -27,7 +44,9 @@
                 <th>Workflow</th>
                 <th>Runs</th>
                 <th>Avg Duration</th>
+                <th>Avg Queue</th>
                 <th>Total Minutes</th>
+                <th>Wasted Min</th>
                 <th>Success Rate</th>
             </tr>
         </thead>
@@ -37,7 +56,9 @@
                 <td class="mono">{{ w.workflow_name }}</td>
                 <td>{{ w.run_count }}</td>
                 <td class="mono">{{ (w.avg_duration or 0) | round(1) }}s</td>
+                <td class="mono">{{ (w.avg_queue_seconds or 0) | round(1) }}s</td>
                 <td class="mono">{{ (w.total_minutes or 0) | round(1) }}</td>
+                <td class="mono">{{ (w.wasted_minutes or 0) | round(1) }}</td>
                 <td>
                     {% set total = w.success_count + w.failure_count %}
                     {% if total > 0 %}
@@ -50,7 +71,7 @@
                 </td>
             </tr>
             {% else %}
-            <tr><td colspan="5" class="muted">No workflow runs this month.</td></tr>
+            <tr><td colspan="7" class="muted">No workflow runs this month.</td></tr>
             {% endfor %}
         </tbody>
     </table>
@@ -59,7 +80,7 @@
 {% if workflow_efficiency %}
 <div class="card">
     <h2>Workflow Efficiency</h2>
-    <p class="muted">Minutes consumed per successful run — higher = more expensive per success. Consider optimizing top offenders.</p>
+    <p class="muted">Minutes consumed per successful run — higher = more expensive per success.</p>
     <table>
         <thead>
             <tr><th>Workflow</th><th>Runs</th><th>Successes</th><th>Total Min</th><th>Min/Success</th></tr>
@@ -78,6 +99,62 @@
     </table>
 </div>
 {% endif %}
+
+{% if repo_streaks.workflows %}
+<div class="card">
+    <h2>Active Failure Streaks</h2>
+    <table>
+        <thead><tr><th>Workflow</th><th>Streak</th><th>Wasted Min</th><th>Last Failure</th></tr></thead>
+        <tbody>
+            {% for item in repo_streaks.workflows %}
+            <tr>
+                <td class="mono">{{ item.workflow_name }}</td>
+                <td><span class="badge badge-failure">{{ item.count }}</span></td>
+                <td class="mono">{{ item.minutes | round(1) }}</td>
+                <td class="mono">{{ item.last_created_at[:19] if item.last_created_at else '—' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+<div class="stats-grid">
+    <div class="card">
+        <h2>Expensive Jobs (30 Days)</h2>
+        <table>
+            <thead><tr><th>Job</th><th>Runs</th><th>Billable Min</th></tr></thead>
+            <tbody>
+                {% for item in repo_job_hotspots %}
+                <tr>
+                    <td class="mono">{{ item.job_name }}</td>
+                    <td>{{ item.job_runs }}</td>
+                    <td class="mono">{{ (item.billable_minutes or 0) | round(1) }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="3" class="muted">No job-level data yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card">
+        <h2>Slow Steps (30 Days)</h2>
+        <table>
+            <thead><tr><th>Step</th><th>Runs</th><th>Total Sec</th></tr></thead>
+            <tbody>
+                {% for item in repo_step_hotspots %}
+                <tr>
+                    <td class="mono">{{ item.step_name }}</td>
+                    <td>{{ item.step_runs }}</td>
+                    <td class="mono">{{ (item.total_duration or 0) | round(1) }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="3" class="muted">No step-level data yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
 {% if repo_monthly %}
 <div class="card">
@@ -116,10 +193,10 @@ new Chart(document.getElementById('sparkline'), {
         datasets: [{
             label: 'Minutes',
             data: recent.map(r => r.billable_minutes_total || 0),
-            backgroundColor: recent.map(r => 
+            backgroundColor: recent.map(r =>
                 (r.conclusion === 'success') ? 'rgba(63, 185, 80, 0.7)' : 'rgba(248, 81, 73, 0.7)'
             ),
-            borderColor: recent.map(r => 
+            borderColor: recent.map(r =>
                 (r.conclusion === 'success') ? '#3fb950' : '#f85149'
             ),
             borderWidth: 1

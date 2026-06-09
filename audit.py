@@ -203,6 +203,60 @@ def check_checkout_depth(workflow: dict, filepath: str) -> list[dict]:
     return issues
 
 
+def estimate_cron_runs_per_day(cron_expr: str) -> int | None:
+    parts = cron_expr.split()
+    if len(parts) != 5:
+        return None
+    minute, hour, *_rest = parts
+    if minute.startswith("*/") and minute[2:].isdigit():
+        step = int(minute[2:])
+        return max(1, 1440 // step) if step > 0 else None
+    if hour.startswith("*/") and hour[2:].isdigit():
+        step = int(hour[2:])
+        return max(1, 24 // step) if step > 0 else None
+    if minute == "*" and hour == "*":
+        return 1440
+    if hour == "*":
+        return 24
+    return 1
+
+
+def check_schedule_hygiene(workflow: dict, filepath: str) -> list[dict]:
+    """Flag cron schedules that are likely too frequent or unsafe to overlap."""
+    issues = []
+    on_block = workflow.get("on", workflow.get(True, {}))
+    if isinstance(on_block, dict):
+        schedule_entries = on_block.get("schedule") or []
+    elif isinstance(on_block, list):
+        schedule_entries = [{"cron": ""}] if "schedule" in on_block else []
+    else:
+        schedule_entries = []
+    if not schedule_entries:
+        return issues
+    if not workflow.get("concurrency"):
+        issues.append({
+            "file": filepath,
+            "job": "workflow",
+            "severity": "medium",
+            "check": "schedule_hygiene",
+            "message": "Scheduled workflow has no concurrency guard and may overlap on slow runs",
+            "suggestion": "Add a workflow-level concurrency group so cron runs queue instead of overlapping",
+        })
+    for entry in schedule_entries:
+        cron_expr = (entry or {}).get("cron", "")
+        runs_per_day = estimate_cron_runs_per_day(cron_expr)
+        if runs_per_day is not None and runs_per_day > 4:
+            issues.append({
+                "file": filepath,
+                "job": "workflow",
+                "severity": "medium",
+                "check": "schedule_hygiene",
+                "message": f"Cron '{cron_expr}' runs about {runs_per_day} times/day — may burn minutes faster than expected",
+                "suggestion": "Consider a less frequent cron or add guard conditions to skip unnecessary runs",
+            })
+    return issues
+
+
 def audit_workflow(workflow: dict, filepath: str) -> list[dict]:
     """Run all checks on a workflow. Returns list of issues."""
     if not workflow:
@@ -213,6 +267,7 @@ def audit_workflow(workflow: dict, filepath: str) -> list[dict]:
     issues.extend(check_missing_cache(workflow, filepath))
     issues.extend(check_secrets_exposure(workflow, filepath))
     issues.extend(check_checkout_depth(workflow, filepath))
+    issues.extend(check_schedule_hygiene(workflow, filepath))
     return issues
 
 
@@ -297,6 +352,7 @@ def format_markdown(issues: list[dict]) -> str:
         "## GitHub Actions Cost & Risk Audit",
         "",
         "| Severity | Check | Message | Suggestion |",
+        "| --- | --- | --- | --- |",
         "|----------|-------|---------|-------------|",
     ]
     for sev in ("high", "medium", "low"):

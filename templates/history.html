@@ -17,7 +17,7 @@
         </span>
         {% endif %}
         {% if year_over_year and year_over_year.same_month_last_year %}
-        <span>YoY: <strong class="mono">{{ (year_over_year.this_month or 0) | round(0) }}</strong> vs <strong class="mono">{{ (year_over_year.same_month_last_year or 0) | round(0) }}</strong> min (same month last year)</span>
+        <span>YoY: <strong class="mono">{{ (year_over_year.this_month or 0) | round(0) }}</strong> vs <strong class="mono">{{ (year_over_year.same_month_last_year or 0) | round(0) }}</strong> min</span>
         {% endif %}
     </div>
 </div>
@@ -26,6 +26,34 @@
 <div class="card">
     <h2>Last 12 Months</h2>
     <canvas id="historyChart" height="180"></canvas>
+</div>
+
+<div class="card">
+    <h2>Current Month Burn-down</h2>
+    <p class="muted">Track cumulative usage against remaining allowance and end-of-month pace.</p>
+    <canvas id="burndownChart" height="180"></canvas>
+</div>
+
+<div class="card">
+    <h2>Daily Burn-down Detail</h2>
+    <table>
+        <thead>
+            <tr><th>Day</th><th>Daily Min</th><th>Cumulative</th><th>Remaining</th><th>Projected End</th></tr>
+        </thead>
+        <tbody>
+            {% for day in burndown %}
+            <tr>
+                <td class="mono">{{ day.label }}</td>
+                <td class="mono">{{ day.daily_minutes | round(1) }}</td>
+                <td class="mono">{{ day.cumulative_minutes | round(1) }}</td>
+                <td class="mono">{{ day.remaining_allowance | round(1) }}</td>
+                <td class="mono">{{ day.projected_end | round(1) }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5" class="muted">No current-month data yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 <div class="card">
@@ -87,6 +115,47 @@ new Chart(document.getElementById('historyChart'), {
         responsive: true,
         scales: {
             x: { grid: { display: false }, ticks: { color: '#8b949e' } },
+            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
+        }
+    }
+});
+
+const burndownLabels = {{ burndown | map(attribute='label') | list | tojson }};
+const burndownCumulative = {{ burndown | map(attribute='cumulative_minutes') | list | tojson }};
+const burndownRemaining = {{ burndown | map(attribute='remaining_allowance') | list | tojson }};
+const burndownProjected = {{ burndown | map(attribute='projected_end') | list | tojson }};
+new Chart(document.getElementById('burndownChart'), {
+    type: 'line',
+    data: {
+        labels: burndownLabels,
+        datasets: [
+            {
+                label: 'Cumulative minutes',
+                data: burndownCumulative,
+                borderColor: '#58a6ff',
+                backgroundColor: 'rgba(88, 166, 255, 0.15)',
+                fill: true,
+                tension: 0.25
+            },
+            {
+                label: 'Remaining allowance',
+                data: burndownRemaining,
+                borderColor: '#3fb950',
+                tension: 0.25
+            },
+            {
+                label: 'Projected end',
+                data: burndownProjected,
+                borderColor: '#d29922',
+                borderDash: [6, 4],
+                tension: 0.25
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            x: { grid: { display: false }, ticks: { color: '#8b949e', maxTicksLimit: 12 } },
             y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
         }
     }
