@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}GitHub Actions Usage — Overview{% endblock %}
+{% block title %}GitHub Actions — {{ month_total }} min ({{ now[:7] }}){% endblock %}
 {% block head %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 {% endblock %}
@@ -14,6 +14,7 @@
             {% set pct = (month_total / allowance * 100) if allowance else 0 %}
             <div class="progress-fill {% if pct < 70 %}progress-green{% elif pct < 90 %}progress-amber{% else %}progress-red{% endif %}" style="width: {{ [pct, 100] | min }}%"></div>
         </div>
+        <div class="stat-label" style="margin-top:0.3rem">{{ pct | round(1) }}% used</div>
     </div>
     <div class="card">
         <h2>Cost Projection</h2>
@@ -29,14 +30,21 @@
     </div>
     <div class="card">
         <h2>Wasted Minutes</h2>
+        {% if wasted_summary.wasted_minutes > 0 %}
         <div class="stat-big">{{ wasted_summary.wasted_minutes }}</div>
         <div class="stat-label">{{ wasted_summary.failed_runs }} failed runs · {{ wasted_summary.wasted_pct }}% of usage</div>
+        {% else %}
+        <div class="stat-big" style="color: var(--success)">0</div>
+        <div class="stat-label">No wasted minutes this month</div>
+        {% endif %}
     </div>
+    {% if queue_summary.avg_queue_seconds > 0 %}
     <div class="card">
         <h2>Queue Time</h2>
         <div class="stat-big">{{ queue_summary.avg_queue_seconds }}<span style="font-size: 0.8rem;">s</span></div>
         <div class="stat-label">avg · p95: {{ queue_summary.p95_queue_seconds }}s · max: {{ queue_summary.max_queue_seconds }}s</div>
     </div>
+    {% endif %}
 </div>
 
 <div class="card">
@@ -61,7 +69,7 @@
 
 <div class="two-col">
     <div class="card">
-        <h2>Repos by Minutes</h2>
+        <h2>Repos by Minutes ({{ repos_ranked | length }})</h2>
         <table>
             <thead><tr><th>Repo</th><th>Minutes</th><th>Share</th></tr></thead>
             <tbody>
@@ -120,16 +128,17 @@
     <div class="card">
         <h2>Failure Streaks by Repo</h2>
         <table>
-            <thead><tr><th>Repo</th><th>Streak</th><th>Wasted</th></tr></thead>
+            <thead><tr><th>Repo</th><th>Streak</th><th>Wasted</th><th>Last</th></tr></thead>
             <tbody>
                 {% for item in failure_streaks.repos %}
                 <tr>
                     <td><a href="repo_{{ item.repo | replace('/', '_') }}.html">{{ item.repo }}</a></td>
                     <td><span class="badge badge-failure">{{ item.count }}</span></td>
                     <td class="mono">{{ item.minutes | round(1) }} min</td>
+                    <td class="mono muted" style="font-size:0.8rem">{{ item.last_created_at[:10] if item.last_created_at else '—' }}</td>
                 </tr>
                 {% else %}
-                <tr><td colspan="3" class="muted">No active repo streaks.</td></tr>
+                <tr><td colspan="4" class="muted">No active repo streaks.</td></tr>
                 {% endfor %}
             </tbody>
         </table>
@@ -137,16 +146,17 @@
     <div class="card">
         <h2>Failure Streaks by Workflow</h2>
         <table>
-            <thead><tr><th>Workflow</th><th>Streak</th><th>Wasted</th></tr></thead>
+            <thead><tr><th>Workflow</th><th>Streak</th><th>Wasted</th><th>Last</th></tr></thead>
             <tbody>
                 {% for item in failure_streaks.workflows %}
                 <tr>
                     <td class="mono" style="font-size:0.82rem">{{ item.repo }} / {{ item.workflow_name }}</td>
                     <td><span class="badge badge-failure">{{ item.count }}</span></td>
                     <td class="mono">{{ item.minutes | round(1) }} min</td>
+                    <td class="mono muted" style="font-size:0.8rem">{{ item.last_created_at[:10] if item.last_created_at else '—' }}</td>
                 </tr>
                 {% else %}
-                <tr><td colspan="3" class="muted">No active workflow streaks.</td></tr>
+                <tr><td colspan="4" class="muted">No active workflow streaks.</td></tr>
                 {% endfor %}
             </tbody>
         </table>
@@ -178,7 +188,7 @@
             <tbody>
                 {% for item in step_hotspots %}
                 <tr>
-                    <td class="mono" style="font-size:0.82rem">{{ item.step_name }}</td>
+                    <td class="mono" style="font-size:0.8rem">{{ item.repo }} / {{ item.step_name }}</td>
                     <td>{{ item.step_runs }}</td>
                     <td class="mono">{{ (item.total_duration or 0) | round(1) }}s</td>
                 </tr>
@@ -214,10 +224,11 @@
     <h2>Trends</h2>
     <div class="stats-row">
         {% if month_comparison %}
-        <span>This month vs last: <strong class="mono">{{ (month_comparison.this_month or 0) | round(0) }}</strong> vs <strong class="mono">{{ (month_comparison.last_month or 0) | round(0) }}</strong> min
         {% set delta = (month_comparison.this_month or 0) - (month_comparison.last_month or 0) %}
+        <span>This month vs last: <strong class="mono">{{ (month_comparison.this_month or 0) | round(0) }}</strong> vs <strong class="mono">{{ (month_comparison.last_month or 0) | round(0) }}</strong> min
         {% if month_comparison.last_month and month_comparison.last_month > 0 %}
-        (<span class="{% if delta > 0 %}badge badge-red{% else %}badge badge-success{% endif %}">{{ ((delta / month_comparison.last_month) * 100) | round(1) }}%</span>)
+        {% set pct_change = ((delta / month_comparison.last_month) * 100) | round(1) %}
+        <span class="badge {% if delta > 0 %}badge-red{% elif delta < 0 %}badge-success{% else %}muted{% endif %}">{{ '%+.1f'|format(pct_change) }}%</span>
         {% endif %}
         </span>
         {% endif %}
@@ -265,16 +276,21 @@
 
 {% if dead_workflows %}
 <div class="card">
-    <h2>Dormant Workflows</h2>
+    <h2>Dormant Workflows ({{ dead_workflows | length }})</h2>
     <p class="muted" style="margin-bottom:0.75rem">No successful run in 30+ days — may be disabled or silently failing.</p>
     <table>
-        <thead><tr><th>Repo</th><th>Workflow</th><th>Last Success</th></tr></thead>
+        <thead><tr><th>Repo</th><th>Workflow</th><th>Last Success</th><th>Idle</th></tr></thead>
         <tbody>
             {% for d in dead_workflows %}
             <tr>
-                <td><a href="repo_{{ d.repo | replace('/', '_') }}.html">{{ d.repo }}</a></td>
+                <td><a href="repo_{{ d.repo | replace('/', '_') }}.html">{{ d.repo }}</a>
+                    {% if d.repo in dormant_repos_with_activity %}<span class="badge badge-amber" title="Repo has active workflows but this one is dormant">mixed</span>{% endif %}
+                </td>
                 <td class="mono">{{ d.workflow_name }}</td>
                 <td class="mono">{{ d.last_success[:10] if d.last_success else '—' }}</td>
+                <td class="mono {% if d.days_ago and d.days_ago > 60 %}badge-red{% elif d.days_ago and d.days_ago > 30 %}badge-amber{% endif %}" style="font-size:0.85rem">
+                    {% if d.days_ago is not none %}{{ d.days_ago }} days{% else %}—{% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -285,18 +301,19 @@
 <div class="card">
     <h2>Recent Collections</h2>
     <table>
-        <thead><tr><th>Started</th><th>Repos</th><th>Runs</th><th>Calls</th><th>Status</th></tr></thead>
+        <thead><tr><th>Started</th><th>Repos</th><th>New Runs</th><th>Total</th><th>Calls</th><th>Status</th></tr></thead>
         <tbody>
             {% for c in collection_log[:5] %}
             <tr>
                 <td class="mono">{{ c.started_at[:19] if c.started_at else '—' }}</td>
                 <td>{{ c.repos_scanned or 0 }} <span class="muted">({{ c.repos_with_runs or 0 }})</span></td>
-                <td>{{ c.runs_collected or 0 }} <span class="muted">&rarr; {{ c.runs_updated or 0 }}</span></td>
+                <td class="mono">{{ c.runs_collected or 0 }}</td>
+                <td class="mono">{{ c.runs_updated or 0 }}</td>
                 <td class="mono">{{ c.api_calls or 0 }}</td>
                 <td>{% if c.error_count %}<span class="badge badge-failure">{{ c.error_count }} err</span>{% else %}<span class="badge badge-success">OK</span>{% endif %}</td>
             </tr>
             {% else %}
-            <tr><td colspan="5" class="muted">No collection logs yet.</td></tr>
+            <tr><td colspan="6" class="muted">No collection logs yet.</td></tr>
             {% endfor %}
         </tbody>
     </table>

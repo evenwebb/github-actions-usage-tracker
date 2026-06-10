@@ -235,7 +235,21 @@ def get_dead_workflows(conn: sqlite3.Connection, days: int = 30) -> list[dict]:
         """,
         (f"-{days} days",),
     ).fetchall()
-    return [dict(row) for row in rows]
+    now = datetime.now(timezone.utc)
+    result = []
+    for row in rows:
+        d = dict(row)
+        last = d.get("last_success", "")
+        if last:
+            try:
+                last_dt = datetime.fromisoformat(last.replace("Z", "+00:00"))
+                d["days_ago"] = (now - last_dt).days
+            except (ValueError, TypeError):
+                d["days_ago"] = None
+        else:
+            d["days_ago"] = None
+        result.append(d)
+    return result
 
 
 def get_collection_log(conn: sqlite3.Connection, limit: int = 20) -> list[dict]:
@@ -705,6 +719,15 @@ def main() -> None:
     monthly_usage = get_monthly_usage(conn, 12)
     top_workflows = get_top_workflows(conn)
     dead_workflows = get_dead_workflows(conn)
+    # Cross-reference: dormant workflows in repos that still have active runs
+    dormant_repos_with_activity = set()
+    if dead_workflows:
+        active_repos = {row[0] for row in conn.execute(
+            "SELECT DISTINCT repo FROM workflow_runs WHERE created_at >= date('now', '-7 days')"
+        ).fetchall()}
+        for dw in dead_workflows:
+            if dw["repo"] in active_repos:
+                dormant_repos_with_activity.add(dw["repo"])
     collection_log = get_collection_log(conn)
     audit_by_repo = get_audit_results(conn)
     audit_summary = get_audit_summary(audit_by_repo)
@@ -738,6 +761,7 @@ def main() -> None:
             monthly_usage=monthly_usage,
             top_workflows=top_workflows,
             dead_workflows=dead_workflows,
+            dormant_repos_with_activity=dormant_repos_with_activity,
             collection_log=collection_log,
             month_comparison=month_comparison,
             year_over_year=year_over_year,
