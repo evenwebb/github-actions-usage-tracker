@@ -6,6 +6,7 @@ Outputs to docs/ for GitHub Pages deployment.
 
 import csv
 import json
+import math
 import os
 import sqlite3
 from calendar import monthrange
@@ -103,6 +104,34 @@ def get_repo_workflows(conn: sqlite3.Connection, repo: str) -> list[dict]:
     return [dict(row) for row in rows]
 
 
+def get_all_repo_workflows(conn: sqlite3.Connection) -> dict[str, list[dict]]:
+    """Batched version: returns {repo: [workflow_stats]} for all repos."""
+    rows = conn.execute(
+        """
+        SELECT
+            repo,
+            workflow_name,
+            COUNT(*) AS run_count,
+            AVG(duration_seconds) AS avg_duration,
+            AVG(queue_seconds) AS avg_queue_seconds,
+            SUM(billable_minutes_total) AS total_minutes,
+            SUM(CASE WHEN conclusion = 'success' THEN 1 ELSE 0 END) AS success_count,
+            SUM(CASE WHEN conclusion IN ('failure', 'cancelled', 'timed_out', 'action_required') THEN 1 ELSE 0 END) AS failure_count,
+            SUM(CASE WHEN conclusion IN ('failure', 'cancelled', 'timed_out', 'action_required') THEN billable_minutes_total ELSE 0 END) AS wasted_minutes
+        FROM workflow_runs
+        WHERE strftime('%Y-%m', created_at) = strftime('%Y-%m', 'now')
+        GROUP BY repo, workflow_name
+        ORDER BY total_minutes DESC
+        """
+    ).fetchall()
+    result: dict[str, list[dict]] = {}
+    for row in rows:
+        d = dict(row)
+        repo = d.pop("repo")
+        result.setdefault(repo, []).append(d)
+    return result
+
+
 def get_repo_recent_runs(conn: sqlite3.Connection, repo: str, limit: int = 30) -> list[dict]:
     rows = conn.execute(
         """
@@ -115,6 +144,28 @@ def get_repo_recent_runs(conn: sqlite3.Connection, repo: str, limit: int = 30) -
         (repo, limit),
     ).fetchall()
     return [dict(row) for row in rows]
+
+
+def get_all_recent_runs(conn: sqlite3.Connection, limit: int = 30) -> dict[str, list[dict]]:
+    """Batched version: returns {repo: [recent_runs]} for all repos using window functions."""
+    rows = conn.execute(
+        """
+        SELECT repo, created_at, billable_minutes_total, conclusion, queue_seconds
+        FROM (
+            SELECT *, ROW_NUMBER() OVER (PARTITION BY repo ORDER BY created_at DESC) AS rn
+            FROM workflow_runs
+        )
+        WHERE rn <= ?
+        ORDER BY repo, created_at DESC
+        """,
+        (limit,),
+    ).fetchall()
+    result: dict[str, list[dict]] = {}
+    for row in rows:
+        d = dict(row)
+        repo = d.pop("repo")
+        result.setdefault(repo, []).append(d)
+    return result
 
 
 def get_all_repos(conn: sqlite3.Connection) -> list[str]:
@@ -475,8 +526,7 @@ def get_queue_summary(conn: sqlite3.Connection, repo: str | None = None) -> dict
     ).fetchall()
     values = [float(item["queue_seconds"]) for item in samples if item["queue_seconds"] is not None]
     if values:
-        import math as _math
-        idx = max(0, int(_math.ceil(len(values) * 0.95)) - 1)
+        idx = max(0, int(math.ceil(len(values) * 0.95)) - 1)
         p95 = values[min(len(values) - 1, idx)]
     else:
         p95 = 0
@@ -486,10 +536,6 @@ def get_queue_summary(conn: sqlite3.Connection, repo: str | None = None) -> dict
         "p95_queue_seconds": round(p95, 1),
         "samples": len(values),
     }
-
-
-def math_floor(value: float) -> int:
-    return int(value // 1)
 
 
 def get_failure_cost_leaderboard(conn: sqlite3.Connection, limit: int = 10) -> list[dict]:
@@ -829,9 +875,12 @@ def main() -> None:
 
     repo_tpl = env.get_template("repo.html")
     audit_by_repo_map = {item["repo"]: item for item in audit_by_repo}
+    # Batch-fetch per-repo data to avoid N+1 queries
+    all_workflows = get_all_repo_workflows(conn)
+    all_recent_runs = get_all_recent_runs(conn)
     for repo in all_repos:
-        workflows = get_repo_workflows(conn, repo)
-        recent_runs = get_repo_recent_runs(conn, repo)
+        workflows = all_workflows.get(repo, [])
+        recent_runs = all_recent_runs.get(repo, [])
         repo_monthly = get_repo_monthly(conn, repo)
         workflow_efficiency = get_workflow_efficiency(conn, repo)
         repo_audit = audit_by_repo_map.get(repo, {})

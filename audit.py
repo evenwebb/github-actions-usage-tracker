@@ -277,7 +277,12 @@ def check_schedule_hygiene(workflow: dict, filepath: str) -> list[dict]:
     if isinstance(on_block, dict):
         schedule_entries = on_block.get("schedule") or []
     elif isinstance(on_block, list):
-        schedule_entries = [{"cron": ""}] if "schedule" in on_block else []
+        # List-form on: block, e.g. on: [push, schedule: [{cron: ...}]]
+        schedule_entries = []
+        for item in on_block:
+            if isinstance(item, dict) and "schedule" in item:
+                schedule_entries = item["schedule"] or []
+                break
     else:
         schedule_entries = []
     if not schedule_entries:
@@ -326,14 +331,8 @@ def audit_local(workflows_dir: Path) -> list[dict]:
     if not workflows_dir.exists():
         log.warning("Workflows dir %s does not exist", workflows_dir)
         return all_issues
-    for path in workflows_dir.glob("*.yml"):
-        if path.name.startswith("."):
-            continue
-        workflow = load_workflow_yaml(path)
-        issues = audit_workflow(workflow, str(path))
-        all_issues.extend(issues)
-    for path in workflows_dir.glob("*.yaml"):
-        if path.name.startswith("."):
+    for path in sorted(workflows_dir.glob("*")):
+        if not path.suffix in (".yml", ".yaml") or path.name.startswith("."):
             continue
         workflow = load_workflow_yaml(path)
         issues = audit_workflow(workflow, str(path))
@@ -351,7 +350,10 @@ def fetch_workflow_from_api(
     """Fetch workflow file contents from GitHub API. Returns [(path, content_dict), ...]."""
     results = []
     url = f"{API_BASE}/repos/{owner}/{repo}/contents/{path}"
-    resp = session.get(url, headers=get_headers(token), timeout=REQUEST_TIMEOUT)
+    try:
+        resp = session.get(url, headers=get_headers(token), timeout=REQUEST_TIMEOUT)
+    except requests.RequestException:
+        return results
     if resp.status_code != 200:
         return results
     for item in resp.json():
@@ -363,7 +365,10 @@ def fetch_workflow_from_api(
         download_url = item.get("download_url")
         if not download_url:
             continue
-        r2 = session.get(download_url, timeout=REQUEST_TIMEOUT)
+        try:
+            r2 = session.get(download_url, timeout=REQUEST_TIMEOUT)
+        except requests.RequestException:
+            continue
         if r2.status_code != 200:
             continue
         try:

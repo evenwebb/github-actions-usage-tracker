@@ -31,7 +31,6 @@ log = logging.getLogger(__name__)
 API_BASE = "https://api.github.com"
 DB_PATH = Path(__file__).parent / "data" / "actions.db"
 REQUEST_TIMEOUT = 15
-FAILURE_CONCLUSIONS = ("failure", "cancelled", "timed_out", "action_required")
 
 # OS multipliers for billable minutes (Linux 1x, macOS 10x, Windows 2x)
 OS_MULTIPLIERS = {
@@ -253,8 +252,12 @@ def fetch_run_jobs(
         if resp.status_code != 200:
             if resp.status_code in (401, 403):
                 log.warning("Token lacks permission to fetch jobs for %s/%s run %s (HTTP %s)", owner, repo, run_id, resp.status_code)
+            elif resp.status_code == 404:
+                log.debug("Run %s/%s/%s no longer exists (deleted or purged)", owner, repo, run_id)
             elif resp.status_code >= 500:
                 log.warning("Server error fetching jobs for %s/%s run %s (HTTP %s)", owner, repo, run_id, resp.status_code)
+            else:
+                log.warning("Unexpected status %s fetching jobs for %s/%s run %s", resp.status_code, owner, repo, run_id)
             return jobs
         data = resp.json()
         jobs.extend(data.get("jobs", []))
