@@ -1,0 +1,19 @@
+# Repos to track for GitHub Actions usage.
+# List one owner/repo per line. Blank lines and # comments are ignored.
+# Used as fallback when ACTIONS_USAGE_TOKEN can't list /user/repos.
+
+evenwebb/wtw-cinemas
+evenwebb/wtw-cinemas-calendar
+evenwebb/merlin-cinemas
+evenwebb/merlin-cinemas-calendar
+evenwebb/wtw-whats-on
+evenwebb/merlin-whats-on
+evenwebb/penrice-calendar-scraper
+evenwebb/stmewan-parish-council-calendar
+evenwebb/cornwall-waste-collection-calendar-generator
+evenwebb/tesla-owners-club-uk-events-calendar
+evenwebb/calendar-scraper-template
+evenwebb/OctoCal
+evenwebb/epic-free-games-scraper
+evenwebb/unraid-user-scripts
+evenwebb/github-actions-usage-tracker

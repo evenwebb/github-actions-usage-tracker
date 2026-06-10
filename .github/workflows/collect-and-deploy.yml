@@ -10,6 +10,11 @@ on:
         required: false
         default: false
         type: boolean
+      days:
+        description: 'Days of history to collect (overrides backfill)'
+        required: false
+        default: '2'
+        type: string
 
 # One run at a time: queue overlapping schedule/dispatch instead of canceling mid-collection.
 concurrency:
@@ -20,6 +25,7 @@ permissions:
   contents: write
   pages: write
   id-token: write
+  actions: read
 
 jobs:
   build:
@@ -47,8 +53,16 @@ jobs:
           ACTIONS_USAGE_TOKEN: ${{ secrets.ACTIONS_USAGE_TOKEN || github.token }}
           GITHUB_TOKEN: ${{ github.token }}
           APPRISE_URL: ${{ secrets.APPRISE_URL }}
+          RETENTION_DAYS: ${{ vars.RETENTION_DAYS || '365' }}
+          GITHUB_ACTIONS_ALLOWANCE: ${{ vars.GITHUB_ACTIONS_ALLOWANCE || '2000' }}
         run: |
-          python collect.py ${{ github.event.inputs.backfill == 'true' && '--backfill' || '' }} --audit
+          DAYS="${{ github.event.inputs.days || '2' }}"
+          BACKFILL="${{ github.event.inputs.backfill || 'false' }}"
+          if [ "$BACKFILL" = "true" ] || [ "$DAYS" -gt 2 ]; then
+            python collect.py --backfill --audit
+          else
+            python collect.py --audit
+          fi
           python generate.py
 
       - name: Commit & push (if changed)
@@ -69,7 +83,7 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./docs
 
@@ -86,4 +100,4 @@ jobs:
     steps:
       - name: Deploy GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
