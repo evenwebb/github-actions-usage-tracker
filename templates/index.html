@@ -1,232 +1,106 @@
 {% extends "base.html" %}
 {% block title %}GitHub Actions Usage — Overview{% endblock %}
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+{% endblock %}
 {% block content %}
-<h1>GitHub Actions Usage</h1>
 
 <div class="stats-grid">
     <div class="card">
         <h2>This Month</h2>
         <div class="stat-big">{{ month_total }} <span class="muted" style="font-size: 1rem;">/ {{ allowance }} min</span></div>
+        <div class="stat-label">Billable minutes used</div>
         <div class="progress-bar">
             {% set pct = (month_total / allowance * 100) if allowance else 0 %}
-            {% if pct < 70 %}
-            <div class="progress-fill progress-green" style="width: {{ [pct, 100] | min }}%"></div>
-            {% elif pct < 90 %}
-            <div class="progress-fill progress-amber" style="width: {{ [pct, 100] | min }}%"></div>
-            {% else %}
-            <div class="progress-fill progress-red" style="width: {{ [pct, 100] | min }}%"></div>
-            {% endif %}
+            <div class="progress-fill {% if pct < 70 %}progress-green{% elif pct < 90 %}progress-amber{% else %}progress-red{% endif %}" style="width: {{ [pct, 100] | min }}%"></div>
         </div>
     </div>
     <div class="card">
         <h2>Cost Projection</h2>
-        <p>At current pace: <strong class="mono">{{ projection.projected }}</strong> / {{ projection.allowance }} min</p>
-        <span class="badge badge-{{ projection.status }}">{{ projection.percent }}% of allowance</span>
-        {% if projection.estimated_cost_usd and projection.estimated_cost_usd > 0 %}
-        <p class="muted" style="margin-top: 0.5rem; font-size: 0.9rem;">Est. overage: ~${{ projection.estimated_cost_usd | round(2) }}/mo</p>
-        {% endif %}
+        <div class="stat-big">{{ projection.projected }} <span class="muted" style="font-size: 1rem;">/ {{ projection.allowance }} min</span></div>
+        <div class="stat-label">{{ projection.percent }}% of allowance —
+            {% if projection.status == 'green' %}<span class="badge badge-success">On track</span>
+            {% elif projection.status == 'amber' %}<span class="badge badge-amber">Watch</span>
+            {% else %}<span class="badge badge-red">Over</span>{% endif %}
+            {% if projection.estimated_cost_usd and projection.estimated_cost_usd > 0 %}
+            · ~${{ "%.2f"|format(projection.estimated_cost_usd) }}/mo overage
+            {% endif %}
+        </div>
     </div>
     <div class="card">
         <h2>Wasted Minutes</h2>
-        <p><strong class="mono">{{ wasted_summary.wasted_minutes }}</strong> min wasted this month</p>
-        <p class="muted">{{ wasted_summary.failed_runs }} unsuccessful runs · {{ wasted_summary.wasted_pct }}% of monthly usage</p>
+        <div class="stat-big">{{ wasted_summary.wasted_minutes }}</div>
+        <div class="stat-label">{{ wasted_summary.failed_runs }} failed runs · {{ wasted_summary.wasted_pct }}% of usage</div>
     </div>
     <div class="card">
         <h2>Queue Time</h2>
-        <p>Avg queue: <strong class="mono">{{ queue_summary.avg_queue_seconds }}</strong>s</p>
-        <p class="muted">p95: {{ queue_summary.p95_queue_seconds }}s · max: {{ queue_summary.max_queue_seconds }}s</p>
-    </div>
-    {% if audit_summary and audit_summary.total_issues > 0 %}
-    <div class="card">
-        <h2>Workflow Audit</h2>
-        <p><strong class="mono">{{ audit_summary.repos_with_issues }}</strong> repos with issues · <strong class="mono">{{ audit_summary.total_issues }}</strong> total</p>
-        <p style="margin-top: 0.5rem;"><a href="audit.html">View audit results →</a></p>
-    </div>
-    {% endif %}
-</div>
-
-<div class="card">
-    <h2>Quick Links</h2>
-    <div class="stats-row">
-        <a href="explore.html">Explore & filter runs</a>
-        <a href="audit.html">Workflow audit</a>
-        <a href="export/usage.json">Export JSON</a>
-        <a href="export/usage.csv">Export CSV</a>
-        <a href="failures.html">Failed runs</a>
-        <a href="history.html">Monthly history & burn-down</a>
+        <div class="stat-big">{{ queue_summary.avg_queue_seconds }}<span style="font-size: 0.8rem;">s</span></div>
+        <div class="stat-label">avg · p95: {{ queue_summary.p95_queue_seconds }}s · max: {{ queue_summary.max_queue_seconds }}s</div>
     </div>
 </div>
-
-{% if month_comparison or year_over_year %}
-<div class="card">
-    <h2>Trends & Comparisons</h2>
-    <div class="stats-row">
-        {% if month_comparison %}
-        <span>This month vs last: <strong class="mono">{{ (month_comparison.this_month or 0) | round(0) }}</strong> vs <strong class="mono">{{ (month_comparison.last_month or 0) | round(0) }}</strong> min
-        {% set delta = (month_comparison.this_month or 0) - (month_comparison.last_month or 0) %}
-        {% if month_comparison.last_month and month_comparison.last_month > 0 %}
-        ({{ ((delta / month_comparison.last_month) * 100) | round(1) }}%)
-        {% endif %}
-        </span>
-        {% endif %}
-        {% if year_over_year and year_over_year.same_month_last_year %}
-        <span>YoY: <strong class="mono">{{ (year_over_year.this_month or 0) | round(0) }}</strong> vs <strong class="mono">{{ (year_over_year.same_month_last_year or 0) | round(0) }}</strong> min</span>
-        {% endif %}
-    </div>
-</div>
-{% endif %}
 
 <div class="card">
     <h2>Summary (This Month)</h2>
     <div class="stats-row">
-        <span><strong class="mono">{{ global_stats.total_runs }}</strong> total runs</span>
-        <span><strong class="mono">{{ global_stats.success_rate }}%</strong> success rate</span>
-        <span><strong class="mono">{{ global_stats.avg_duration }}s</strong> avg duration</span>
-        <span><strong class="mono">{{ global_stats.avg_queue_seconds }}s</strong> avg queue</span>
-        <span><strong class="mono">{{ global_stats.wasted_minutes }}</strong> wasted min</span>
-        <span class="muted">Linux: {{ global_stats.linux_mins }} · macOS: {{ global_stats.macos_mins }} · Windows: {{ global_stats.windows_mins }}</span>
+        <span><strong class="mono">{{ global_stats.total_runs }}</strong> runs</span>
+        <span class="badge badge-success">{{ global_stats.success_rate }}% success</span>
+        <span><strong class="mono">{{ global_stats.avg_duration }}s</strong> avg</span>
+        <span class="muted">Linux {{ global_stats.linux_mins }} · macOS {{ global_stats.macos_mins }} · Windows {{ global_stats.windows_mins }}</span>
     </div>
-</div>
-
-<div class="card">
-    <h2>By Trigger</h2>
-    <table>
-        <thead><tr><th>Trigger</th><th>Runs</th><th>Minutes</th></tr></thead>
-        <tbody>
-            {% for t in trigger_breakdown %}
-            <tr>
-                <td class="mono">{{ t.trigger or 'unknown' }}</td>
-                <td>{{ t.runs }}</td>
-                <td class="mono">{{ (t.minutes or 0) | round(1) }}</td>
-            </tr>
-            {% else %}
-            <tr><td colspan="3" class="muted">No data</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
 </div>
 
 <div class="card">
     <h2>Daily Usage (Last 90 Days)</h2>
-    <canvas id="trendChart" height="120"></canvas>
+    <div class="chart-wrap"><canvas id="trendChart" height="120"></canvas></div>
 </div>
 
 <div class="card">
     <h2>Monthly History (Last 12 Months)</h2>
-    <canvas id="monthlyChart" height="100"></canvas>
+    <div class="chart-wrap"><canvas id="monthlyChart" height="100"></canvas></div>
 </div>
 
-<div class="stats-grid">
+<div class="two-col">
     <div class="card">
-        <h2>Failure Streaks by Repo</h2>
+        <h2>Repos by Minutes</h2>
         <table>
-            <thead><tr><th>Repo</th><th>Streak</th><th>Wasted Min</th></tr></thead>
+            <thead><tr><th>Repo</th><th>Minutes</th><th>Share</th></tr></thead>
             <tbody>
-                {% for item in failure_streaks.repos %}
+                {% set total = repos_ranked | map(attribute='minutes') | sum or 1 %}
+                {% for r in repos_ranked %}
                 <tr>
-                    <td><a href="repo_{{ item.repo | replace('/', '_') }}.html">{{ item.repo }}</a></td>
-                    <td><span class="badge badge-failure">{{ item.count }}</span></td>
-                    <td class="mono">{{ item.minutes | round(1) }}</td>
+                    <td><a href="repo_{{ r.repo | replace('/', '_') }}.html">{{ r.repo }}</a></td>
+                    <td class="mono">{{ (r.minutes or 0) | round(1) }}</td>
+                    <td class="muted">{{ ((r.minutes or 0) / total * 100) | round(1) }}%</td>
                 </tr>
                 {% else %}
-                <tr><td colspan="3" class="muted">No active repo streaks.</td></tr>
+                <tr><td colspan="3" class="muted">No data this month yet.</td></tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
     <div class="card">
-        <h2>Failure Streaks by Workflow</h2>
+        <h2>By Trigger</h2>
         <table>
-            <thead><tr><th>Workflow</th><th>Streak</th><th>Wasted Min</th></tr></thead>
+            <thead><tr><th>Trigger</th><th>Runs</th><th>Minutes</th></tr></thead>
             <tbody>
-                {% for item in failure_streaks.workflows %}
+                {% for t in trigger_breakdown %}
                 <tr>
-                    <td class="mono">{{ item.repo }} / {{ item.workflow_name }}</td>
-                    <td><span class="badge badge-failure">{{ item.count }}</span></td>
-                    <td class="mono">{{ item.minutes | round(1) }}</td>
+                    <td class="mono">{{ t.trigger or 'unknown' }}</td>
+                    <td>{{ t.runs }}</td>
+                    <td class="mono">{{ (t.minutes or 0) | round(1) }}</td>
                 </tr>
                 {% else %}
-                <tr><td colspan="3" class="muted">No active workflow streaks.</td></tr>
+                <tr><td colspan="3" class="muted">No data</td></tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-</div>
-
-<div class="card">
-    <h2>Repos by Minutes (This Month)</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Repo</th>
-                <th>Minutes</th>
-                <th>% of Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% set total = repos_ranked | map(attribute='minutes') | sum or 1 %}
-            {% for r in repos_ranked %}
-            <tr>
-                <td><a href="repo_{{ r.repo | replace('/', '_') }}.html">{{ r.repo }}</a></td>
-                <td class="mono">{{ r.minutes | round(1) }}</td>
-                <td class="muted">{{ (r.minutes / total * 100) | round(1) }}%</td>
-            </tr>
-            {% else %}
-            <tr><td colspan="3" class="muted">No data this month yet.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-
-<div class="card">
-    <h2>Failure Cost Leaderboard</h2>
-    <table>
-        <thead><tr><th>Repo</th><th>Workflow</th><th>Failed Runs</th><th>Wasted Min</th></tr></thead>
-        <tbody>
-            {% for item in failure_costs %}
-            <tr>
-                <td><a href="repo_{{ item.repo | replace('/', '_') }}.html">{{ item.repo }}</a></td>
-                <td class="mono">{{ item.workflow_name }}</td>
-                <td>{{ item.failed_runs }}</td>
-                <td class="mono">{{ (item.wasted_minutes or 0) | round(1) }}</td>
-            </tr>
-            {% else %}
-            <tr><td colspan="4" class="muted">No failed runs this month.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-
-<div class="card">
-    <h2>Biggest Movers</h2>
-    <table>
-        <thead><tr><th>Repo</th><th>This Month</th><th>Last Month</th><th>Delta</th></tr></thead>
-        <tbody>
-            {% for item in biggest_movers %}
-            <tr>
-                <td><a href="repo_{{ item.repo | replace('/', '_') }}.html">{{ item.repo }}</a></td>
-                <td class="mono">{{ item.this_month | round(1) }}</td>
-                <td class="mono">{{ item.last_month | round(1) }}</td>
-                <td class="mono">
-                    {{ item.delta | round(1) }}
-                    {% if item.pct_change is not none %}
-                    <span class="muted">({{ item.pct_change }}%)</span>
-                    {% endif %}
-                </td>
-            </tr>
-            {% else %}
-            <tr><td colspan="4" class="muted">Not enough history yet.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
 </div>
 
 <div class="card">
     <h2>Top Workflows (All Repos)</h2>
     <table>
-        <thead>
-            <tr><th>Repo</th><th>Workflow</th><th>Runs</th><th>Minutes</th></tr>
-        </thead>
+        <thead><tr><th>Repo</th><th>Workflow</th><th>Runs</th><th>Minutes</th></tr></thead>
         <tbody>
             {% for w in top_workflows %}
             <tr>
@@ -242,17 +116,54 @@
     </table>
 </div>
 
-<div class="stats-grid">
+<div class="two-col">
+    <div class="card">
+        <h2>Failure Streaks by Repo</h2>
+        <table>
+            <thead><tr><th>Repo</th><th>Streak</th><th>Wasted</th></tr></thead>
+            <tbody>
+                {% for item in failure_streaks.repos %}
+                <tr>
+                    <td><a href="repo_{{ item.repo | replace('/', '_') }}.html">{{ item.repo }}</a></td>
+                    <td><span class="badge badge-failure">{{ item.count }}</span></td>
+                    <td class="mono">{{ item.minutes | round(1) }} min</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="3" class="muted">No active repo streaks.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card">
+        <h2>Failure Streaks by Workflow</h2>
+        <table>
+            <thead><tr><th>Workflow</th><th>Streak</th><th>Wasted</th></tr></thead>
+            <tbody>
+                {% for item in failure_streaks.workflows %}
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">{{ item.repo }} / {{ item.workflow_name }}</td>
+                    <td><span class="badge badge-failure">{{ item.count }}</span></td>
+                    <td class="mono">{{ item.minutes | round(1) }} min</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="3" class="muted">No active workflow streaks.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="two-col">
     <div class="card">
         <h2>Expensive Jobs (30 Days)</h2>
         <table>
-            <thead><tr><th>Job</th><th>Runs</th><th>Billable Min</th></tr></thead>
+            <thead><tr><th>Job</th><th>Runs</th><th>Billable</th></tr></thead>
             <tbody>
                 {% for item in job_hotspots %}
                 <tr>
-                    <td class="mono">{{ item.repo }} / {{ item.job_name }}</td>
+                    <td class="mono" style="font-size:0.82rem">{{ item.repo }} / {{ item.job_name }}</td>
                     <td>{{ item.job_runs }}</td>
-                    <td class="mono">{{ (item.billable_minutes or 0) | round(1) }}</td>
+                    <td class="mono">{{ (item.billable_minutes or 0) | round(1) }} min</td>
                 </tr>
                 {% else %}
                 <tr><td colspan="3" class="muted">No job-level data yet.</td></tr>
@@ -263,13 +174,13 @@
     <div class="card">
         <h2>Slow Steps (30 Days)</h2>
         <table>
-            <thead><tr><th>Step</th><th>Runs</th><th>Total Sec</th></tr></thead>
+            <thead><tr><th>Step</th><th>Runs</th><th>Total</th></tr></thead>
             <tbody>
                 {% for item in step_hotspots %}
                 <tr>
-                    <td class="mono">{{ item.step_name }}</td>
+                    <td class="mono" style="font-size:0.82rem">{{ item.step_name }}</td>
                     <td>{{ item.step_runs }}</td>
-                    <td class="mono">{{ (item.total_duration or 0) | round(1) }}</td>
+                    <td class="mono">{{ (item.total_duration or 0) | round(1) }}s</td>
                 </tr>
                 {% else %}
                 <tr><td colspan="3" class="muted">No step timing data yet.</td></tr>
@@ -279,10 +190,83 @@
     </div>
 </div>
 
+<div class="card">
+    <h2>Failure Cost Leaderboard</h2>
+    <table>
+        <thead><tr><th>Repo</th><th>Workflow</th><th>Failed</th><th>Wasted</th></tr></thead>
+        <tbody>
+            {% for item in failure_costs %}
+            <tr>
+                <td><a href="repo_{{ item.repo | replace('/', '_') }}.html">{{ item.repo }}</a></td>
+                <td class="mono">{{ item.workflow_name }}</td>
+                <td>{{ item.failed_runs }}</td>
+                <td class="mono">{{ (item.wasted_minutes or 0) | round(1) }} min</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" class="muted">No failed runs this month.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if month_comparison or year_over_year %}
+<div class="card">
+    <h2>Trends</h2>
+    <div class="stats-row">
+        {% if month_comparison %}
+        <span>This month vs last: <strong class="mono">{{ (month_comparison.this_month or 0) | round(0) }}</strong> vs <strong class="mono">{{ (month_comparison.last_month or 0) | round(0) }}</strong> min
+        {% set delta = (month_comparison.this_month or 0) - (month_comparison.last_month or 0) %}
+        {% if month_comparison.last_month and month_comparison.last_month > 0 %}
+        (<span class="{% if delta > 0 %}badge badge-red{% else %}badge badge-success{% endif %}">{{ ((delta / month_comparison.last_month) * 100) | round(1) }}%</span>)
+        {% endif %}
+        </span>
+        {% endif %}
+        {% if year_over_year and year_over_year.same_month_last_year %}
+        <span>YoY: <strong class="mono">{{ (year_over_year.this_month or 0) | round(0) }}</strong> vs <strong class="mono">{{ (year_over_year.same_month_last_year or 0) | round(0) }}</strong> min</span>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+<div class="card">
+    <h2>Biggest Movers</h2>
+    <table>
+        <thead><tr><th>Repo</th><th>This Month</th><th>Last Month</th><th>Change</th></tr></thead>
+        <tbody>
+            {% for item in biggest_movers %}
+            <tr>
+                <td><a href="repo_{{ item.repo | replace('/', '_') }}.html">{{ item.repo }}</a></td>
+                <td class="mono">{{ item.this_month | round(1) }}</td>
+                <td class="mono">{{ item.last_month | round(1) }}</td>
+                <td class="mono">
+                    {% if item.delta > 0 %}+{% endif %}{{ item.delta | round(1) }}
+                    {% if item.pct_change is not none %}
+                    <span class="{% if item.pct_change > 0 %}badge badge-red{% else %}badge badge-success{% endif %}">{{ item.pct_change }}%</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" class="muted">Not enough history yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if audit_summary and audit_summary.total_issues > 0 %}
+<div class="card">
+    <h2>Workflow Audit</h2>
+    <div class="stats-row">
+        <span><strong class="mono">{{ audit_summary.repos_with_issues }}</strong> repos with issues</span>
+        <span><strong class="mono">{{ audit_summary.total_issues }}</strong> total issues found</span>
+    </div>
+    <p style="margin-top: 0.75rem;"><a href="audit.html">View detailed audit results →</a></p>
+</div>
+{% endif %}
+
 {% if dead_workflows %}
 <div class="card">
     <h2>Dormant Workflows</h2>
-    <p class="muted">No successful run in 30+ days — may be disabled or forgotten.</p>
+    <p class="muted" style="margin-bottom:0.75rem">No successful run in 30+ days — may be disabled or silently failing.</p>
     <table>
         <thead><tr><th>Repo</th><th>Workflow</th><th>Last Success</th></tr></thead>
         <tbody>
@@ -301,17 +285,15 @@
 <div class="card">
     <h2>Recent Collections</h2>
     <table>
-        <thead>
-            <tr><th>Started</th><th>Repos</th><th>Runs</th><th>API Calls</th><th>Errors</th></tr>
-        </thead>
+        <thead><tr><th>Started</th><th>Repos</th><th>Runs</th><th>Calls</th><th>Status</th></tr></thead>
         <tbody>
             {% for c in collection_log[:5] %}
             <tr>
                 <td class="mono">{{ c.started_at[:19] if c.started_at else '—' }}</td>
-                <td>{{ c.repos_scanned or 0 }} ({{ c.repos_with_runs or 0 }} with runs)</td>
-                <td>{{ c.runs_collected or 0 }} → {{ c.runs_updated or 0 }} total</td>
+                <td>{{ c.repos_scanned or 0 }} <span class="muted">({{ c.repos_with_runs or 0 }})</span></td>
+                <td>{{ c.runs_collected or 0 }} <span class="muted">&rarr; {{ c.runs_updated or 0 }}</span></td>
                 <td class="mono">{{ c.api_calls or 0 }}</td>
-                <td>{% if c.error_count %}<span class="badge badge-failure">{{ c.error_count }}</span>{% else %}—{% endif %}</td>
+                <td>{% if c.error_count %}<span class="badge badge-failure">{{ c.error_count }} err</span>{% else %}<span class="badge badge-success">OK</span>{% endif %}</td>
             </tr>
             {% else %}
             <tr><td colspan="5" class="muted">No collection logs yet.</td></tr>
@@ -321,54 +303,110 @@
     <p class="muted" style="margin-top: 0.5rem;"><a href="logs.html">View full log →</a></p>
 </div>
 {% endblock %}
+
 {% block scripts %}
 <script>
-const trendData = {{ daily_trend | map(attribute='minutes') | list | tojson }};
-const trendLabels = {{ daily_trend | map(attribute='day') | list | tojson }};
-new Chart(document.getElementById('trendChart'), {
-    type: 'line',
-    data: {
-        labels: trendLabels,
-        datasets: [{
-            label: 'Minutes',
-            data: trendData,
-            borderColor: '#58a6ff',
-            backgroundColor: 'rgba(88, 166, 255, 0.1)',
-            fill: true,
-            tension: 0.3
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: {
-            x: { grid: { color: '#30363d' }, ticks: { color: '#8b949e', maxTicksLimit: 12 } },
-            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
+// Chart.js color resolver from CSS custom properties
+function getChartColors() {
+    const style = getComputedStyle(document.documentElement);
+    return {
+        line: style.getPropertyValue('--chart-line').trim(),
+        fill: style.getPropertyValue('--chart-fill').trim(),
+        bar: style.getPropertyValue('--chart-bar').trim(),
+        grid: style.getPropertyValue('--chart-grid').trim(),
+        tick: style.getPropertyValue('--chart-tick').trim(),
+    };
+}
+
+let trendChart, monthlyChart;
+
+function buildTrendChart() {
+    const colors = getChartColors();
+    const ctx = document.getElementById('trendChart');
+    if (!ctx) return;
+    if (trendChart) trendChart.destroy();
+    trendChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ daily_trend | map(attribute='day') | list | tojson }},
+            datasets: [{
+                label: 'Minutes',
+                data: {{ daily_trend | map(attribute='minutes') | list | tojson }},
+                borderColor: colors.line,
+                backgroundColor: colors.fill,
+                fill: true,
+                tension: 0.3,
+                pointRadius: 0,
+                pointHitRadius: 8,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { intersect: false, mode: 'index' },
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { grid: { color: colors.grid }, ticks: { color: colors.tick, maxTicksLimit: 12, font: { size: 10 } } },
+                y: { grid: { color: colors.grid }, ticks: { color: colors.tick, font: { size: 10 } }, beginAtZero: true }
+            }
         }
-    }
-});
-const monthlyData = {{ monthly_usage | map(attribute='minutes') | list | tojson }};
-const monthlyLabels = {{ monthly_usage | map(attribute='month') | list | tojson }};
-new Chart(document.getElementById('monthlyChart'), {
-    type: 'bar',
-    data: {
-        labels: monthlyLabels,
-        datasets: [{
-            label: 'Minutes',
-            data: monthlyData,
-            backgroundColor: 'rgba(88, 166, 255, 0.6)',
-            borderColor: '#58a6ff',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: {
-            x: { grid: { display: false }, ticks: { color: '#8b949e' } },
-            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
+    });
+}
+
+function buildMonthlyChart() {
+    const colors = getChartColors();
+    const ctx = document.getElementById('monthlyChart');
+    if (!ctx) return;
+    if (monthlyChart) monthlyChart.destroy();
+    monthlyChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ monthly_usage | map(attribute='month') | list | tojson }},
+            datasets: [{
+                label: 'Minutes',
+                data: {{ monthly_usage | map(attribute='minutes') | list | tojson }},
+                backgroundColor: colors.bar,
+                borderColor: colors.line,
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { grid: { display: false }, ticks: { color: colors.tick, font: { size: 10 } } },
+                y: { grid: { color: colors.grid }, ticks: { color: colors.tick, font: { size: 10 } }, beginAtZero: true }
+            }
         }
+    });
+}
+
+function updateChartColors() {
+    if (trendChart) {
+        const colors = getChartColors();
+        trendChart.data.datasets[0].borderColor = colors.line;
+        trendChart.data.datasets[0].backgroundColor = colors.fill;
+        trendChart.options.scales.x.grid.color = colors.grid;
+        trendChart.options.scales.x.ticks.color = colors.tick;
+        trendChart.options.scales.y.grid.color = colors.grid;
+        trendChart.options.scales.y.ticks.color = colors.tick;
+        trendChart.update();
     }
-});
+    if (monthlyChart) {
+        const colors = getChartColors();
+        monthlyChart.data.datasets[0].backgroundColor = colors.bar;
+        monthlyChart.data.datasets[0].borderColor = colors.line;
+        monthlyChart.options.scales.x.ticks.color = colors.tick;
+        monthlyChart.options.scales.y.grid.color = colors.grid;
+        monthlyChart.options.scales.y.ticks.color = colors.tick;
+        monthlyChart.update();
+    }
+}
+
+if (typeof Chart !== 'undefined') {
+    buildTrendChart();
+    buildMonthlyChart();
+}
 </script>
 {% endblock %}

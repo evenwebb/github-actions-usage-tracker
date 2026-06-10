@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Monthly History — GitHub Actions{% endblock %}
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+{% endblock %}
 {% block content %}
-<h1>Monthly History</h1>
-<p class="muted">Billable minutes per month. Allowance: {{ allowance }} min/month.</p>
+
+<p class="muted" style="margin-bottom:1.5rem">Billable minutes per month. Allowance: {{ allowance }} min/month.</p>
 
 {% if month_comparison or year_over_year %}
 <div class="card">
@@ -25,21 +28,19 @@
 
 <div class="card">
     <h2>Last 12 Months</h2>
-    <canvas id="historyChart" height="180"></canvas>
+    <div class="chart-wrap"><canvas id="historyChart" height="180"></canvas></div>
 </div>
 
 <div class="card">
     <h2>Current Month Burn-down</h2>
-    <p class="muted">Track cumulative usage against remaining allowance and end-of-month pace.</p>
-    <canvas id="burndownChart" height="180"></canvas>
+    <div class="chart-wrap"><canvas id="burndownChart" height="180"></canvas></div>
 </div>
 
 <div class="card">
     <h2>Daily Burn-down Detail</h2>
+    <div class="muted" style="margin-bottom:0.75rem">Track cumulative usage against remaining allowance and end-of-month pace.</div>
     <table>
-        <thead>
-            <tr><th>Day</th><th>Daily Min</th><th>Cumulative</th><th>Remaining</th><th>Projected End</th></tr>
-        </thead>
+        <thead><tr><th>Day</th><th>Daily</th><th>Cumulative</th><th>Remaining</th><th>Projected</th></tr></thead>
         <tbody>
             {% for day in burndown %}
             <tr>
@@ -57,10 +58,9 @@
 </div>
 
 <div class="card">
+    <h2>Monthly Summary</h2>
     <table>
-        <thead>
-            <tr><th>Month</th><th>Minutes</th><th>% of Allowance</th><th>Est. Overage</th><th>Status</th></tr>
-        </thead>
+        <thead><tr><th>Month</th><th>Minutes</th><th>% of Allowance</th><th>Est. Overage</th><th>Status</th></tr></thead>
         <tbody>
             {% for m in monthly_usage | reverse %}
             <tr>
@@ -83,82 +83,101 @@
     </table>
 </div>
 {% endblock %}
+
 {% block scripts %}
 <script>
-const data = {{ monthly_usage | map(attribute='minutes') | list | tojson }};
-const labels = {{ monthly_usage | map(attribute='month') | list | tojson }};
-const allowance = {{ allowance }};
-new Chart(document.getElementById('historyChart'), {
-    type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [
-            {
-                label: 'Minutes used',
-                data: data,
-                backgroundColor: data.map(m => m > allowance ? 'rgba(248, 81, 73, 0.6)' : (m > allowance * 0.8 ? 'rgba(210, 153, 34, 0.6)' : 'rgba(63, 185, 80, 0.6)')),
-                borderColor: data.map(m => m > allowance ? '#f85149' : (m > allowance * 0.8 ? '#d29922' : '#3fb950')),
-                borderWidth: 1
-            },
-            {
-                label: 'Allowance',
-                data: labels.map(() => allowance),
-                type: 'line',
-                borderColor: '#8b949e',
-                borderDash: [4, 4],
-                fill: false,
-                pointRadius: 0
-            }
-        ]
-    },
-    options: {
-        responsive: true,
-        scales: {
-            x: { grid: { display: false }, ticks: { color: '#8b949e' } },
-            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
-        }
-    }
-});
+(function() {
+    if (typeof Chart === 'undefined') return;
 
-const burndownLabels = {{ burndown | map(attribute='label') | list | tojson }};
-const burndownCumulative = {{ burndown | map(attribute='cumulative_minutes') | list | tojson }};
-const burndownRemaining = {{ burndown | map(attribute='remaining_allowance') | list | tojson }};
-const burndownProjected = {{ burndown | map(attribute='projected_end') | list | tojson }};
-new Chart(document.getElementById('burndownChart'), {
-    type: 'line',
-    data: {
-        labels: burndownLabels,
-        datasets: [
-            {
-                label: 'Cumulative minutes',
-                data: burndownCumulative,
-                borderColor: '#58a6ff',
-                backgroundColor: 'rgba(88, 166, 255, 0.15)',
-                fill: true,
-                tension: 0.25
-            },
-            {
-                label: 'Remaining allowance',
-                data: burndownRemaining,
-                borderColor: '#3fb950',
-                tension: 0.25
-            },
-            {
-                label: 'Projected end',
-                data: burndownProjected,
-                borderColor: '#d29922',
-                borderDash: [6, 4],
-                tension: 0.25
+    const style = getComputedStyle(document.documentElement);
+    const colors = {
+        line: style.getPropertyValue('--chart-line').trim(),
+        fill: style.getPropertyValue('--chart-fill').trim(),
+        bar: style.getPropertyValue('--chart-bar').trim(),
+        grid: style.getPropertyValue('--chart-grid').trim(),
+        tick: style.getPropertyValue('--chart-tick').trim(),
+        success: style.getPropertyValue('--success').trim(),
+        warning: style.getPropertyValue('--warning').trim(),
+        danger: style.getPropertyValue('--danger').trim(),
+    };
+
+    const data = {{ monthly_usage | map(attribute='minutes') | list | tojson }};
+    const labels = {{ monthly_usage | map(attribute='month') | list | tojson }};
+    const allowance = {{ allowance }};
+
+    window.historyChart = new Chart(document.getElementById('historyChart'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Minutes used',
+                    data: data,
+                    backgroundColor: data.map(m => m > allowance ? 'rgba(248, 81, 73, 0.55)' : (m > allowance * 0.8 ? 'rgba(210, 153, 34, 0.55)' : 'rgba(63, 185, 80, 0.55)')),
+                    borderColor: data.map(m => m > allowance ? colors.danger : (m > allowance * 0.8 ? colors.warning : colors.success)),
+                    borderWidth: 1
+                },
+                {
+                    label: 'Allowance',
+                    data: labels.map(() => allowance),
+                    type: 'line',
+                    borderColor: colors.tick,
+                    borderDash: [4, 4],
+                    fill: false,
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { grid: { display: false }, ticks: { color: colors.tick, font: { size: 10 } } },
+                y: { grid: { color: colors.grid }, ticks: { color: colors.tick, font: { size: 10 } } }
             }
-        ]
-    },
-    options: {
-        responsive: true,
-        scales: {
-            x: { grid: { display: false }, ticks: { color: '#8b949e', maxTicksLimit: 12 } },
-            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
         }
-    }
-});
+    });
+
+    window.burndownChart = new Chart(document.getElementById('burndownChart'), {
+        type: 'line',
+        data: {
+            labels: {{ burndown | map(attribute='label') | list | tojson }},
+            datasets: [
+                {
+                    label: 'Cumulative',
+                    data: {{ burndown | map(attribute='cumulative_minutes') | list | tojson }},
+                    borderColor: colors.line,
+                    backgroundColor: colors.fill,
+                    fill: true,
+                    tension: 0.25,
+                    pointRadius: 0,
+                },
+                {
+                    label: 'Remaining',
+                    data: {{ burndown | map(attribute='remaining_allowance') | list | tojson }},
+                    borderColor: colors.success,
+                    tension: 0.25,
+                    pointRadius: 0,
+                },
+                {
+                    label: 'Projected',
+                    data: {{ burndown | map(attribute='projected_end') | list | tojson }},
+                    borderColor: colors.warning,
+                    borderDash: [6, 4],
+                    tension: 0.25,
+                    pointRadius: 0,
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { grid: { display: false }, ticks: { color: colors.tick, maxTicksLimit: 12, font: { size: 10 } } },
+                y: { grid: { color: colors.grid }, ticks: { color: colors.tick, font: { size: 10 } } }
+            }
+        }
+    });
+})();
 </script>
 {% endblock %}
