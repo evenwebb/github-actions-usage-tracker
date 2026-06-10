@@ -31,7 +31,7 @@ REQUEST_TIMEOUT = 15
 # Thresholds
 MATRIX_LARGE_THRESHOLD = 20  # Flag if matrix produces >20 jobs
 CHECKOUT_DEPTH_EXCESSIVE = 0  # fetch-depth: 0 = full history (expensive)
-CACHEABLE_STEPS = ("pip", "npm", "cargo", "gradle", "maven", "go", "bundler")
+CACHEABLE_STEPS = ("pip", "uv", "npm", "pnpm", "yarn", "cargo", "gradle", "maven", "go", "bundler", "poetry", "dotnet")
 
 
 def get_headers(token: str) -> dict:
@@ -133,6 +133,9 @@ def check_missing_cache(workflow: dict, filepath: str) -> list[dict]:
             if "setup-node" in uses and with_opts.get("cache"):
                 has_cache = True
                 break
+            if "setup-uv" in uses and with_opts.get("enable-cache"):
+                has_cache = True
+                break
         has_install = False
         for step in steps:
             run = (step.get("run") or "").lower()
@@ -203,28 +206,74 @@ def check_checkout_depth(workflow: dict, filepath: str) -> list[dict]:
     return issues
 
 
+def _count_cron_field(field: str, max_val: int) -> int:
+    """Count distinct values a single cron field can match per period."""
+    if field == "*":
+        return max_val
+    if "/" in field:
+        base, step_str = field.split("/", 1)
+        if not step_str.isdigit():
+            return 1
+        step = int(step_str)
+        if step <= 0:
+            return 1
+        if base == "*":
+            return max(1, max_val // step)
+        # base like "1-5/2" — count matching values
+        values = _expand_cron_field(base, max_val)
+        return max(1, len([v for v in values if (v - min(values)) % step == 0]))
+    return len(_expand_cron_field(field, max_val))
+
+
+def _expand_cron_field(field: str, max_val: int) -> list[int]:
+    """Expand a cron field into individual values. Handles commas, ranges, and single values."""
+    values = set()
+    for part in field.split(","):
+        part = part.strip()
+        if "-" in part:
+            lo_str, hi_str = part.split("-", 1)
+            lo, hi = int(lo_str), int(hi_str)
+            values.update(range(lo, hi + 1))
+        elif part.isdigit():
+            values.add(int(part))
+        elif part == "*":
+            values.update(range(max_val))
+    return sorted(values)
+
+
 def estimate_cron_runs_per_day(cron_expr: str) -> int | None:
-    parts = cron_expr.split()
+    parts = cron_expr.strip().split()
     if len(parts) != 5:
         return None
-    minute, hour, *_rest = parts
-    if minute.startswith("*/") and minute[2:].isdigit():
-        step = int(minute[2:])
-        return max(1, 1440 // step) if step > 0 else None
-    if hour.startswith("*/") and hour[2:].isdigit():
-        step = int(hour[2:])
-        return max(1, 24 // step) if step > 0 else None
-    if minute == "*" and hour == "*":
-        return 1440
-    if hour == "*":
-        return 24
-    return 1
+    try:
+        minute_count = _count_cron_field(parts[0], 60)
+        hour_count = _count_cron_field(parts[1], 24)
+        total = minute_count * hour_count
+        return total if 0 < total < 10000 else None
+    except (ValueError, IndexError):
+        return None
+
+
+def _get_on_block(workflow: dict):
+    """Extract the 'on' block from a workflow, handling YAML boolean quirks."""
+    on = workflow.get("on")
+    if on is not None:
+        return on
+    # YAML 'on: true' → parsed as bool True, 'on: yes' → True, 'on: no' → False
+    if True in workflow:
+        return workflow[True]
+    if False in workflow:
+        return workflow[False]
+    return {}
 
 
 def check_schedule_hygiene(workflow: dict, filepath: str) -> list[dict]:
     """Flag cron schedules that are likely too frequent or unsafe to overlap."""
     issues = []
-    on_block = workflow.get("on", workflow.get(True, {}))
+    on_block = _get_on_block(workflow)
+    if isinstance(on_block, str):
+        # 'on: push' or 'on: workflow_dispatch' — no schedule
+        return issues
     if isinstance(on_block, dict):
         schedule_entries = on_block.get("schedule") or []
     elif isinstance(on_block, list):
