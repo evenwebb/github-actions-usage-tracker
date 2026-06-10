@@ -460,7 +460,12 @@ def get_queue_summary(conn: sqlite3.Connection, repo: str | None = None) -> dict
         params,
     ).fetchall()
     values = [float(item["queue_seconds"]) for item in samples if item["queue_seconds"] is not None]
-    p95 = values[min(len(values) - 1, max(0, math_floor(len(values) * 0.95) - 1))] if values else 0
+    if values:
+        import math as _math
+        idx = max(0, int(_math.ceil(len(values) * 0.95)) - 1)
+        p95 = values[min(len(values) - 1, idx)]
+    else:
+        p95 = 0
     return {
         "avg_queue_seconds": round(row["avg_queue_seconds"] or 0, 1),
         "max_queue_seconds": round(row["max_queue_seconds"] or 0, 1),

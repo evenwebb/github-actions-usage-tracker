@@ -57,6 +57,25 @@ def get_headers(token: str) -> dict:
     }
 
 
+def _validate_token(token: str) -> None:
+    """Check token validity and scopes early. Warns if scopes look insufficient."""
+    try:
+        resp = requests.get(
+            f"{API_BASE}/user",
+            headers=get_headers(token),
+            timeout=REQUEST_TIMEOUT,
+        )
+        if resp.status_code == 200:
+            scopes = resp.headers.get("X-OAuth-Scopes", "")
+            log.info("Token valid. Scopes: %s", scopes or "(none — fine-grained token)")
+        elif resp.status_code == 401:
+            log.error("Token is invalid or expired (HTTP 401). Data collection will fail.")
+        else:
+            log.warning("Token check returned HTTP %s", resp.status_code)
+    except requests.RequestException:
+        pass  # Best-effort check, don't block collection
+
+
 def get_billable_multiplier(labels: list[str]) -> float:
     """Get billable minute multiplier from job labels. Self-hosted = 0."""
     for label in labels or []:
@@ -71,6 +90,7 @@ def get_billable_multiplier(labels: list[str]) -> float:
             return 10
         if label_lower.startswith("windows-"):
             return 2
+    log.warning("Unknown runner label %r — defaulting to 1x multiplier", labels)
     return 1
 
 
@@ -131,6 +151,18 @@ def compute_billable_minutes(jobs: list[dict]) -> tuple[float, float, float, flo
     return (linux_mins, macos_mins, windows_mins, total)
 
 
+def load_repo_list(path: Path) -> list[str]:
+    """Read repo full_names from a plain-text file, one per line. Blank lines and # comments ok."""
+    if not path.exists():
+        return []
+    repos = []
+    for line in path.read_text().readlines():
+        stripped = line.strip()
+        if stripped and not stripped.startswith("#"):
+            repos.append(stripped)
+    return repos
+
+
 def fetch_repos(session: requests.Session, token: str) -> list[dict]:
     repos = []
     url = f"{API_BASE}/user/repos"
@@ -142,7 +174,24 @@ def fetch_repos(session: requests.Session, token: str) -> list[dict]:
             resp.raise_for_status()
         except requests.HTTPError:
             if resp.status_code in (401, 403):
-                current = os.environ.get("GITHUB_REPOSITORY")
+                # Fallback chain: env var hardcoded list → repos.txt file → current repo
+                current = os.environ.get("GITHUB_REPOSITORY", "")
+                hardcoded = os.environ.get("REPO_LIST", "")
+                file_repos = load_repo_list(Path("repos.txt"))
+                if hardcoded:
+                    log.warning(
+                        "Token cannot list /user/repos (HTTP %s). Using REPO_LIST env var (%d repos).",
+                        resp.status_code,
+                        len(hardcoded.split(",")),
+                    )
+                    return [{"full_name": r.strip(), "archived": False} for r in hardcoded.split(",") if r.strip()]
+                if file_repos:
+                    log.warning(
+                        "Token cannot list /user/repos (HTTP %s). Using repos.txt (%d repos).",
+                        resp.status_code,
+                        len(file_repos),
+                    )
+                    return [{"full_name": r, "archived": False} for r in file_repos]
                 if current:
                     log.warning(
                         "Token cannot list /user/repos (HTTP %s). Falling back to current repo only: %s",
@@ -150,6 +199,12 @@ def fetch_repos(session: requests.Session, token: str) -> list[dict]:
                         current,
                     )
                     return [{"full_name": current, "archived": False}]
+                log.error(
+                    "Token cannot list /user/repos (HTTP %s) and no fallback configured. "
+                    "Set ACTIONS_USAGE_TOKEN to a PAT with repo+user scope, or create repos.txt with one repo per line.",
+                    resp.status_code,
+                )
+                return []
             raise
         repos.extend(resp.json())
         url = resp.links.get("next", {}).get("url")
@@ -196,6 +251,10 @@ def fetch_run_jobs(
         resp = session.get(url, headers=get_headers(token), params=params, timeout=REQUEST_TIMEOUT)
         params = None
         if resp.status_code != 200:
+            if resp.status_code in (401, 403):
+                log.warning("Token lacks permission to fetch jobs for %s/%s run %s (HTTP %s)", owner, repo, run_id, resp.status_code)
+            elif resp.status_code >= 500:
+                log.warning("Server error fetching jobs for %s/%s run %s (HTTP %s)", owner, repo, run_id, resp.status_code)
             return jobs
         data = resp.json()
         jobs.extend(data.get("jobs", []))
@@ -212,10 +271,42 @@ def ensure_column(conn: sqlite3.Connection, table: str, column: str, definition:
 
 
 def init_db(conn: sqlite3.Connection) -> None:
+    # Migrate old schema: run_id INTEGER PRIMARY KEY → (run_id, repo) composite key
+    row = conn.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name='workflow_runs'").fetchone()
+    if row:
+        table_sql = row[0] or ""
+        # Detect old single-column PK: "run_id INTEGER PRIMARY KEY" but NOT "PRIMARY KEY (run_id, repo)"
+        is_old_schema = (
+            "run_id INTEGER PRIMARY KEY" in table_sql
+            and "PRIMARY KEY (run_id" not in table_sql
+        )
+        if is_old_schema:
+            log.info("Migrating workflow_runs to composite primary key (run_id, repo)...")
+            conn.execute("ALTER TABLE workflow_runs RENAME TO workflow_runs_old")
+            _create_tables(conn)
+            try:
+                conn.execute("""
+                    INSERT OR IGNORE INTO workflow_runs
+                    SELECT run_id, repo, owner, workflow_name, workflow_id, status, conclusion,
+                           event, created_at, run_started_at, html_url, duration_seconds, queue_seconds,
+                           billable_minutes_linux, billable_minutes_macos, billable_minutes_windows,
+                           billable_minutes_total, trigger_event, updated_at
+                    FROM workflow_runs_old
+                """)
+                conn.execute("DROP TABLE workflow_runs_old")
+                log.info("Migration complete.")
+            except Exception as e:
+                log.error("Migration failed: %s", e)
+            return
+    _create_tables(conn)
+    ensure_column(conn, "workflow_runs", "queue_seconds", "REAL DEFAULT 0")
+
+
+def _create_tables(conn: sqlite3.Connection) -> None:
     conn.executescript(
         """
         CREATE TABLE IF NOT EXISTS workflow_runs (
-            run_id INTEGER PRIMARY KEY,
+            run_id INTEGER NOT NULL,
             repo TEXT NOT NULL,
             owner TEXT NOT NULL,
             workflow_name TEXT,
@@ -233,7 +324,8 @@ def init_db(conn: sqlite3.Connection) -> None:
             billable_minutes_windows REAL DEFAULT 0,
             billable_minutes_total REAL DEFAULT 0,
             trigger_event TEXT,
-            updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+            updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (run_id, repo)
         );
         CREATE INDEX IF NOT EXISTS idx_runs_repo ON workflow_runs(repo);
         CREATE INDEX IF NOT EXISTS idx_runs_created ON workflow_runs(created_at);
@@ -260,11 +352,9 @@ def init_db(conn: sqlite3.Connection) -> None:
         );
 
         CREATE TABLE IF NOT EXISTS workflow_jobs (
-            job_id INTEGER PRIMARY KEY,
+            job_id INTEGER NOT NULL,
             run_id INTEGER NOT NULL,
             repo TEXT NOT NULL,
-            workflow_name TEXT,
-            job_name TEXT,
             status TEXT,
             conclusion TEXT,
             started_at TEXT,
@@ -298,7 +388,6 @@ def init_db(conn: sqlite3.Connection) -> None:
         CREATE INDEX IF NOT EXISTS idx_job_steps_repo_created ON job_steps(repo, created_at);
         """
     )
-    ensure_column(conn, "workflow_runs", "queue_seconds", "REAL DEFAULT 0")
 
 
 def upsert_runs_batch(conn: sqlite3.Connection, runs: list[dict]) -> None:
@@ -312,7 +401,7 @@ def upsert_runs_batch(conn: sqlite3.Connection, runs: list[dict]) -> None:
             billable_minutes_linux, billable_minutes_macos, billable_minutes_windows,
             billable_minutes_total, trigger_event
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ON CONFLICT(run_id) DO UPDATE SET
+        ON CONFLICT(run_id, repo) DO UPDATE SET
             status = excluded.status,
             conclusion = excluded.conclusion,
             duration_seconds = excluded.duration_seconds,
@@ -556,6 +645,9 @@ def main() -> None:
         raise SystemExit("Set ACTIONS_USAGE_TOKEN or GITHUB_TOKEN")
     apprise_urls = os.environ.get("APPRISE_URL", "")
 
+    # Validate token scopes early to avoid wasting API calls
+    _validate_token(token)
+
     DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -608,6 +700,7 @@ def main() -> None:
         for run in runs:
             if run.get("id"):
                 all_runs.append((run, owner, name))
+        time.sleep(0.15)  # Rate-limit: avoid secondary rate limits across repos
 
     repos_with_runs = len({f"{owner}/{name}" for _, owner, name in all_runs})
 
@@ -708,6 +801,17 @@ def main() -> None:
             conn.commit()
         except ImportError:
             log.warning("audit module not available, skipping audit")
+
+    # Data retention cleanup (#9)
+    retention_days = int(os.environ.get("RETENTION_DAYS", "365"))
+    if retention_days > 0:
+        deleted = conn.execute(
+            "DELETE FROM workflow_runs WHERE created_at < date('now', ?)",
+            (f"-{retention_days} days",),
+        ).rowcount
+        if deleted:
+            log.info("Cleaned up %d runs older than %s days", deleted, retention_days)
+        conn.execute("PRAGMA optimize")
 
     conn.commit()
     check_alerts(conn, apprise_urls)
