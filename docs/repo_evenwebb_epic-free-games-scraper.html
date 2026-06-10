@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,89 +7,230 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --bg: #0d1117;
             --bg-card: #161b22;
+            --bg-hover: rgba(88, 166, 255, 0.06);
             --border: #30363d;
             --text: #e6edf3;
             --text-muted: #8b949e;
             --accent: #58a6ff;
+            --accent-dim: rgba(88, 166, 255, 0.15);
             --success: #3fb950;
+            --success-dim: rgba(63, 185, 80, 0.15);
             --warning: #d29922;
+            --warning-dim: rgba(210, 153, 34, 0.15);
             --danger: #f85149;
+            --danger-dim: rgba(248, 81, 73, 0.15);
+            --shadow: 0 1px 3px rgba(0,0,0,0.3);
+
+            /* Chart.js colors */
+            --chart-line: #58a6ff;
+            --chart-fill: rgba(88, 166, 255, 0.1);
+            --chart-bar: rgba(88, 166, 255, 0.6);
+            --chart-grid: #30363d;
+            --chart-tick: #8b949e;
         }
-        * { box-sizing: border-box; }
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --bg-card: #f6f8fa;
+            --bg-hover: rgba(9, 105, 218, 0.06);
+            --border: #d0d7de;
+            --text: #1f2328;
+            --text-muted: #656d76;
+            --accent: #0969da;
+            --accent-dim: rgba(9, 105, 218, 0.1);
+            --success: #1a7f37;
+            --success-dim: rgba(26, 127, 55, 0.1);
+            --warning: #9a6700;
+            --warning-dim: rgba(154, 103, 0, 0.1);
+            --danger: #cf222e;
+            --danger-dim: rgba(207, 34, 46, 0.1);
+            --shadow: 0 1px 3px rgba(31,35,40,0.12);
+
+            --chart-line: #0969da;
+            --chart-fill: rgba(9, 105, 218, 0.08);
+            --chart-bar: rgba(9, 105, 218, 0.5);
+            --chart-grid: #d0d7de;
+            --chart-tick: #656d76;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg);
             color: var(--text);
-            margin: 0;
-            padding: 1.5rem;
             line-height: 1.6;
+            transition: background 0.2s, color 0.2s;
         }
-        .container { max-width: 1200px; margin: 0 auto; }
-        nav {
+        .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+
+        /* ── Header ── */
+        .header {
             display: flex;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid var(--border);
         }
+        .header h1 { font-size: 1.5rem; font-weight: 700; white-space: nowrap; }
+        .header-right { display: flex; align-items: center; gap: 0.75rem; }
+
+        /* ── Nav ── */
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+            margin-bottom: 1.5rem;
+        }
         nav a {
-            color: var(--accent);
+            color: var(--text-muted);
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            transition: color 0.15s, background 0.15s;
+            white-space: nowrap;
         }
-        nav a:hover { text-decoration: underline; }
-        h1 { font-size: 1.75rem; font-weight: 600; margin: 0 0 1rem; }
-        h2 { font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+        nav a:hover, nav a.active {
+            color: var(--accent);
+            background: var(--accent-dim);
+        }
+
+        /* ── Theme toggle ── */
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-family: inherit;
+            transition: background 0.15s;
+            white-space: nowrap;
+        }
+        .theme-toggle:hover { background: var(--bg-hover); }
+
+        /* ── Cards ── */
+        h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 1.25rem;
             margin-bottom: 1rem;
+            box-shadow: var(--shadow);
         }
-        .mono { font-family: 'JetBrains Mono', monospace; }
+        .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.9em; }
         .muted { color: var(--text-muted); }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid var(--border); }
-        th { color: var(--text-muted); font-weight: 500; font-size: 0.875rem; }
-        tr:hover { background: rgba(88, 166, 255, 0.05); }
-        a { color: var(--accent); }
-        .badge { display: inline-block; padding: 0.2em 0.5em; border-radius: 4px; font-size: 0.8rem; }
-        .badge-success { background: rgba(63, 185, 80, 0.2); color: var(--success); }
-        .badge-green { background: rgba(63, 185, 80, 0.2); color: var(--success); }
-        .badge-failure { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
-        .badge-red { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
-        .badge-amber { background: rgba(210, 153, 34, 0.2); color: var(--warning); }
-        .stat-big { font-size: 2.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+
+        /* ── Tables ── */
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        th, td { padding: 0.55rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { color: var(--text-muted); font-weight: 500; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; }
+        tr:hover { background: var(--bg-hover); }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* ── Badges ── */
+        .badge {
+            display: inline-block;
+            padding: 0.15em 0.45em;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+        .badge-success, .badge-green { background: var(--success-dim); color: var(--success); }
+        .badge-failure, .badge-red { background: var(--danger-dim); color: var(--danger); }
+        .badge-amber { background: var(--warning-dim); color: var(--warning); }
+
+        /* ── Stats ── */
+        .stat-big { font-size: 2.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; line-height: 1.2; }
+        .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
         .progress-bar {
-            height: 12px;
+            height: 10px;
             background: var(--border);
-            border-radius: 6px;
+            border-radius: 5px;
             overflow: hidden;
             margin-top: 0.5rem;
         }
-        .progress-fill {
-            height: 100%;
-            border-radius: 6px;
-            transition: width 0.3s ease;
-        }
+        .progress-fill { height: 100%; border-radius: 5px; transition: width 0.4s ease; }
         .progress-green { background: var(--success); }
         .progress-amber { background: var(--warning); }
         .progress-red { background: var(--danger); }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
-        .stats-row { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
+
+        /* ── Grids ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            align-items: center;
+        }
+        .two-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1rem;
+        }
+
+        /* ── Footer ── */
+        footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 700px) {
+            .container { padding: 0.75rem; }
+            .header { flex-direction: column; align-items: flex-start; }
+            .stat-big { font-size: 1.6rem; }
+            .two-col { grid-template-columns: 1fr; }
+            nav { gap: 0; }
+            nav a { font-size: 0.82rem; padding: 0.35rem 0.55rem; }
+            table { font-size: 0.82rem; }
+            th, td { padding: 0.4rem 0.5rem; }
+            .card { padding: 0.85rem; }
+        }
+
+        /* ── Chart canvas ── */
+        .chart-wrap { position: relative; width: 100%; }
+        .chart-wrap canvas { width: 100% !important; }
     </style>
     
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
 </head>
 <body>
     <div class="container">
+        <div class="header">
+            <h1>&#9889; Actions Usage</h1>
+            <div class="header-right">
+                <span class="muted" style="font-size:0.82rem">Updated 2026-06-10 14:49 UTC</span>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
+                    <span class="light-icon">&#9728;&#65039;</span>
+                    <span class="dark-icon">&#127769;</span>
+                </button>
+            </div>
+        </div>
         <nav>
-            <a href="index.html">Overview</a>
+            <a href="index.html" class="active">Overview</a>
             <a href="history.html">History</a>
             <a href="explore.html">Explore</a>
             <a href="audit.html">Audit</a>
@@ -99,28 +240,22 @@
             <a href="export/usage.csv">Export CSV</a>
         </nav>
         
-<nav style="margin-bottom: 0.5rem;">
-    <a href="index.html">Overview</a> ·
-    <a href="history.html">History</a> ·
-    <a href="explore.html">Explore</a> ·
-    <a href="audit.html">Audit</a> ·
-    <a href="failures.html">Failures</a>
-</nav>
-<h1>evenwebb/epic-free-games-scraper</h1>
-<p class="muted"><a href="https://github.com/evenwebb/epic-free-games-scraper" target="_blank" rel="noopener">View on GitHub</a></p>
+<h1 style="margin-bottom:0.25rem">evenwebb/epic-free-games-scraper</h1>
+<p class="muted" style="margin-bottom:1.5rem"><a href="https://github.com/evenwebb/epic-free-games-scraper" target="_blank" rel="noopener">View on GitHub &nearr;</a></p>
 
 
 
 <div class="stats-grid">
     <div class="card">
         <h2>Queue Time</h2>
-        <p>Avg queue: <strong class="mono">0</strong>s</p>
-        <p class="muted">p95: 0s · max: 0s</p>
+        <div class="stat-big">0<span style="font-size:0.8rem">s</span></div>
+        <div class="stat-label">avg · p95: 0s · max: 0s</div>
     </div>
     <div class="card">
         <h2>Failure Streaks</h2>
         
-        <p class="muted">No active streaks in this repo.</p>
+        <div class="stat-big" style="color: var(--success)">0</div>
+        <div class="stat-label">No active streaks</div>
         
     </div>
 </div>
@@ -128,20 +263,42 @@
 <div class="card">
     <h2>Workflows (This Month)</h2>
     <table>
-        <thead>
-            <tr>
-                <th>Workflow</th>
-                <th>Runs</th>
-                <th>Avg Duration</th>
-                <th>Avg Queue</th>
-                <th>Total Minutes</th>
-                <th>Wasted Min</th>
-                <th>Success Rate</th>
-            </tr>
-        </thead>
+        <thead><tr><th>Workflow</th><th>Runs</th><th>Avg Dur</th><th>Total Min</th><th>Wasted</th><th>Success</th></tr></thead>
         <tbody>
             
-            <tr><td colspan="7" class="muted">No workflow runs this month.</td></tr>
+            <tr>
+                <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
+                <td>4</td>
+                <td class="mono">36.0s</td>
+                <td class="mono">4.0</td>
+                <td class="mono">0</td>
+                <td>
+                    
+                    
+                    <span class="badge badge-success">100.0%</span>
+                    
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+
+<div class="card">
+    <h2>Workflow Efficiency</h2>
+    <div class="muted" style="margin-bottom:0.75rem">Minutes consumed per successful run. Higher = more expensive per success.</div>
+    <table>
+        <thead><tr><th>Workflow</th><th>Runs</th><th>Successes</th><th>Total Min</th><th>Min/Success</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
+                <td>4</td>
+                <td>4</td>
+                <td class="mono">4.0</td>
+                <td class="mono">1.0</td>
+            </tr>
             
         </tbody>
     </table>
@@ -150,15 +307,18 @@
 
 
 
-
-<div class="stats-grid">
+<div class="two-col">
     <div class="card">
         <h2>Expensive Jobs (30 Days)</h2>
         <table>
-            <thead><tr><th>Job</th><th>Runs</th><th>Billable Min</th></tr></thead>
+            <thead><tr><th>Job</th><th>Runs</th><th>Billable</th></tr></thead>
             <tbody>
                 
-                <tr><td colspan="3" class="muted">No job-level data yet.</td></tr>
+                <tr>
+                    <td class="mono">scrape-and-build</td>
+                    <td>4</td>
+                    <td class="mono">4.0 min</td>
+                </tr>
                 
             </tbody>
         </table>
@@ -166,10 +326,56 @@
     <div class="card">
         <h2>Slow Steps (30 Days)</h2>
         <table>
-            <thead><tr><th>Step</th><th>Runs</th><th>Total Sec</th></tr></thead>
+            <thead><tr><th>Step</th><th>Runs</th><th>Total</th></tr></thead>
             <tbody>
                 
-                <tr><td colspan="3" class="muted">No step-level data yet.</td></tr>
+                <tr>
+                    <td class="mono">Deploy to GitHub Pages</td>
+                    <td>4</td>
+                    <td class="mono">66.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Run actions/upload-pages-artifact@v5</td>
+                    <td>4</td>
+                    <td class="mono">16.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Install dependencies and scrape</td>
+                    <td>4</td>
+                    <td class="mono">13.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Run actions/checkout@v5</td>
+                    <td>4</td>
+                    <td class="mono">10.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Run actions/setup-python@v6</td>
+                    <td>4</td>
+                    <td class="mono">8.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Build and commit</td>
+                    <td>4</td>
+                    <td class="mono">7.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Set up job</td>
+                    <td>4</td>
+                    <td class="mono">7.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Check if API response changed</td>
+                    <td>4</td>
+                    <td class="mono">3.0s</td>
+                </tr>
                 
             </tbody>
         </table>
@@ -179,10 +385,16 @@
 
 <div class="card">
     <h2>Monthly History (Last 6 Months)</h2>
-    <canvas id="repoMonthlyChart" height="100"></canvas>
+    <div class="chart-wrap"><canvas id="repoMonthlyChart" height="120"></canvas></div>
     <table style="margin-top: 1rem;">
         <thead><tr><th>Month</th><th>Minutes</th><th>Runs</th></tr></thead>
         <tbody>
+            
+            <tr>
+                <td class="mono">2026-06</td>
+                <td class="mono">4.0</td>
+                <td>4</td>
+            </tr>
             
             <tr>
                 <td class="mono">2026-03</td>
@@ -214,70 +426,133 @@
 
 
 <div class="card">
-    <h2>Recent Runs (Sparkline)</h2>
-    <canvas id="sparkline" height="80"></canvas>
-    <p class="muted" style="margin-top: 0.5rem; font-size: 0.875rem;">
-        Last 30 runs · Green = success, Red = failure
-    </p>
+    <h2>Recent Runs</h2>
+    <div class="chart-wrap"><canvas id="sparkline" height="80"></canvas></div>
+    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 30 runs · Green = success, Red = failure</div>
 </div>
 
-        <footer class="muted" style="margin-top: 2rem; font-size: 0.875rem;">
-            Last updated: 2026-06-10 04:07 UTC · GitHub Actions Usage Tracker
+        <footer>
+            <span>GitHub Actions Usage Tracker</span>
+            <span>Last updated: 2026-06-10 14:49 UTC</span>
         </footer>
     </div>
+
+    <script>
+    // Theme toggle with localStorage persistence
+    (function() {
+        const saved = localStorage.getItem('actions-usage-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        updateToggleButton(theme);
+    })();
+
+    function toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('actions-usage-theme', next);
+        updateToggleButton(next);
+        // Re-render charts with new colors if Chart is loaded
+        if (typeof updateChartColors === 'function') updateChartColors();
+    }
+
+    function updateToggleButton(theme) {
+        const lightIcon = document.querySelector('.light-icon');
+        const darkIcon = document.querySelector('.dark-icon');
+        if (lightIcon && darkIcon) {
+            lightIcon.style.display = theme === 'light' ? 'none' : 'inline';
+            darkIcon.style.display = theme === 'dark' ? 'none' : 'inline';
+        }
+    }
+
+    // Highlight active nav link
+    (function() {
+        const path = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('nav a').forEach(a => {
+            if (a.getAttribute('href') === path) {
+                a.classList.add('active');
+            } else {
+                a.classList.remove('active');
+            }
+        });
+    })();
+
+    // Listen for OS theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('actions-usage-theme')) {
+            const theme = e.matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            updateToggleButton(theme);
+            if (typeof updateChartColors === 'function') updateChartColors();
+        }
+    });
+    </script>
+
     
 <script>
-const recent = [{"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-01T15:26:11Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-01T16:30:25Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-02T15:43:24Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-02T16:51:10Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-03T15:49:48Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-03T16:51:34Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-04T15:43:27Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-04T16:49:14Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-05T15:53:11Z", "queue_seconds": 0.0}, {"billable_minutes_total": 4.0, "conclusion": "success", "created_at": "2026-03-05T18:05:33Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-06T15:40:02Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-06T16:42:40Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-07T15:26:10Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-07T16:29:27Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-08T15:26:39Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-08T16:30:42Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-09T16:00:35Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-09T16:57:43Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-10T16:01:41Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-10T16:56:40Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-11T15:52:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-11T16:54:00Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-12T16:01:06Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-12T16:59:11Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-13T15:45:01Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-13T16:41:40Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-14T15:30:12Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-14T16:33:34Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-15T15:31:20Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-15T16:34:27Z", "queue_seconds": 0.0}];
-new Chart(document.getElementById('sparkline'), {
-    type: 'bar',
-    data: {
-        labels: recent.map((_, i) => i + 1),
-        datasets: [{
-            label: 'Minutes',
-            data: recent.map(r => r.billable_minutes_total || 0),
-            backgroundColor: recent.map(r =>
-                (r.conclusion === 'success') ? 'rgba(63, 185, 80, 0.7)' : 'rgba(248, 81, 73, 0.7)'
-            ),
-            borderColor: recent.map(r =>
-                (r.conclusion === 'success') ? '#3fb950' : '#f85149'
-            ),
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: {
-            x: { grid: { display: false }, ticks: { color: '#8b949e', maxTicksLimit: 15 } },
-            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
-        }
-    }
-});
+(function() {
+    if (typeof Chart === 'undefined') return;
+    const style = getComputedStyle(document.documentElement);
+    const colors = {
+        line: style.getPropertyValue('--chart-line').trim(),
+        fill: style.getPropertyValue('--chart-fill').trim(),
+        bar: style.getPropertyValue('--chart-bar').trim(),
+        grid: style.getPropertyValue('--chart-grid').trim(),
+        tick: style.getPropertyValue('--chart-tick').trim(),
+        success: style.getPropertyValue('--success').trim(),
+        danger: style.getPropertyValue('--danger').trim(),
+    };
 
-const repoMonthlyData = [88.0, 147.0, 118.0, 62.0];
-const repoMonthlyLabels = ["2025-12", "2026-01", "2026-02", "2026-03"];
-new Chart(document.getElementById('repoMonthlyChart'), {
-    type: 'bar',
-    data: {
-        labels: repoMonthlyLabels,
-        datasets: [{
-            label: 'Minutes',
-            data: repoMonthlyData,
-            backgroundColor: 'rgba(88, 166, 255, 0.6)',
-            borderColor: '#58a6ff',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: {
-            x: { grid: { display: false }, ticks: { color: '#8b949e' } },
-            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
+    const recent = [{"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-03T15:49:48Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-03T16:51:34Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-04T15:43:27Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-04T16:49:14Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-05T15:53:11Z", "queue_seconds": 0.0}, {"billable_minutes_total": 4.0, "conclusion": "success", "created_at": "2026-03-05T18:05:33Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-06T15:40:02Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-06T16:42:40Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-07T15:26:10Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-07T16:29:27Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-08T15:26:39Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-08T16:30:42Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-09T16:00:35Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-09T16:57:43Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-10T16:01:41Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-10T16:56:40Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-11T15:52:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-11T16:54:00Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-12T16:01:06Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-12T16:59:11Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-13T15:45:01Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-13T16:41:40Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-14T15:30:12Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-14T16:33:34Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-15T15:31:20Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-03-15T16:34:27Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-08T17:55:40Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-08T18:25:56Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-09T17:25:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-09T18:06:43Z", "queue_seconds": 0.0}];
+    new Chart(document.getElementById('sparkline'), {
+        type: 'bar',
+        data: {
+            labels: recent.map((_, i) => i + 1),
+            datasets: [{
+                label: 'Minutes',
+                data: recent.map(r => r.billable_minutes_total || 0),
+                backgroundColor: recent.map(r => r.conclusion === 'success' ? 'rgba(63,185,80,0.6)' : 'rgba(248,81,73,0.6)'),
+                borderColor: recent.map(r => r.conclusion === 'success' ? colors.success : colors.danger),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { grid: { display: false }, ticks: { color: colors.tick, maxTicksLimit: 15, font: { size: 10 } } },
+                y: { grid: { color: colors.grid }, ticks: { color: colors.tick, font: { size: 10 } } }
+            }
         }
-    }
-});
+    });
 
+    
+    new Chart(document.getElementById('repoMonthlyChart'), {
+        type: 'bar',
+        data: {
+            labels: ["2025-12", "2026-01", "2026-02", "2026-03", "2026-06"],
+            datasets: [{
+                label: 'Minutes',
+                data: [88.0, 147.0, 118.0, 62.0, 4.0],
+                backgroundColor: colors.bar,
+                borderColor: colors.line,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { grid: { display: false }, ticks: { color: colors.tick, font: { size: 10 } } },
+                y: { grid: { color: colors.grid }, ticks: { color: colors.tick, font: { size: 10 } } }
+            }
+        }
+    });
+    
+})();
 </script>
 
 </body>

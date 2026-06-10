@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,89 +7,230 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --bg: #0d1117;
             --bg-card: #161b22;
+            --bg-hover: rgba(88, 166, 255, 0.06);
             --border: #30363d;
             --text: #e6edf3;
             --text-muted: #8b949e;
             --accent: #58a6ff;
+            --accent-dim: rgba(88, 166, 255, 0.15);
             --success: #3fb950;
+            --success-dim: rgba(63, 185, 80, 0.15);
             --warning: #d29922;
+            --warning-dim: rgba(210, 153, 34, 0.15);
             --danger: #f85149;
+            --danger-dim: rgba(248, 81, 73, 0.15);
+            --shadow: 0 1px 3px rgba(0,0,0,0.3);
+
+            /* Chart.js colors */
+            --chart-line: #58a6ff;
+            --chart-fill: rgba(88, 166, 255, 0.1);
+            --chart-bar: rgba(88, 166, 255, 0.6);
+            --chart-grid: #30363d;
+            --chart-tick: #8b949e;
         }
-        * { box-sizing: border-box; }
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --bg-card: #f6f8fa;
+            --bg-hover: rgba(9, 105, 218, 0.06);
+            --border: #d0d7de;
+            --text: #1f2328;
+            --text-muted: #656d76;
+            --accent: #0969da;
+            --accent-dim: rgba(9, 105, 218, 0.1);
+            --success: #1a7f37;
+            --success-dim: rgba(26, 127, 55, 0.1);
+            --warning: #9a6700;
+            --warning-dim: rgba(154, 103, 0, 0.1);
+            --danger: #cf222e;
+            --danger-dim: rgba(207, 34, 46, 0.1);
+            --shadow: 0 1px 3px rgba(31,35,40,0.12);
+
+            --chart-line: #0969da;
+            --chart-fill: rgba(9, 105, 218, 0.08);
+            --chart-bar: rgba(9, 105, 218, 0.5);
+            --chart-grid: #d0d7de;
+            --chart-tick: #656d76;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg);
             color: var(--text);
-            margin: 0;
-            padding: 1.5rem;
             line-height: 1.6;
+            transition: background 0.2s, color 0.2s;
         }
-        .container { max-width: 1200px; margin: 0 auto; }
-        nav {
+        .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+
+        /* ── Header ── */
+        .header {
             display: flex;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid var(--border);
         }
+        .header h1 { font-size: 1.5rem; font-weight: 700; white-space: nowrap; }
+        .header-right { display: flex; align-items: center; gap: 0.75rem; }
+
+        /* ── Nav ── */
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+            margin-bottom: 1.5rem;
+        }
         nav a {
-            color: var(--accent);
+            color: var(--text-muted);
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            transition: color 0.15s, background 0.15s;
+            white-space: nowrap;
         }
-        nav a:hover { text-decoration: underline; }
-        h1 { font-size: 1.75rem; font-weight: 600; margin: 0 0 1rem; }
-        h2 { font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+        nav a:hover, nav a.active {
+            color: var(--accent);
+            background: var(--accent-dim);
+        }
+
+        /* ── Theme toggle ── */
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-family: inherit;
+            transition: background 0.15s;
+            white-space: nowrap;
+        }
+        .theme-toggle:hover { background: var(--bg-hover); }
+
+        /* ── Cards ── */
+        h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 1.25rem;
             margin-bottom: 1rem;
+            box-shadow: var(--shadow);
         }
-        .mono { font-family: 'JetBrains Mono', monospace; }
+        .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.9em; }
         .muted { color: var(--text-muted); }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid var(--border); }
-        th { color: var(--text-muted); font-weight: 500; font-size: 0.875rem; }
-        tr:hover { background: rgba(88, 166, 255, 0.05); }
-        a { color: var(--accent); }
-        .badge { display: inline-block; padding: 0.2em 0.5em; border-radius: 4px; font-size: 0.8rem; }
-        .badge-success { background: rgba(63, 185, 80, 0.2); color: var(--success); }
-        .badge-green { background: rgba(63, 185, 80, 0.2); color: var(--success); }
-        .badge-failure { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
-        .badge-red { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
-        .badge-amber { background: rgba(210, 153, 34, 0.2); color: var(--warning); }
-        .stat-big { font-size: 2.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+
+        /* ── Tables ── */
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        th, td { padding: 0.55rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { color: var(--text-muted); font-weight: 500; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; }
+        tr:hover { background: var(--bg-hover); }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* ── Badges ── */
+        .badge {
+            display: inline-block;
+            padding: 0.15em 0.45em;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+        .badge-success, .badge-green { background: var(--success-dim); color: var(--success); }
+        .badge-failure, .badge-red { background: var(--danger-dim); color: var(--danger); }
+        .badge-amber { background: var(--warning-dim); color: var(--warning); }
+
+        /* ── Stats ── */
+        .stat-big { font-size: 2.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; line-height: 1.2; }
+        .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
         .progress-bar {
-            height: 12px;
+            height: 10px;
             background: var(--border);
-            border-radius: 6px;
+            border-radius: 5px;
             overflow: hidden;
             margin-top: 0.5rem;
         }
-        .progress-fill {
-            height: 100%;
-            border-radius: 6px;
-            transition: width 0.3s ease;
-        }
+        .progress-fill { height: 100%; border-radius: 5px; transition: width 0.4s ease; }
         .progress-green { background: var(--success); }
         .progress-amber { background: var(--warning); }
         .progress-red { background: var(--danger); }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
-        .stats-row { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
+
+        /* ── Grids ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            align-items: center;
+        }
+        .two-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1rem;
+        }
+
+        /* ── Footer ── */
+        footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 700px) {
+            .container { padding: 0.75rem; }
+            .header { flex-direction: column; align-items: flex-start; }
+            .stat-big { font-size: 1.6rem; }
+            .two-col { grid-template-columns: 1fr; }
+            nav { gap: 0; }
+            nav a { font-size: 0.82rem; padding: 0.35rem 0.55rem; }
+            table { font-size: 0.82rem; }
+            th, td { padding: 0.4rem 0.5rem; }
+            .card { padding: 0.85rem; }
+        }
+
+        /* ── Chart canvas ── */
+        .chart-wrap { position: relative; width: 100%; }
+        .chart-wrap canvas { width: 100% !important; }
     </style>
     
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
 </head>
 <body>
     <div class="container">
+        <div class="header">
+            <h1>&#9889; Actions Usage</h1>
+            <div class="header-right">
+                <span class="muted" style="font-size:0.82rem">Updated 2026-06-10 14:49 UTC</span>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
+                    <span class="light-icon">&#9728;&#65039;</span>
+                    <span class="dark-icon">&#127769;</span>
+                </button>
+            </div>
+        </div>
         <nav>
-            <a href="index.html">Overview</a>
+            <a href="index.html" class="active">Overview</a>
             <a href="history.html">History</a>
             <a href="explore.html">Explore</a>
             <a href="audit.html">Audit</a>
@@ -99,62 +240,495 @@
             <a href="export/usage.csv">Export CSV</a>
         </nav>
         
-<h1>GitHub Actions Usage</h1>
 
 <div class="stats-grid">
     <div class="card">
         <h2>This Month</h2>
-        <div class="stat-big">0 <span class="muted" style="font-size: 1rem;">/ 2000 min</span></div>
+        <div class="stat-big">125 <span class="muted" style="font-size: 1rem;">/ 2000 min</span></div>
+        <div class="stat-label">Billable minutes used</div>
         <div class="progress-bar">
             
-            
-            <div class="progress-fill progress-green" style="width: 0.0%"></div>
-            
+            <div class="progress-fill progress-green" style="width: 6.25%"></div>
         </div>
     </div>
     <div class="card">
         <h2>Cost Projection</h2>
-        <p>At current pace: <strong class="mono">0</strong> / 2000 min</p>
-        <span class="badge badge-green">0.0% of allowance</span>
-        
+        <div class="stat-big">375 <span class="muted" style="font-size: 1rem;">/ 2000 min</span></div>
+        <div class="stat-label">18.8% of allowance —
+            <span class="badge badge-success">On track</span>
+            
+            
+        </div>
     </div>
     <div class="card">
         <h2>Wasted Minutes</h2>
-        <p><strong class="mono">0.0</strong> min wasted this month</p>
-        <p class="muted">0 unsuccessful runs · 0% of monthly usage</p>
+        <div class="stat-big">0.0</div>
+        <div class="stat-label">0 failed runs · 0.0% of usage</div>
     </div>
     <div class="card">
         <h2>Queue Time</h2>
-        <p>Avg queue: <strong class="mono">0</strong>s</p>
-        <p class="muted">p95: 0s · max: 0s</p>
+        <div class="stat-big">0<span style="font-size: 0.8rem;">s</span></div>
+        <div class="stat-label">avg · p95: 0s · max: 0s</div>
     </div>
-    
-    <div class="card">
-        <h2>Workflow Audit</h2>
-        <p><strong class="mono">2</strong> repos with issues · <strong class="mono">2</strong> total</p>
-        <p style="margin-top: 0.5rem;"><a href="audit.html">View audit results →</a></p>
-    </div>
-    
 </div>
 
 <div class="card">
-    <h2>Quick Links</h2>
+    <h2>Summary (This Month)</h2>
     <div class="stats-row">
-        <a href="explore.html">Explore & filter runs</a>
-        <a href="audit.html">Workflow audit</a>
-        <a href="export/usage.json">Export JSON</a>
-        <a href="export/usage.csv">Export CSV</a>
-        <a href="failures.html">Failed runs</a>
-        <a href="history.html">Monthly history & burn-down</a>
+        <span><strong class="mono">74</strong> runs</span>
+        <span class="badge badge-success">100.0% success</span>
+        <span><strong class="mono">29.9s</strong> avg</span>
+        <span class="muted">Linux 125.0 · macOS 0 · Windows 0</span>
     </div>
+</div>
+
+<div class="card">
+    <h2>Daily Usage (Last 90 Days)</h2>
+    <div class="chart-wrap"><canvas id="trendChart" height="120"></canvas></div>
+</div>
+
+<div class="card">
+    <h2>Monthly History (Last 12 Months)</h2>
+    <div class="chart-wrap"><canvas id="monthlyChart" height="100"></canvas></div>
+</div>
+
+<div class="two-col">
+    <div class="card">
+        <h2>Repos by Minutes</h2>
+        <table>
+            <thead><tr><th>Repo</th><th>Minutes</th><th>Share</th></tr></thead>
+            <tbody>
+                
+                
+                <tr>
+                    <td><a href="repo_evenwebb_SubSleuth.html">evenwebb/SubSleuth</a></td>
+                    <td class="mono">20.0</td>
+                    <td class="muted">16.0%</td>
+                </tr>
+                
+                <tr>
+                    <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                    <td class="mono">13.0</td>
+                    <td class="muted">10.4%</td>
+                </tr>
+                
+                <tr>
+                    <td><a href="repo_evenwebb_wtw-cinemas.html">evenwebb/wtw-cinemas</a></td>
+                    <td class="mono">12.0</td>
+                    <td class="muted">9.6%</td>
+                </tr>
+                
+                <tr>
+                    <td><a href="repo_evenwebb_github-actions-usage-tracker.html">evenwebb/github-actions-usage-tracker</a></td>
+                    <td class="mono">11.0</td>
+                    <td class="muted">8.8%</td>
+                </tr>
+                
+                <tr>
+                    <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                    <td class="mono">10.0</td>
+                    <td class="muted">8.0%</td>
+                </tr>
+                
+                <tr>
+                    <td><a href="repo_evenwebb_merlin-whats-on.html">evenwebb/merlin-whats-on</a></td>
+                    <td class="mono">10.0</td>
+                    <td class="muted">8.0%</td>
+                </tr>
+                
+                <tr>
+                    <td><a href="repo_evenwebb_evenwebb.html">evenwebb/evenwebb</a></td>
+                    <td class="mono">8.0</td>
+                    <td class="muted">6.4%</td>
+                </tr>
+                
+                <tr>
+                    <td><a href="repo_evenwebb_merlin-cinemas.html">evenwebb/merlin-cinemas</a></td>
+                    <td class="mono">8.0</td>
+                    <td class="muted">6.4%</td>
+                </tr>
+                
+                <tr>
+                    <td><a href="repo_evenwebb_merlin-cinemas-calendar.html">evenwebb/merlin-cinemas-calendar</a></td>
+                    <td class="mono">8.0</td>
+                    <td class="muted">6.4%</td>
+                </tr>
+                
+                <tr>
+                    <td><a href="repo_evenwebb_wtw-cinemas-calendar.html">evenwebb/wtw-cinemas-calendar</a></td>
+                    <td class="mono">8.0</td>
+                    <td class="muted">6.4%</td>
+                </tr>
+                
+                <tr>
+                    <td><a href="repo_evenwebb_wtw-whats-on.html">evenwebb/wtw-whats-on</a></td>
+                    <td class="mono">8.0</td>
+                    <td class="muted">6.4%</td>
+                </tr>
+                
+                <tr>
+                    <td><a href="repo_evenwebb_epic-free-games-scraper.html">evenwebb/epic-free-games-scraper</a></td>
+                    <td class="mono">4.0</td>
+                    <td class="muted">3.2%</td>
+                </tr>
+                
+                <tr>
+                    <td><a href="repo_evenwebb_penrice-calendar-scraper.html">evenwebb/penrice-calendar-scraper</a></td>
+                    <td class="mono">3.0</td>
+                    <td class="muted">2.4%</td>
+                </tr>
+                
+                <tr>
+                    <td><a href="repo_evenwebb_cornwall-waste-collection-calendar-generator.html">evenwebb/cornwall-waste-collection-calendar-generator</a></td>
+                    <td class="mono">2.0</td>
+                    <td class="muted">1.6%</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    <div class="card">
+        <h2>By Trigger</h2>
+        <table>
+            <thead><tr><th>Trigger</th><th>Runs</th><th>Minutes</th></tr></thead>
+            <tbody>
+                
+                <tr>
+                    <td class="mono">dynamic</td>
+                    <td>18</td>
+                    <td class="mono">55.0</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">schedule</td>
+                    <td>44</td>
+                    <td class="mono">47.0</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">push</td>
+                    <td>9</td>
+                    <td class="mono">19.0</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">workflow_dispatch</td>
+                    <td>3</td>
+                    <td class="mono">4.0</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Top Workflows (All Repos)</h2>
+    <table>
+        <thead><tr><th>Repo</th><th>Workflow</th><th>Runs</th><th>Minutes</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td><a href="repo_evenwebb_SubSleuth.html">evenwebb/SubSleuth</a></td>
+                <td class="mono">Tests</td>
+                <td>5</td>
+                <td class="mono">15.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">Scrape Octopus Energy Free Electricity</td>
+                <td>10</td>
+                <td class="mono">10.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">pages build and deployment</td>
+                <td>3</td>
+                <td class="mono">10.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_wtw-cinemas.html">evenwebb/wtw-cinemas</a></td>
+                <td class="mono">pages build and deployment</td>
+                <td>3</td>
+                <td class="mono">9.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_evenwebb.html">evenwebb/evenwebb</a></td>
+                <td class="mono">Update Profile README</td>
+                <td>8</td>
+                <td class="mono">8.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_github-actions-usage-tracker.html">evenwebb/github-actions-usage-tracker</a></td>
+                <td class="mono">pages build and deployment</td>
+                <td>2</td>
+                <td class="mono">6.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_merlin-cinemas.html">evenwebb/merlin-cinemas</a></td>
+                <td class="mono">pages build and deployment</td>
+                <td>2</td>
+                <td class="mono">6.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_merlin-cinemas-calendar.html">evenwebb/merlin-cinemas-calendar</a></td>
+                <td class="mono">pages build and deployment</td>
+                <td>2</td>
+                <td class="mono">6.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_merlin-whats-on.html">evenwebb/merlin-whats-on</a></td>
+                <td class="mono">pages build and deployment</td>
+                <td>2</td>
+                <td class="mono">6.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_wtw-cinemas-calendar.html">evenwebb/wtw-cinemas-calendar</a></td>
+                <td class="mono">pages build and deployment</td>
+                <td>2</td>
+                <td class="mono">6.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_wtw-whats-on.html">evenwebb/wtw-whats-on</a></td>
+                <td class="mono">pages build and deployment</td>
+                <td>2</td>
+                <td class="mono">6.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_SubSleuth.html">evenwebb/SubSleuth</a></td>
+                <td class="mono">Deploy GitHub Pages</td>
+                <td>5</td>
+                <td class="mono">5.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_github-actions-usage-tracker.html">evenwebb/github-actions-usage-tracker</a></td>
+                <td class="mono">Collect & Deploy</td>
+                <td>3</td>
+                <td class="mono">5.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_epic-free-games-scraper.html">evenwebb/epic-free-games-scraper</a></td>
+                <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
+                <td>4</td>
+                <td class="mono">4.0</td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_merlin-whats-on.html">evenwebb/merlin-whats-on</a></td>
+                <td class="mono">What's On HTML</td>
+                <td>2</td>
+                <td class="mono">4.0</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+<div class="two-col">
+    <div class="card">
+        <h2>Failure Streaks by Repo</h2>
+        <table>
+            <thead><tr><th>Repo</th><th>Streak</th><th>Wasted</th></tr></thead>
+            <tbody>
+                
+                <tr>
+                    <td><a href="repo_evenwebb_calendar-scraper-template.html">evenwebb/calendar-scraper-template</a></td>
+                    <td><span class="badge badge-failure">16</span></td>
+                    <td class="mono">16.0 min</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    <div class="card">
+        <h2>Failure Streaks by Workflow</h2>
+        <table>
+            <thead><tr><th>Workflow</th><th>Streak</th><th>Wasted</th></tr></thead>
+            <tbody>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">evenwebb/calendar-scraper-template / Update Calendar Feed</td>
+                    <td><span class="badge badge-failure">16</span></td>
+                    <td class="mono">16.0 min</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="two-col">
+    <div class="card">
+        <h2>Expensive Jobs (30 Days)</h2>
+        <table>
+            <thead><tr><th>Job</th><th>Runs</th><th>Billable</th></tr></thead>
+            <tbody>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">evenwebb/OctoCal / scrape-and-deploy</td>
+                    <td>10</td>
+                    <td class="mono">10.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">evenwebb/evenwebb / update</td>
+                    <td>8</td>
+                    <td class="mono">8.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">evenwebb/SubSleuth / deploy</td>
+                    <td>5</td>
+                    <td class="mono">5.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">evenwebb/SubSleuth / test (3.12)</td>
+                    <td>5</td>
+                    <td class="mono">5.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">evenwebb/SubSleuth / test (3.10)</td>
+                    <td>5</td>
+                    <td class="mono">5.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">evenwebb/SubSleuth / test (3.11)</td>
+                    <td>5</td>
+                    <td class="mono">5.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">evenwebb/merlin-whats-on / build</td>
+                    <td>2</td>
+                    <td class="mono">4.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">evenwebb/stmewan-parish-council-calendar / deploy</td>
+                    <td>3</td>
+                    <td class="mono">4.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">evenwebb/epic-free-games-scraper / scrape-and-build</td>
+                    <td>4</td>
+                    <td class="mono">4.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">evenwebb/wtw-cinemas / deploy</td>
+                    <td>3</td>
+                    <td class="mono">3.0 min</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    <div class="card">
+        <h2>Slow Steps (30 Days)</h2>
+        <table>
+            <thead><tr><th>Step</th><th>Runs</th><th>Total</th></tr></thead>
+            <tbody>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">Deploy to GitHub Pages</td>
+                    <td>3</td>
+                    <td class="mono">158.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">Install dependencies & run scraper</td>
+                    <td>2</td>
+                    <td class="mono">148.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">Deploy to GitHub Pages</td>
+                    <td>3</td>
+                    <td class="mono">76.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">Deploy to GitHub Pages</td>
+                    <td>4</td>
+                    <td class="mono">66.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">Update README</td>
+                    <td>8</td>
+                    <td class="mono">50.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">Run scraper</td>
+                    <td>3</td>
+                    <td class="mono">44.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">Validate Pages bundle</td>
+                    <td>5</td>
+                    <td class="mono">41.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">Install package</td>
+                    <td>5</td>
+                    <td class="mono">41.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">Pull ghcr.io/actions/jekyll-build-pages:v1.0.13</td>
+                    <td>3</td>
+                    <td class="mono">40.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono" style="font-size:0.82rem">Pull ghcr.io/actions/jekyll-build-pages:v1.0.13</td>
+                    <td>3</td>
+                    <td class="mono">37.0s</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Failure Cost Leaderboard</h2>
+    <table>
+        <thead><tr><th>Repo</th><th>Workflow</th><th>Failed</th><th>Wasted</th></tr></thead>
+        <tbody>
+            
+            <tr><td colspan="4" class="muted">No failed runs this month.</td></tr>
+            
+        </tbody>
+    </table>
 </div>
 
 
 <div class="card">
-    <h2>Trends & Comparisons</h2>
+    <h2>Trends</h2>
     <div class="stats-row">
         
-        <span>This month vs last: <strong class="mono">0</strong> vs <strong class="mono">0</strong> min
+        <span>This month vs last: <strong class="mono">125.0</strong> vs <strong class="mono">0</strong> min
         
         
         </span>
@@ -165,244 +739,138 @@
 
 
 <div class="card">
-    <h2>Summary (This Month)</h2>
-    <div class="stats-row">
-        <span><strong class="mono">0</strong> total runs</span>
-        <span><strong class="mono">0%</strong> success rate</span>
-        <span><strong class="mono">0s</strong> avg duration</span>
-        <span><strong class="mono">0s</strong> avg queue</span>
-        <span><strong class="mono">0</strong> wasted min</span>
-        <span class="muted">Linux: 0 · macOS: 0 · Windows: 0</span>
-    </div>
-</div>
-
-<div class="card">
-    <h2>By Trigger</h2>
-    <table>
-        <thead><tr><th>Trigger</th><th>Runs</th><th>Minutes</th></tr></thead>
-        <tbody>
-            
-            <tr><td colspan="3" class="muted">No data</td></tr>
-            
-        </tbody>
-    </table>
-</div>
-
-<div class="card">
-    <h2>Daily Usage (Last 90 Days)</h2>
-    <canvas id="trendChart" height="120"></canvas>
-</div>
-
-<div class="card">
-    <h2>Monthly History (Last 12 Months)</h2>
-    <canvas id="monthlyChart" height="100"></canvas>
-</div>
-
-<div class="stats-grid">
-    <div class="card">
-        <h2>Failure Streaks by Repo</h2>
-        <table>
-            <thead><tr><th>Repo</th><th>Streak</th><th>Wasted Min</th></tr></thead>
-            <tbody>
-                
-                <tr>
-                    <td><a href="repo_evenwebb_calendar-scraper-template.html">evenwebb/calendar-scraper-template</a></td>
-                    <td><span class="badge badge-failure">16</span></td>
-                    <td class="mono">16.0</td>
-                </tr>
-                
-            </tbody>
-        </table>
-    </div>
-    <div class="card">
-        <h2>Failure Streaks by Workflow</h2>
-        <table>
-            <thead><tr><th>Workflow</th><th>Streak</th><th>Wasted Min</th></tr></thead>
-            <tbody>
-                
-                <tr>
-                    <td class="mono">evenwebb/calendar-scraper-template / Update Calendar Feed</td>
-                    <td><span class="badge badge-failure">16</span></td>
-                    <td class="mono">16.0</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">evenwebb/merlin-whats-on / What's On HTML</td>
-                    <td><span class="badge badge-failure">13</span></td>
-                    <td class="mono">25.0</td>
-                </tr>
-                
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<div class="card">
-    <h2>Repos by Minutes (This Month)</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Repo</th>
-                <th>Minutes</th>
-                <th>% of Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            
-            <tr><td colspan="3" class="muted">No data this month yet.</td></tr>
-            
-        </tbody>
-    </table>
-</div>
-
-<div class="card">
-    <h2>Failure Cost Leaderboard</h2>
-    <table>
-        <thead><tr><th>Repo</th><th>Workflow</th><th>Failed Runs</th><th>Wasted Min</th></tr></thead>
-        <tbody>
-            
-            <tr><td colspan="4" class="muted">No failed runs this month.</td></tr>
-            
-        </tbody>
-    </table>
-</div>
-
-<div class="card">
     <h2>Biggest Movers</h2>
     <table>
-        <thead><tr><th>Repo</th><th>This Month</th><th>Last Month</th><th>Delta</th></tr></thead>
+        <thead><tr><th>Repo</th><th>This Month</th><th>Last Month</th><th>Change</th></tr></thead>
         <tbody>
             
-            <tr><td colspan="4" class="muted">Not enough history yet.</td></tr>
+            <tr>
+                <td><a href="repo_evenwebb_SubSleuth.html">evenwebb/SubSleuth</a></td>
+                <td class="mono">20.0</td>
+                <td class="mono">0.0</td>
+                <td class="mono">
+                    +20.0
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">13.0</td>
+                <td class="mono">0.0</td>
+                <td class="mono">
+                    +13.0
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_wtw-cinemas.html">evenwebb/wtw-cinemas</a></td>
+                <td class="mono">12.0</td>
+                <td class="mono">0.0</td>
+                <td class="mono">
+                    +12.0
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_github-actions-usage-tracker.html">evenwebb/github-actions-usage-tracker</a></td>
+                <td class="mono">11.0</td>
+                <td class="mono">0.0</td>
+                <td class="mono">
+                    +11.0
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">10.0</td>
+                <td class="mono">0.0</td>
+                <td class="mono">
+                    +10.0
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_merlin-whats-on.html">evenwebb/merlin-whats-on</a></td>
+                <td class="mono">10.0</td>
+                <td class="mono">0.0</td>
+                <td class="mono">
+                    +10.0
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_evenwebb.html">evenwebb/evenwebb</a></td>
+                <td class="mono">8.0</td>
+                <td class="mono">0.0</td>
+                <td class="mono">
+                    +8.0
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_merlin-cinemas.html">evenwebb/merlin-cinemas</a></td>
+                <td class="mono">8.0</td>
+                <td class="mono">0.0</td>
+                <td class="mono">
+                    +8.0
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_merlin-cinemas-calendar.html">evenwebb/merlin-cinemas-calendar</a></td>
+                <td class="mono">8.0</td>
+                <td class="mono">0.0</td>
+                <td class="mono">
+                    +8.0
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_wtw-cinemas-calendar.html">evenwebb/wtw-cinemas-calendar</a></td>
+                <td class="mono">8.0</td>
+                <td class="mono">0.0</td>
+                <td class="mono">
+                    +8.0
+                    
+                </td>
+            </tr>
             
         </tbody>
     </table>
 </div>
+
 
 <div class="card">
-    <h2>Top Workflows (All Repos)</h2>
-    <table>
-        <thead>
-            <tr><th>Repo</th><th>Workflow</th><th>Runs</th><th>Minutes</th></tr>
-        </thead>
-        <tbody>
-            
-            <tr><td colspan="4" class="muted">No data</td></tr>
-            
-        </tbody>
-    </table>
+    <h2>Workflow Audit</h2>
+    <div class="stats-row">
+        <span><strong class="mono">2</strong> repos with issues</span>
+        <span><strong class="mono">3</strong> total issues found</span>
+    </div>
+    <p style="margin-top: 0.75rem;"><a href="audit.html">View detailed audit results →</a></p>
 </div>
 
-<div class="stats-grid">
-    <div class="card">
-        <h2>Expensive Jobs (30 Days)</h2>
-        <table>
-            <thead><tr><th>Job</th><th>Runs</th><th>Billable Min</th></tr></thead>
-            <tbody>
-                
-                <tr><td colspan="3" class="muted">No job-level data yet.</td></tr>
-                
-            </tbody>
-        </table>
-    </div>
-    <div class="card">
-        <h2>Slow Steps (30 Days)</h2>
-        <table>
-            <thead><tr><th>Step</th><th>Runs</th><th>Total Sec</th></tr></thead>
-            <tbody>
-                
-                <tr><td colspan="3" class="muted">No step timing data yet.</td></tr>
-                
-            </tbody>
-        </table>
-    </div>
-</div>
 
 
 <div class="card">
     <h2>Dormant Workflows</h2>
-    <p class="muted">No successful run in 30+ days — may be disabled or forgotten.</p>
+    <p class="muted" style="margin-bottom:0.75rem">No successful run in 30+ days — may be disabled or silently failing.</p>
     <table>
         <thead><tr><th>Repo</th><th>Workflow</th><th>Last Success</th></tr></thead>
         <tbody>
             
             <tr>
                 <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
-                <td class="mono">Scrape Octopus Energy Free Electricity</td>
-                <td class="mono">2026-03-15</td>
-            </tr>
-            
-            <tr>
-                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
                 <td class="mono">pages build and deployment</td>
                 <td class="mono">2026-02-17</td>
-            </tr>
-            
-            <tr>
-                <td><a href="repo_evenwebb_cornwall-waste-collection-calendar-generator.html">evenwebb/cornwall-waste-collection-calendar-generator</a></td>
-                <td class="mono">Run Cornwall scraper</td>
-                <td class="mono">2026-02-27</td>
-            </tr>
-            
-            <tr>
-                <td><a href="repo_evenwebb_epic-free-games-scraper.html">evenwebb/epic-free-games-scraper</a></td>
-                <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
-                <td class="mono">2026-03-15</td>
-            </tr>
-            
-            <tr>
-                <td><a href="repo_evenwebb_evenwebb.html">evenwebb/evenwebb</a></td>
-                <td class="mono">Update Profile README</td>
-                <td class="mono">2026-03-16</td>
-            </tr>
-            
-            <tr>
-                <td><a href="repo_evenwebb_github-actions-usage-tracker.html">evenwebb/github-actions-usage-tracker</a></td>
-                <td class="mono">Collect & Deploy</td>
-                <td class="mono">2026-03-15</td>
-            </tr>
-            
-            <tr>
-                <td><a href="repo_evenwebb_github-actions-usage-tracker.html">evenwebb/github-actions-usage-tracker</a></td>
-                <td class="mono">pages build and deployment</td>
-                <td class="mono">2026-03-15</td>
-            </tr>
-            
-            <tr>
-                <td><a href="repo_evenwebb_merlin-cinemas-calendar.html">evenwebb/merlin-cinemas-calendar</a></td>
-                <td class="mono">Update Cinema iCal Feed</td>
-                <td class="mono">2026-03-15</td>
-            </tr>
-            
-            <tr>
-                <td><a href="repo_evenwebb_merlin-cinemas-calendar.html">evenwebb/merlin-cinemas-calendar</a></td>
-                <td class="mono">pages build and deployment</td>
-                <td class="mono">2026-03-15</td>
-            </tr>
-            
-            <tr>
-                <td><a href="repo_evenwebb_merlin-whats-on.html">evenwebb/merlin-whats-on</a></td>
-                <td class="mono">pages build and deployment</td>
-                <td class="mono">2026-03-04</td>
-            </tr>
-            
-            <tr>
-                <td><a href="repo_evenwebb_penrice-calendar-scraper.html">evenwebb/penrice-calendar-scraper</a></td>
-                <td class="mono">Update iCal Feed</td>
-                <td class="mono">2026-03-15</td>
-            </tr>
-            
-            <tr>
-                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
-                <td class="mono">Update iCal Feed</td>
-                <td class="mono">2026-03-15</td>
-            </tr>
-            
-            <tr>
-                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
-                <td class="mono">pages build and deployment</td>
-                <td class="mono">2026-03-15</td>
             </tr>
             
             <tr>
@@ -423,30 +891,6 @@
                 <td class="mono">2026-02-12</td>
             </tr>
             
-            <tr>
-                <td><a href="repo_evenwebb_wtw-cinemas-calendar.html">evenwebb/wtw-cinemas-calendar</a></td>
-                <td class="mono">Update Cinema iCal Feed</td>
-                <td class="mono">2026-03-15</td>
-            </tr>
-            
-            <tr>
-                <td><a href="repo_evenwebb_wtw-cinemas-calendar.html">evenwebb/wtw-cinemas-calendar</a></td>
-                <td class="mono">pages build and deployment</td>
-                <td class="mono">2026-03-15</td>
-            </tr>
-            
-            <tr>
-                <td><a href="repo_evenwebb_wtw-whats-on.html">evenwebb/wtw-whats-on</a></td>
-                <td class="mono">What's On HTML</td>
-                <td class="mono">2026-03-10</td>
-            </tr>
-            
-            <tr>
-                <td><a href="repo_evenwebb_wtw-whats-on.html">evenwebb/wtw-whats-on</a></td>
-                <td class="mono">pages build and deployment</td>
-                <td class="mono">2026-03-10</td>
-            </tr>
-            
         </tbody>
     </table>
 </div>
@@ -455,49 +899,47 @@
 <div class="card">
     <h2>Recent Collections</h2>
     <table>
-        <thead>
-            <tr><th>Started</th><th>Repos</th><th>Runs</th><th>API Calls</th><th>Errors</th></tr>
-        </thead>
+        <thead><tr><th>Started</th><th>Repos</th><th>Runs</th><th>Calls</th><th>Status</th></tr></thead>
         <tbody>
             
             <tr>
+                <td class="mono">2026-06-10T14:48:57</td>
+                <td>40 <span class="muted">(14)</span></td>
+                <td>71 <span class="muted">&rarr; 2818</span></td>
+                <td class="mono">112</td>
+                <td><span class="badge badge-success">OK</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2026-06-10T14:47:18</td>
+                <td>40 <span class="muted">(14)</span></td>
+                <td>73 <span class="muted">&rarr; 2818</span></td>
+                <td class="mono">114</td>
+                <td><span class="badge badge-success">OK</span></td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2026-06-10T13:48:13</td>
+                <td>40 <span class="muted">(14)</span></td>
+                <td>71 <span class="muted">&rarr; 2815</span></td>
+                <td class="mono">112</td>
+                <td><span class="badge badge-success">OK</span></td>
+            </tr>
+            
+            <tr>
                 <td class="mono">2026-06-10T04:07:43</td>
-                <td>1 (0 with runs)</td>
-                <td>0 → 2744 total</td>
+                <td>1 <span class="muted">(0)</span></td>
+                <td>0 <span class="muted">&rarr; 2744</span></td>
                 <td class="mono">2</td>
-                <td><span class="badge badge-failure">1</span></td>
+                <td><span class="badge badge-failure">1 err</span></td>
             </tr>
             
             <tr>
                 <td class="mono">2026-06-09T23:28:19</td>
-                <td>1 (0 with runs)</td>
-                <td>0 → 2744 total</td>
+                <td>1 <span class="muted">(0)</span></td>
+                <td>0 <span class="muted">&rarr; 2744</span></td>
                 <td class="mono">2</td>
-                <td><span class="badge badge-failure">1</span></td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-06-09T03:56:18</td>
-                <td>1 (0 with runs)</td>
-                <td>0 → 2744 total</td>
-                <td class="mono">2</td>
-                <td><span class="badge badge-failure">1</span></td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-06-08T04:24:33</td>
-                <td>1 (0 with runs)</td>
-                <td>0 → 2744 total</td>
-                <td class="mono">2</td>
-                <td><span class="badge badge-failure">1</span></td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-06-07T04:20:08</td>
-                <td>1 (0 with runs)</td>
-                <td>0 → 2744 total</td>
-                <td class="mono">2</td>
-                <td><span class="badge badge-failure">1</span></td>
+                <td><span class="badge badge-failure">1 err</span></td>
             </tr>
             
         </tbody>
@@ -505,59 +947,168 @@
     <p class="muted" style="margin-top: 0.5rem;"><a href="logs.html">View full log →</a></p>
 </div>
 
-        <footer class="muted" style="margin-top: 2rem; font-size: 0.875rem;">
-            Last updated: 2026-06-10 04:07 UTC · GitHub Actions Usage Tracker
+        <footer>
+            <span>GitHub Actions Usage Tracker</span>
+            <span>Last updated: 2026-06-10 14:49 UTC</span>
         </footer>
     </div>
+
+    <script>
+    // Theme toggle with localStorage persistence
+    (function() {
+        const saved = localStorage.getItem('actions-usage-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        updateToggleButton(theme);
+    })();
+
+    function toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('actions-usage-theme', next);
+        updateToggleButton(next);
+        // Re-render charts with new colors if Chart is loaded
+        if (typeof updateChartColors === 'function') updateChartColors();
+    }
+
+    function updateToggleButton(theme) {
+        const lightIcon = document.querySelector('.light-icon');
+        const darkIcon = document.querySelector('.dark-icon');
+        if (lightIcon && darkIcon) {
+            lightIcon.style.display = theme === 'light' ? 'none' : 'inline';
+            darkIcon.style.display = theme === 'dark' ? 'none' : 'inline';
+        }
+    }
+
+    // Highlight active nav link
+    (function() {
+        const path = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('nav a').forEach(a => {
+            if (a.getAttribute('href') === path) {
+                a.classList.add('active');
+            } else {
+                a.classList.remove('active');
+            }
+        });
+    })();
+
+    // Listen for OS theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('actions-usage-theme')) {
+            const theme = e.matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            updateToggleButton(theme);
+            if (typeof updateChartColors === 'function') updateChartColors();
+        }
+    });
+    </script>
+
     
 <script>
-const trendData = [38.0, 38.0, 38.0, 37.0, 1.0];
-const trendLabels = ["2026-03-12", "2026-03-13", "2026-03-14", "2026-03-15", "2026-03-16"];
-new Chart(document.getElementById('trendChart'), {
-    type: 'line',
-    data: {
-        labels: trendLabels,
-        datasets: [{
-            label: 'Minutes',
-            data: trendData,
-            borderColor: '#58a6ff',
-            backgroundColor: 'rgba(88, 166, 255, 0.1)',
-            fill: true,
-            tension: 0.3
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: {
-            x: { grid: { color: '#30363d' }, ticks: { color: '#8b949e', maxTicksLimit: 12 } },
-            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
+// Chart.js color resolver from CSS custom properties
+function getChartColors() {
+    const style = getComputedStyle(document.documentElement);
+    return {
+        line: style.getPropertyValue('--chart-line').trim(),
+        fill: style.getPropertyValue('--chart-fill').trim(),
+        bar: style.getPropertyValue('--chart-bar').trim(),
+        grid: style.getPropertyValue('--chart-grid').trim(),
+        tick: style.getPropertyValue('--chart-tick').trim(),
+    };
+}
+
+let trendChart, monthlyChart;
+
+function buildTrendChart() {
+    const colors = getChartColors();
+    const ctx = document.getElementById('trendChart');
+    if (!ctx) return;
+    if (trendChart) trendChart.destroy();
+    trendChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["2026-03-12", "2026-03-13", "2026-03-14", "2026-03-15", "2026-03-16", "2026-06-08", "2026-06-09", "2026-06-10"],
+            datasets: [{
+                label: 'Minutes',
+                data: [38.0, 38.0, 38.0, 37.0, 1.0, 36.0, 52.0, 37.0],
+                borderColor: colors.line,
+                backgroundColor: colors.fill,
+                fill: true,
+                tension: 0.3,
+                pointRadius: 0,
+                pointHitRadius: 8,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { intersect: false, mode: 'index' },
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { grid: { color: colors.grid }, ticks: { color: colors.tick, maxTicksLimit: 12, font: { size: 10 } } },
+                y: { grid: { color: colors.grid }, ticks: { color: colors.tick, font: { size: 10 } }, beginAtZero: true }
+            }
         }
-    }
-});
-const monthlyData = [113.0, 256.0, 1395.0, 1131.0, 669.0];
-const monthlyLabels = ["2025-11", "2025-12", "2026-01", "2026-02", "2026-03"];
-new Chart(document.getElementById('monthlyChart'), {
-    type: 'bar',
-    data: {
-        labels: monthlyLabels,
-        datasets: [{
-            label: 'Minutes',
-            data: monthlyData,
-            backgroundColor: 'rgba(88, 166, 255, 0.6)',
-            borderColor: '#58a6ff',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: {
-            x: { grid: { display: false }, ticks: { color: '#8b949e' } },
-            y: { grid: { color: '#30363d' }, ticks: { color: '#8b949e' } }
+    });
+}
+
+function buildMonthlyChart() {
+    const colors = getChartColors();
+    const ctx = document.getElementById('monthlyChart');
+    if (!ctx) return;
+    if (monthlyChart) monthlyChart.destroy();
+    monthlyChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-06"],
+            datasets: [{
+                label: 'Minutes',
+                data: [113.0, 256.0, 1395.0, 1131.0, 669.0, 125.0],
+                backgroundColor: colors.bar,
+                borderColor: colors.line,
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { grid: { display: false }, ticks: { color: colors.tick, font: { size: 10 } } },
+                y: { grid: { color: colors.grid }, ticks: { color: colors.tick, font: { size: 10 } }, beginAtZero: true }
+            }
         }
+    });
+}
+
+function updateChartColors() {
+    if (trendChart) {
+        const colors = getChartColors();
+        trendChart.data.datasets[0].borderColor = colors.line;
+        trendChart.data.datasets[0].backgroundColor = colors.fill;
+        trendChart.options.scales.x.grid.color = colors.grid;
+        trendChart.options.scales.x.ticks.color = colors.tick;
+        trendChart.options.scales.y.grid.color = colors.grid;
+        trendChart.options.scales.y.ticks.color = colors.tick;
+        trendChart.update();
     }
-});
+    if (monthlyChart) {
+        const colors = getChartColors();
+        monthlyChart.data.datasets[0].backgroundColor = colors.bar;
+        monthlyChart.data.datasets[0].borderColor = colors.line;
+        monthlyChart.options.scales.x.ticks.color = colors.tick;
+        monthlyChart.options.scales.y.grid.color = colors.grid;
+        monthlyChart.options.scales.y.ticks.color = colors.tick;
+        monthlyChart.update();
+    }
+}
+
+if (typeof Chart !== 'undefined') {
+    buildTrendChart();
+    buildMonthlyChart();
+}
 </script>
 
 </body>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,89 +7,228 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --bg: #0d1117;
             --bg-card: #161b22;
+            --bg-hover: rgba(88, 166, 255, 0.06);
             --border: #30363d;
             --text: #e6edf3;
             --text-muted: #8b949e;
             --accent: #58a6ff;
+            --accent-dim: rgba(88, 166, 255, 0.15);
             --success: #3fb950;
+            --success-dim: rgba(63, 185, 80, 0.15);
             --warning: #d29922;
+            --warning-dim: rgba(210, 153, 34, 0.15);
             --danger: #f85149;
+            --danger-dim: rgba(248, 81, 73, 0.15);
+            --shadow: 0 1px 3px rgba(0,0,0,0.3);
+
+            /* Chart.js colors */
+            --chart-line: #58a6ff;
+            --chart-fill: rgba(88, 166, 255, 0.1);
+            --chart-bar: rgba(88, 166, 255, 0.6);
+            --chart-grid: #30363d;
+            --chart-tick: #8b949e;
         }
-        * { box-sizing: border-box; }
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --bg-card: #f6f8fa;
+            --bg-hover: rgba(9, 105, 218, 0.06);
+            --border: #d0d7de;
+            --text: #1f2328;
+            --text-muted: #656d76;
+            --accent: #0969da;
+            --accent-dim: rgba(9, 105, 218, 0.1);
+            --success: #1a7f37;
+            --success-dim: rgba(26, 127, 55, 0.1);
+            --warning: #9a6700;
+            --warning-dim: rgba(154, 103, 0, 0.1);
+            --danger: #cf222e;
+            --danger-dim: rgba(207, 34, 46, 0.1);
+            --shadow: 0 1px 3px rgba(31,35,40,0.12);
+
+            --chart-line: #0969da;
+            --chart-fill: rgba(9, 105, 218, 0.08);
+            --chart-bar: rgba(9, 105, 218, 0.5);
+            --chart-grid: #d0d7de;
+            --chart-tick: #656d76;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg);
             color: var(--text);
-            margin: 0;
-            padding: 1.5rem;
             line-height: 1.6;
+            transition: background 0.2s, color 0.2s;
         }
-        .container { max-width: 1200px; margin: 0 auto; }
-        nav {
+        .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+
+        /* ── Header ── */
+        .header {
             display: flex;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid var(--border);
         }
+        .header h1 { font-size: 1.5rem; font-weight: 700; white-space: nowrap; }
+        .header-right { display: flex; align-items: center; gap: 0.75rem; }
+
+        /* ── Nav ── */
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+            margin-bottom: 1.5rem;
+        }
         nav a {
-            color: var(--accent);
+            color: var(--text-muted);
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            transition: color 0.15s, background 0.15s;
+            white-space: nowrap;
         }
-        nav a:hover { text-decoration: underline; }
-        h1 { font-size: 1.75rem; font-weight: 600; margin: 0 0 1rem; }
-        h2 { font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+        nav a:hover, nav a.active {
+            color: var(--accent);
+            background: var(--accent-dim);
+        }
+
+        /* ── Theme toggle ── */
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-family: inherit;
+            transition: background 0.15s;
+            white-space: nowrap;
+        }
+        .theme-toggle:hover { background: var(--bg-hover); }
+
+        /* ── Cards ── */
+        h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 1.25rem;
             margin-bottom: 1rem;
+            box-shadow: var(--shadow);
         }
-        .mono { font-family: 'JetBrains Mono', monospace; }
+        .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.9em; }
         .muted { color: var(--text-muted); }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid var(--border); }
-        th { color: var(--text-muted); font-weight: 500; font-size: 0.875rem; }
-        tr:hover { background: rgba(88, 166, 255, 0.05); }
-        a { color: var(--accent); }
-        .badge { display: inline-block; padding: 0.2em 0.5em; border-radius: 4px; font-size: 0.8rem; }
-        .badge-success { background: rgba(63, 185, 80, 0.2); color: var(--success); }
-        .badge-green { background: rgba(63, 185, 80, 0.2); color: var(--success); }
-        .badge-failure { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
-        .badge-red { background: rgba(248, 81, 73, 0.2); color: var(--danger); }
-        .badge-amber { background: rgba(210, 153, 34, 0.2); color: var(--warning); }
-        .stat-big { font-size: 2.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+
+        /* ── Tables ── */
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        th, td { padding: 0.55rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { color: var(--text-muted); font-weight: 500; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; }
+        tr:hover { background: var(--bg-hover); }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* ── Badges ── */
+        .badge {
+            display: inline-block;
+            padding: 0.15em 0.45em;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+        .badge-success, .badge-green { background: var(--success-dim); color: var(--success); }
+        .badge-failure, .badge-red { background: var(--danger-dim); color: var(--danger); }
+        .badge-amber { background: var(--warning-dim); color: var(--warning); }
+
+        /* ── Stats ── */
+        .stat-big { font-size: 2.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; line-height: 1.2; }
+        .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
         .progress-bar {
-            height: 12px;
+            height: 10px;
             background: var(--border);
-            border-radius: 6px;
+            border-radius: 5px;
             overflow: hidden;
             margin-top: 0.5rem;
         }
-        .progress-fill {
-            height: 100%;
-            border-radius: 6px;
-            transition: width 0.3s ease;
-        }
+        .progress-fill { height: 100%; border-radius: 5px; transition: width 0.4s ease; }
         .progress-green { background: var(--success); }
         .progress-amber { background: var(--warning); }
         .progress-red { background: var(--danger); }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
-        .stats-row { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
+
+        /* ── Grids ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            align-items: center;
+        }
+        .two-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1rem;
+        }
+
+        /* ── Footer ── */
+        footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 700px) {
+            .container { padding: 0.75rem; }
+            .header { flex-direction: column; align-items: flex-start; }
+            .stat-big { font-size: 1.6rem; }
+            .two-col { grid-template-columns: 1fr; }
+            nav { gap: 0; }
+            nav a { font-size: 0.82rem; padding: 0.35rem 0.55rem; }
+            table { font-size: 0.82rem; }
+            th, td { padding: 0.4rem 0.5rem; }
+            .card { padding: 0.85rem; }
+        }
+
+        /* ── Chart canvas ── */
+        .chart-wrap { position: relative; width: 100%; }
+        .chart-wrap canvas { width: 100% !important; }
     </style>
     
 </head>
 <body>
     <div class="container">
+        <div class="header">
+            <h1>&#9889; Actions Usage</h1>
+            <div class="header-right">
+                <span class="muted" style="font-size:0.82rem">Updated 2026-06-10 14:49 UTC</span>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
+                    <span class="light-icon">&#9728;&#65039;</span>
+                    <span class="dark-icon">&#127769;</span>
+                </button>
+            </div>
+        </div>
         <nav>
-            <a href="index.html">Overview</a>
+            <a href="index.html" class="active">Overview</a>
             <a href="history.html">History</a>
             <a href="explore.html">Explore</a>
             <a href="audit.html">Audit</a>
@@ -116,6 +255,48 @@
             </tr>
         </thead>
         <tbody>
+            
+            <tr>
+                <td class="mono">2026-06-10T14:48:57</td>
+                <td class="mono">2026-06-10T14:49:26</td>
+                <td>40 (14 with runs)</td>
+                <td>71 collected → 2818 total in DB</td>
+                <td class="mono">112</td>
+                <td>—</td>
+                <td>
+                    
+                    <span class="muted">—</span>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2026-06-10T14:47:18</td>
+                <td class="mono">2026-06-10T14:47:47</td>
+                <td>40 (14 with runs)</td>
+                <td>73 collected → 2818 total in DB</td>
+                <td class="mono">114</td>
+                <td>—</td>
+                <td>
+                    
+                    <span class="muted">—</span>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2026-06-10T13:48:13</td>
+                <td class="mono">2026-06-10T13:48:37</td>
+                <td>40 (14 with runs)</td>
+                <td>71 collected → 2815 total in DB</td>
+                <td class="mono">112</td>
+                <td>—</td>
+                <td>
+                    
+                    <span class="muted">—</span>
+                    
+                </td>
+            </tr>
             
             <tr>
                 <td class="mono">2026-06-10T04:07:43</td>
@@ -491,80 +672,68 @@
                 </td>
             </tr>
             
-            <tr>
-                <td class="mono">2026-05-25T04:13:49</td>
-                <td class="mono">2026-05-25T04:13:49</td>
-                <td>1 (0 with runs)</td>
-                <td>0 collected → 2744 total in DB</td>
-                <td class="mono">2</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="badge badge-failure">1</span>
-                    <details style="margin-top: 0.25rem;">
-                        <summary class="muted" style="cursor: pointer;">Show</summary>
-                        <ul style="margin: 0.25rem 0 0 1rem; font-size: 0.875rem;">
-                            
-                            <li>evenwebb/github-actions-usage-tracker: 401 Client Error: Unauthorized for url: https://api.github.com/repos/evenwebb/github-actions-usage-tracker/actions/runs?per_page=100&created=%3E%3D2026-05-23T04%3A13%3A49Z&status=completed</li>
-                            
-                        </ul>
-                    </details>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-05-24T04:02:23</td>
-                <td class="mono">2026-05-24T04:02:23</td>
-                <td>1 (0 with runs)</td>
-                <td>0 collected → 2744 total in DB</td>
-                <td class="mono">2</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="badge badge-failure">1</span>
-                    <details style="margin-top: 0.25rem;">
-                        <summary class="muted" style="cursor: pointer;">Show</summary>
-                        <ul style="margin: 0.25rem 0 0 1rem; font-size: 0.875rem;">
-                            
-                            <li>evenwebb/github-actions-usage-tracker: 401 Client Error: Unauthorized for url: https://api.github.com/repos/evenwebb/github-actions-usage-tracker/actions/runs?per_page=100&created=%3E%3D2026-05-22T04%3A02%3A23Z&status=completed</li>
-                            
-                        </ul>
-                    </details>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-05-23T03:40:04</td>
-                <td class="mono">2026-05-23T03:40:05</td>
-                <td>1 (0 with runs)</td>
-                <td>0 collected → 2744 total in DB</td>
-                <td class="mono">2</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="badge badge-failure">1</span>
-                    <details style="margin-top: 0.25rem;">
-                        <summary class="muted" style="cursor: pointer;">Show</summary>
-                        <ul style="margin: 0.25rem 0 0 1rem; font-size: 0.875rem;">
-                            
-                            <li>evenwebb/github-actions-usage-tracker: 401 Client Error: Unauthorized for url: https://api.github.com/repos/evenwebb/github-actions-usage-tracker/actions/runs?per_page=100&created=%3E%3D2026-05-21T03%3A40%3A04Z&status=completed</li>
-                            
-                        </ul>
-                    </details>
-                    
-                </td>
-            </tr>
-            
         </tbody>
     </table>
 </div>
 
-        <footer class="muted" style="margin-top: 2rem; font-size: 0.875rem;">
-            Last updated: 2026-06-10 04:07 UTC · GitHub Actions Usage Tracker
+        <footer>
+            <span>GitHub Actions Usage Tracker</span>
+            <span>Last updated: 2026-06-10 14:49 UTC</span>
         </footer>
     </div>
+
+    <script>
+    // Theme toggle with localStorage persistence
+    (function() {
+        const saved = localStorage.getItem('actions-usage-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        updateToggleButton(theme);
+    })();
+
+    function toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('actions-usage-theme', next);
+        updateToggleButton(next);
+        // Re-render charts with new colors if Chart is loaded
+        if (typeof updateChartColors === 'function') updateChartColors();
+    }
+
+    function updateToggleButton(theme) {
+        const lightIcon = document.querySelector('.light-icon');
+        const darkIcon = document.querySelector('.dark-icon');
+        if (lightIcon && darkIcon) {
+            lightIcon.style.display = theme === 'light' ? 'none' : 'inline';
+            darkIcon.style.display = theme === 'dark' ? 'none' : 'inline';
+        }
+    }
+
+    // Highlight active nav link
+    (function() {
+        const path = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('nav a').forEach(a => {
+            if (a.getAttribute('href') === path) {
+                a.classList.add('active');
+            } else {
+                a.classList.remove('active');
+            }
+        });
+    })();
+
+    // Listen for OS theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('actions-usage-theme')) {
+            const theme = e.matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            updateToggleButton(theme);
+            if (typeof updateChartColors === 'function') updateChartColors();
+        }
+    });
+    </script>
+
     
 </body>
 </html>
