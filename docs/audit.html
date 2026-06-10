@@ -220,7 +220,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.82rem">Updated 2026-06-10 14:49 UTC</span>
+                <span class="muted" style="font-size:0.82rem">Updated 2026-06-10 15:09 UTC</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -265,6 +265,47 @@
             
             <tr>
                 <td><a href="repo_evenwebb_SubSleuth.html">evenwebb/SubSleuth</a></td>
+                <td class="mono">2</td>
+                <td>—</td>
+                <td><span class="badge badge-amber">2</span></td>
+                <td>
+                    
+                    <span class="muted" style="font-size: 0.85rem;">missing_cache: Job appears to install packages but has no cache s…</span><br>
+                    
+                    <span class="muted" style="font-size: 0.85rem;">missing_cache: Job appears to install packages but has no cache s…</span><br>
+                    
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_gpx2map.html">evenwebb/gpx2map</a></td>
+                <td class="mono">1</td>
+                <td>—</td>
+                <td><span class="badge badge-amber">1</span></td>
+                <td>
+                    
+                    <span class="muted" style="font-size: 0.85rem;">missing_cache: Job appears to install packages but has no cache s…</span><br>
+                    
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_patreon-notifier.html">evenwebb/patreon-notifier</a></td>
+                <td class="mono">1</td>
+                <td>—</td>
+                <td><span class="badge badge-amber">1</span></td>
+                <td>
+                    
+                    <span class="muted" style="font-size: 0.85rem;">missing_cache: Job appears to install packages but has no cache s…</span><br>
+                    
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_unraid-user-scripts.html">evenwebb/unraid-user-scripts</a></td>
                 <td class="mono">2</td>
                 <td>—</td>
                 <td><span class="badge badge-amber">2</span></td>
@@ -329,12 +370,74 @@
     </table>
     
     
+    
+    <h3 style="margin-top: 1rem;">evenwebb/gpx2map</h3>
+    <table>
+        <thead><tr><th>Severity</th><th>Check</th><th>Location</th><th>Message</th><th>Suggestion</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td><span class="badge badge-amber">medium</span></td>
+                <td class="mono">missing_cache</td>
+                <td class="mono">evenwebb/gpx2map/.github/workflows/pages.yml › deploy</td>
+                <td>Job appears to install packages but has no cache step</td>
+                <td class="muted">Add actions/cache for pip, npm, cargo, etc. to speed builds and reduce API usage</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+    
+    
+    <h3 style="margin-top: 1rem;">evenwebb/patreon-notifier</h3>
+    <table>
+        <thead><tr><th>Severity</th><th>Check</th><th>Location</th><th>Message</th><th>Suggestion</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td><span class="badge badge-amber">medium</span></td>
+                <td class="mono">missing_cache</td>
+                <td class="mono">evenwebb/patreon-notifier/.github/workflows/ci.yml › test</td>
+                <td>Job appears to install packages but has no cache step</td>
+                <td class="muted">Add actions/cache for pip, npm, cargo, etc. to speed builds and reduce API usage</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+    
+    
+    <h3 style="margin-top: 1rem;">evenwebb/unraid-user-scripts</h3>
+    <table>
+        <thead><tr><th>Severity</th><th>Check</th><th>Location</th><th>Message</th><th>Suggestion</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td><span class="badge badge-amber">medium</span></td>
+                <td class="mono">missing_cache</td>
+                <td class="mono">evenwebb/unraid-user-scripts/.github/workflows/generate-user-scripts-folders.yml › generate-folders</td>
+                <td>Job appears to install packages but has no cache step</td>
+                <td class="muted">Add actions/cache for pip, npm, cargo, etc. to speed builds and reduce API usage</td>
+            </tr>
+            
+            <tr>
+                <td><span class="badge badge-amber">medium</span></td>
+                <td class="mono">missing_cache</td>
+                <td class="mono">evenwebb/unraid-user-scripts/.github/workflows/shell-syntax-check.yml › bash-n</td>
+                <td>Job appears to install packages but has no cache step</td>
+                <td class="muted">Add actions/cache for pip, npm, cargo, etc. to speed builds and reduce API usage</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+    
 </div>
 
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-06-10 14:49 UTC</span>
+            <span>Last updated: 2026-06-10 15:09 UTC</span>
         </footer>
     </div>
 

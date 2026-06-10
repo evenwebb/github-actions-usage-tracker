@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>evenwebb/wtw-cinemas-calendar — GitHub Actions</title>
+    <title>evenwebb/gpx2map — GitHub Actions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -240,9 +240,14 @@
             <a href="export/usage.csv">Export CSV</a>
         </nav>
         
-<h1 style="margin-bottom:0.25rem">evenwebb/wtw-cinemas-calendar</h1>
-<p class="muted" style="margin-bottom:1.5rem"><a href="https://github.com/evenwebb/wtw-cinemas-calendar" target="_blank" rel="noopener">View on GitHub &nearr;</a></p>
+<h1 style="margin-bottom:0.25rem">evenwebb/gpx2map</h1>
+<p class="muted" style="margin-bottom:1.5rem"><a href="https://github.com/evenwebb/gpx2map" target="_blank" rel="noopener">View on GitHub &nearr;</a></p>
 
+
+<div class="card">
+    <h2>Workflow Audit</h2>
+    <p><span class="badge badge-amber">1</span> issues found · <a href="audit.html">View all &rarr;</a></p>
+</div>
 
 
 <div class="stats-grid">
@@ -266,65 +271,12 @@
         <thead><tr><th>Workflow</th><th>Runs</th><th>Avg Dur</th><th>Total Min</th><th>Wasted</th><th>Success</th></tr></thead>
         <tbody>
             
-            <tr>
-                <td class="mono">Update Cinema iCal Feed</td>
-                <td>10</td>
-                <td class="mono">243.1s</td>
-                <td class="mono">46.0</td>
-                <td class="mono">0</td>
-                <td>
-                    
-                    
-                    <span class="badge badge-success">100.0%</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">pages build and deployment</td>
-                <td>8</td>
-                <td class="mono">48.0s</td>
-                <td class="mono">25.0</td>
-                <td class="mono">0</td>
-                <td>
-                    
-                    
-                    <span class="badge badge-success">100.0%</span>
-                    
-                </td>
-            </tr>
+            <tr><td colspan="6" class="muted">No workflow runs this month.</td></tr>
             
         </tbody>
     </table>
 </div>
 
-
-<div class="card">
-    <h2>Workflow Efficiency</h2>
-    <div class="muted" style="margin-bottom:0.75rem">Minutes consumed per successful run. Higher = more expensive per success.</div>
-    <table>
-        <thead><tr><th>Workflow</th><th>Runs</th><th>Successes</th><th>Total Min</th><th>Min/Success</th></tr></thead>
-        <tbody>
-            
-            <tr>
-                <td class="mono">Update Cinema iCal Feed</td>
-                <td>10</td>
-                <td>10</td>
-                <td class="mono">46.0</td>
-                <td class="mono">4.6</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">pages build and deployment</td>
-                <td>8</td>
-                <td>8</td>
-                <td class="mono">25.0</td>
-                <td class="mono">3.1</td>
-            </tr>
-            
-        </tbody>
-    </table>
-</div>
 
 
 
@@ -336,29 +288,7 @@
             <thead><tr><th>Job</th><th>Runs</th><th>Billable</th></tr></thead>
             <tbody>
                 
-                <tr>
-                    <td class="mono">build</td>
-                    <td>30</td>
-                    <td class="mono">80.0 min</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">build</td>
-                    <td>28</td>
-                    <td class="mono">29.0 min</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">deploy</td>
-                    <td>28</td>
-                    <td class="mono">29.0 min</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">report-build-status</td>
-                    <td>28</td>
-                    <td class="mono">28.0 min</td>
-                </tr>
+                <tr><td colspan="3" class="muted">No job-level data yet.</td></tr>
                 
             </tbody>
         </table>
@@ -369,53 +299,7 @@
             <thead><tr><th>Step</th><th>Runs</th><th>Total</th></tr></thead>
             <tbody>
                 
-                <tr>
-                    <td class="mono">Generate Cinema iCal (with retries)</td>
-                    <td>30</td>
-                    <td class="mono">3395.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Pull ghcr.io/actions/jekyll-build-pages:v1.0.13</td>
-                    <td>28</td>
-                    <td class="mono">342.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Deploy to GitHub Pages</td>
-                    <td>28</td>
-                    <td class="mono">259.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Checkout</td>
-                    <td>28</td>
-                    <td class="mono">84.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Run actions/checkout@v4</td>
-                    <td>30</td>
-                    <td class="mono">73.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Commit and push if changed</td>
-                    <td>30</td>
-                    <td class="mono">68.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Build with Jekyll</td>
-                    <td>28</td>
-                    <td class="mono">61.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Set up job</td>
-                    <td>30</td>
-                    <td class="mono">54.0s</td>
-                </tr>
+                <tr><td colspan="3" class="muted">No step-level data yet.</td></tr>
                 
             </tbody>
         </table>
@@ -431,45 +315,9 @@
         <tbody>
             
             <tr>
-                <td class="mono">2026-06</td>
-                <td class="mono">71.0</td>
-                <td>18</td>
-            </tr>
-            
-            <tr>
                 <td class="mono">2026-05</td>
-                <td class="mono">135.0</td>
-                <td>60</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-04</td>
-                <td class="mono">118.0</td>
-                <td>59</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-03</td>
-                <td class="mono">122.0</td>
-                <td>62</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-02</td>
-                <td class="mono">98.0</td>
-                <td>52</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-01</td>
-                <td class="mono">31.0</td>
-                <td>31</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2025-12</td>
-                <td class="mono">22.0</td>
-                <td>22</td>
+                <td class="mono">9.0</td>
+                <td>5</td>
             </tr>
             
         </tbody>
@@ -480,7 +328,7 @@
 <div class="card">
     <h2>Recent Runs</h2>
     <div class="chart-wrap"><canvas id="sparkline" height="80"></canvas></div>
-    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 30 runs · Green = success, Red = failure</div>
+    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 5 runs · Green = success, Red = failure</div>
 </div>
 
         <footer>
@@ -556,7 +404,7 @@
         danger: style.getPropertyValue('--danger').trim(),
     };
 
-    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-25T12:21:43Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-05-25T12:22:05Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-05-27T12:13:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 4.0, "conclusion": "success", "created_at": "2026-05-27T12:15:26Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-28T12:20:36Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-05-28T12:21:01Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-29T12:09:48Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-05-29T12:10:21Z", "queue_seconds": 0.0}, {"billable_minutes_total": 13.0, "conclusion": "success", "created_at": "2026-05-30T10:44:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-05-30T10:56:34Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-31T10:52:38Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-05-31T10:53:12Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-01T14:53:17Z", "queue_seconds": 0.0}, {"billable_minutes_total": 4.0, "conclusion": "success", "created_at": "2026-06-01T14:53:41Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-02T12:35:00Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-06-02T12:35:22Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-03T13:10:00Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-06-03T13:10:32Z", "queue_seconds": 0.0}, {"billable_minutes_total": 13.0, "conclusion": "success", "created_at": "2026-06-04T11:45:15Z", "queue_seconds": 0.0}, {"billable_minutes_total": 13.0, "conclusion": "success", "created_at": "2026-06-05T11:56:45Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-06T10:50:25Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-06-06T10:50:44Z", "queue_seconds": 0.0}, {"billable_minutes_total": 13.0, "conclusion": "success", "created_at": "2026-06-07T11:03:03Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-06-07T11:15:33Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-08T13:00:02Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-06-08T13:00:55Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-09T11:54:11Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-06-09T11:54:39Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-10T12:15:17Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-06-10T12:15:39Z", "queue_seconds": 0.0}];
+    const recent = [{"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-05-05T21:39:53Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-05-05T21:44:09Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-05T21:44:10Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-05-05T22:57:34Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-05T22:59:58Z", "queue_seconds": 0.0}];
     new Chart(document.getElementById('sparkline'), {
         type: 'bar',
         data: {
@@ -584,10 +432,10 @@
     new Chart(document.getElementById('repoMonthlyChart'), {
         type: 'bar',
         data: {
-            labels: ["2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"],
+            labels: ["2026-05"],
             datasets: [{
                 label: 'Minutes',
-                data: [22.0, 31.0, 98.0, 122.0, 118.0, 135.0, 71.0],
+                data: [9.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1

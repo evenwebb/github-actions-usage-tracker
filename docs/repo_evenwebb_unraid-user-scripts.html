@@ -222,7 +222,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.82rem">Updated 2026-06-10 14:49 UTC</span>
+                <span class="muted" style="font-size:0.82rem">Updated 2026-06-10 15:09 UTC</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -243,6 +243,11 @@
 <h1 style="margin-bottom:0.25rem">evenwebb/unraid-user-scripts</h1>
 <p class="muted" style="margin-bottom:1.5rem"><a href="https://github.com/evenwebb/unraid-user-scripts" target="_blank" rel="noopener">View on GitHub &nearr;</a></p>
 
+
+<div class="card">
+    <h2>Workflow Audit</h2>
+    <p><span class="badge badge-amber">2</span> issues found · <a href="audit.html">View all &rarr;</a></p>
+</div>
 
 
 <div class="stats-grid">
@@ -266,12 +271,43 @@
         <thead><tr><th>Workflow</th><th>Runs</th><th>Avg Dur</th><th>Total Min</th><th>Wasted</th><th>Success</th></tr></thead>
         <tbody>
             
-            <tr><td colspan="6" class="muted">No workflow runs this month.</td></tr>
+            <tr>
+                <td class="mono">Generate User Scripts Plugin Folders</td>
+                <td>1</td>
+                <td class="mono">5.0s</td>
+                <td class="mono">1.0</td>
+                <td class="mono">0</td>
+                <td>
+                    
+                    
+                    <span class="badge badge-success">100.0%</span>
+                    
+                </td>
+            </tr>
             
         </tbody>
     </table>
 </div>
 
+
+<div class="card">
+    <h2>Workflow Efficiency</h2>
+    <div class="muted" style="margin-bottom:0.75rem">Minutes consumed per successful run. Higher = more expensive per success.</div>
+    <table>
+        <thead><tr><th>Workflow</th><th>Runs</th><th>Successes</th><th>Total Min</th><th>Min/Success</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">Generate User Scripts Plugin Folders</td>
+                <td>1</td>
+                <td>1</td>
+                <td class="mono">1.0</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -283,7 +319,11 @@
             <thead><tr><th>Job</th><th>Runs</th><th>Billable</th></tr></thead>
             <tbody>
                 
-                <tr><td colspan="3" class="muted">No job-level data yet.</td></tr>
+                <tr>
+                    <td class="mono">generate-folders</td>
+                    <td>1</td>
+                    <td class="mono">1.0 min</td>
+                </tr>
                 
             </tbody>
         </table>
@@ -310,6 +350,24 @@
         <tbody>
             
             <tr>
+                <td class="mono">2026-06</td>
+                <td class="mono">1.0</td>
+                <td>1</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2026-05</td>
+                <td class="mono">17.0</td>
+                <td>17</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">2026-04</td>
+                <td class="mono">27.0</td>
+                <td>27</td>
+            </tr>
+            
+            <tr>
                 <td class="mono">2026-02</td>
                 <td class="mono">3.0</td>
                 <td>3</td>
@@ -323,12 +381,12 @@
 <div class="card">
     <h2>Recent Runs</h2>
     <div class="chart-wrap"><canvas id="sparkline" height="80"></canvas></div>
-    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 3 runs · Green = success, Red = failure</div>
+    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 30 runs · Green = success, Red = failure</div>
 </div>
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-06-10 14:49 UTC</span>
+            <span>Last updated: 2026-06-10 15:09 UTC</span>
         </footer>
     </div>
 
@@ -399,7 +457,7 @@
         danger: style.getPropertyValue('--danger').trim(),
     };
 
-    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-05T23:48:10Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-12T00:16:22Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-02-12T00:42:35Z", "queue_seconds": 0.0}];
+    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-29T21:32:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-29T21:34:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-29T21:37:08Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-29T21:58:09Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-29T22:11:10Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-29T22:16:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-29T22:20:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-29T22:24:26Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-29T22:32:46Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-29T22:35:05Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-29T23:03:03Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-29T23:40:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-03T13:14:18Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-03T13:22:20Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-03T13:26:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-07T21:22:05Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-07T21:28:22Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-07T21:31:47Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-07T21:34:05Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-07T21:36:53Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-07T21:44:16Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-05-07T21:44:41Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-05-07T21:46:58Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-07T21:59:10Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-07T22:17:46Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-07T22:24:49Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-07T22:27:02Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-07T22:33:21Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-07T22:40:18Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-03T22:52:18Z", "queue_seconds": 0.0}];
     new Chart(document.getElementById('sparkline'), {
         type: 'bar',
         data: {
@@ -427,10 +485,10 @@
     new Chart(document.getElementById('repoMonthlyChart'), {
         type: 'bar',
         data: {
-            labels: ["2026-02"],
+            labels: ["2026-02", "2026-04", "2026-05", "2026-06"],
             datasets: [{
                 label: 'Minutes',
-                data: [3.0],
+                data: [3.0, 27.0, 17.0, 1.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1

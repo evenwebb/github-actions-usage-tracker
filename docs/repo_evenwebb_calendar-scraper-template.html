@@ -222,7 +222,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.82rem">Updated 2026-06-10 14:49 UTC</span>
+                <span class="muted" style="font-size:0.82rem">Updated 2026-06-10 15:09 UTC</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -254,8 +254,8 @@
     <div class="card">
         <h2>Failure Streaks</h2>
         
-        <div class="stat-big">16</div>
-        <div class="stat-label">Update Calendar Feed · 16.0 wasted min</div>
+        <div class="stat-big">60</div>
+        <div class="stat-label">Update Calendar Feed · 60.0 wasted min</div>
         
     </div>
 </div>
@@ -283,9 +283,9 @@
             
             <tr>
                 <td class="mono">Update Calendar Feed</td>
-                <td><span class="badge badge-failure">16</span></td>
-                <td class="mono">16.0 min</td>
-                <td class="mono">2026-03-15T09:30:30</td>
+                <td><span class="badge badge-failure">60</span></td>
+                <td class="mono">60.0 min</td>
+                <td class="mono">2026-04-28T11:01:34</td>
             </tr>
             
         </tbody>
@@ -327,9 +327,15 @@
         <tbody>
             
             <tr>
+                <td class="mono">2026-04</td>
+                <td class="mono">28.0</td>
+                <td>28</td>
+            </tr>
+            
+            <tr>
                 <td class="mono">2026-03</td>
-                <td class="mono">15.0</td>
-                <td>15</td>
+                <td class="mono">31.0</td>
+                <td>31</td>
             </tr>
             
             <tr>
@@ -346,12 +352,12 @@
 <div class="card">
     <h2>Recent Runs</h2>
     <div class="chart-wrap"><canvas id="sparkline" height="80"></canvas></div>
-    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 16 runs · Green = success, Red = failure</div>
+    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 30 runs · Green = success, Red = failure</div>
 </div>
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-06-10 14:49 UTC</span>
+            <span>Last updated: 2026-06-10 15:09 UTC</span>
         </footer>
     </div>
 
@@ -422,7 +428,7 @@
         danger: style.getPropertyValue('--danger').trim(),
     };
 
-    const recent = [{"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-02-28T09:22:29Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-01T09:26:18Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-02T09:43:45Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-03T09:38:17Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-04T09:36:33Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-05T09:38:40Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-06T09:34:27Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-07T09:25:24Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-08T09:26:15Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-09T09:45:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-10T09:39:58Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-11T09:38:42Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-12T09:38:55Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-13T09:35:44Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-14T09:29:18Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-15T09:30:30Z", "queue_seconds": 0.0}];
+    const recent = [{"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-30T10:13:46Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-31T10:02:48Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-01T10:03:48Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-02T09:58:05Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-03T09:49:47Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-04T09:34:03Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-05T09:35:21Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-06T10:05:54Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-07T10:05:01Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-08T10:04:24Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-09T10:09:30Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-10T10:05:23Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-11T09:36:24Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-12T09:41:43Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-13T10:42:42Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-14T10:12:59Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-15T10:14:02Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-16T10:12:48Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-17T10:11:23Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-18T09:43:17Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-19T09:42:54Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-20T10:44:33Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-21T10:16:29Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-22T10:16:40Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-23T10:18:50Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-24T10:17:54Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-25T09:49:37Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-26T09:51:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-27T10:59:35Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-28T11:01:34Z", "queue_seconds": 0.0}];
     new Chart(document.getElementById('sparkline'), {
         type: 'bar',
         data: {
@@ -450,10 +456,10 @@
     new Chart(document.getElementById('repoMonthlyChart'), {
         type: 'bar',
         data: {
-            labels: ["2026-02", "2026-03"],
+            labels: ["2026-02", "2026-03", "2026-04"],
             datasets: [{
                 label: 'Minutes',
-                data: [1.0, 15.0],
+                data: [1.0, 31.0, 28.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1
