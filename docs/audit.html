@@ -220,7 +220,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.8rem">Data through 2026-06-13</span>
+                <span class="muted" style="font-size:0.8rem">Data through 2026-06-14</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -273,6 +273,19 @@
                     <span class="muted" style="font-size: 0.85rem;">missing_cache: Job appears to install packages but has no cache s…</span><br>
                     
                     <span class="muted" style="font-size: 0.85rem;">missing_cache: Job appears to install packages but has no cache s…</span><br>
+                    
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><a href="repo_evenwebb_epic-free-games-scraper.html">evenwebb/epic-free-games-scraper</a></td>
+                <td class="mono">1</td>
+                <td>—</td>
+                <td><span class="badge badge-amber">1</span></td>
+                <td>
+                    
+                    <span class="muted" style="font-size: 0.85rem;">schedule_hygiene: Scheduled workflow has no concurrency guard and ma…</span><br>
                     
                     
                 </td>
@@ -371,6 +384,24 @@
     
     
     
+    <h3 style="margin-top: 1rem;">evenwebb/epic-free-games-scraper</h3>
+    <table>
+        <thead><tr><th>Severity</th><th>Check</th><th>Location</th><th>Message</th><th>Suggestion</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td><span class="badge badge-amber">medium</span></td>
+                <td class="mono">schedule_hygiene</td>
+                <td class="mono">evenwebb/epic-free-games-scraper/.github/workflows/db-integrity.yml › workflow</td>
+                <td>Scheduled workflow has no concurrency guard and may overlap on slow runs</td>
+                <td class="muted">Add a workflow-level concurrency group so cron runs queue instead of overlapping</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
+    
+    
     <h3 style="margin-top: 1rem;">evenwebb/gpx2map</h3>
     <table>
         <thead><tr><th>Severity</th><th>Check</th><th>Location</th><th>Message</th><th>Suggestion</th></tr></thead>
@@ -437,7 +468,7 @@
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-06-13 04:12 UTC</span>
+            <span>Last updated: 2026-06-14 04:40 UTC</span>
         </footer>
     </div>
 
