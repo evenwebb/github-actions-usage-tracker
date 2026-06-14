@@ -36,13 +36,16 @@ REQUEST_TIMEOUT = 15
 OS_MULTIPLIERS = {
     "ubuntu-latest": 1,
     "ubuntu-24.04": 1,
+    "ubuntu-24.04-arm": 1,
     "ubuntu-22.04": 1,
     "ubuntu-20.04": 1,
     "macos-latest": 10,
+    "macos-15": 10,
     "macos-14": 10,
     "macos-13": 10,
     "macos-12": 10,
     "windows-latest": 2,
+    "windows-2025": 2,
     "windows-2022": 2,
     "windows-2019": 2,
 }
@@ -85,10 +88,12 @@ def get_billable_multiplier(labels: list[str]) -> float:
             return OS_MULTIPLIERS[label]
         if label_lower.startswith("ubuntu-"):
             return 1
-        if label_lower.startswith("macos-"):
+        if label_lower.startswith("macos-") or "macos" in label_lower:
             return 10
         if label_lower.startswith("windows-"):
             return 2
+        if "arm" in label_lower and "macos" in label_lower:
+            return 10
     log.warning("Unknown runner label %r — defaulting to 1x multiplier", labels)
     return 1
 
