@@ -58,6 +58,7 @@
 | 📤 **Export** | CSV/JSON export of usage data (last 90 days) |
 | 🔎 **Explore & filter** | Filter by repo, workflow, event, date range |
 | 🐳 **Docker** | Run collect, generate, and audit in containers |
+| 🌓 **Light/Dark mode** | Automatic OS preference detection with responsive charts |
 
 ---
 
