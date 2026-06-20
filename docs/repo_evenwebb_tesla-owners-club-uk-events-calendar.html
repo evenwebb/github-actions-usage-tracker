@@ -222,7 +222,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.8rem">Data through 2026-06-14</span>
+                <span class="muted" style="font-size:0.8rem">Data through 2026-06-20</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -268,9 +268,9 @@
             
             <tr>
                 <td class="mono">Deploy GitHub Pages</td>
-                <td>4</td>
-                <td class="mono">18.0s</td>
-                <td class="mono">8.0</td>
+                <td>6</td>
+                <td class="mono">17.3s</td>
+                <td class="mono">12.0</td>
                 <td class="mono">0</td>
                 <td>
                     
@@ -282,14 +282,14 @@
             
             <tr>
                 <td class="mono">Scrape Tesla Owners UK Events</td>
-                <td>2</td>
-                <td class="mono">20.5s</td>
-                <td class="mono">2.0</td>
-                <td class="mono">0</td>
+                <td>6</td>
+                <td class="mono">21.0s</td>
+                <td class="mono">6.0</td>
+                <td class="mono">3.0</td>
                 <td>
                     
                     
-                    <span class="badge badge-success">100.0%</span>
+                    <span class="badge badge-failure">50.0%</span>
                     
                 </td>
             </tr>
@@ -308,18 +308,18 @@
             
             <tr>
                 <td class="mono">Deploy GitHub Pages</td>
-                <td>4</td>
-                <td>4</td>
-                <td class="mono">8.0</td>
+                <td>6</td>
+                <td>6</td>
+                <td class="mono">12.0</td>
                 <td class="mono">2.0</td>
             </tr>
             
             <tr>
                 <td class="mono">Scrape Tesla Owners UK Events</td>
-                <td>2</td>
-                <td>2</td>
+                <td>6</td>
+                <td>3</td>
+                <td class="mono">6.0</td>
                 <td class="mono">2.0</td>
-                <td class="mono">1.0</td>
             </tr>
             
         </tbody>
@@ -338,20 +338,20 @@
                 
                 <tr>
                     <td class="mono">scrape</td>
-                    <td>4</td>
-                    <td class="mono">4.0 min</td>
+                    <td>7</td>
+                    <td class="mono">7.0 min</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">deploy</td>
-                    <td>4</td>
-                    <td class="mono">4.0 min</td>
+                    <td>6</td>
+                    <td class="mono">6.0 min</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">build</td>
-                    <td>4</td>
-                    <td class="mono">4.0 min</td>
+                    <td>6</td>
+                    <td class="mono">6.0 min</td>
                 </tr>
                 
             </tbody>
@@ -364,51 +364,51 @@
             <tbody>
                 
                 <tr>
-                    <td class="mono">Run scraper</td>
+                    <td class="mono">Run scraper (with retries)</td>
                     <td>4</td>
-                    <td class="mono">38.0s</td>
+                    <td class="mono">41.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Run actions/deploy-pages@v5</td>
-                    <td>4</td>
-                    <td class="mono">26.0s</td>
+                    <td>6</td>
+                    <td class="mono">39.0s</td>
                 </tr>
                 
                 <tr>
-                    <td class="mono">Set up Python</td>
-                    <td>4</td>
+                    <td class="mono">Run scraper</td>
+                    <td>3</td>
+                    <td class="mono">29.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Set up job</td>
+                    <td>6</td>
+                    <td class="mono">9.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Set up job</td>
+                    <td>7</td>
                     <td class="mono">8.0s</td>
                 </tr>
                 
                 <tr>
-                    <td class="mono">Set up job</td>
-                    <td>4</td>
-                    <td class="mono">6.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Install dependencies</td>
-                    <td>4</td>
-                    <td class="mono">6.0s</td>
+                    <td class="mono">Set up Python</td>
+                    <td>3</td>
+                    <td class="mono">7.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Run actions/upload-pages-artifact@v5</td>
-                    <td>4</td>
-                    <td class="mono">5.0s</td>
+                    <td>6</td>
+                    <td class="mono">7.0s</td>
                 </tr>
                 
                 <tr>
-                    <td class="mono">Run actions/checkout@v4</td>
-                    <td>4</td>
-                    <td class="mono">4.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Set up job</td>
-                    <td>4</td>
-                    <td class="mono">4.0s</td>
+                    <td class="mono">Commit and push if changed</td>
+                    <td>7</td>
+                    <td class="mono">7.0s</td>
                 </tr>
                 
             </tbody>
@@ -426,8 +426,8 @@
             
             <tr>
                 <td class="mono">2026-06</td>
-                <td class="mono">10.0</td>
-                <td>6</td>
+                <td class="mono">18.0</td>
+                <td>12</td>
             </tr>
             
             <tr>
@@ -467,7 +467,7 @@
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-06-14 04:40 UTC</span>
+            <span>Last updated: 2026-06-20 21:45 UTC</span>
         </footer>
     </div>
 
@@ -538,7 +538,7 @@
         danger: style.getPropertyValue('--danger').trim(),
     };
 
-    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-23T10:00:59Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-23T10:01:10Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-03-30T10:15:16Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-03-30T10:15:33Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-06T10:07:23Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-04-06T10:07:32Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-13T10:42:47Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-04-13T10:42:59Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-20T10:46:22Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-04-20T10:46:35Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-27T11:02:21Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-04-27T11:02:32Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-04T11:03:52Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-05-04T11:04:05Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-05-06T22:09:46Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-05-06T22:12:58Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-05-06T22:12:58Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-05-06T22:15:26Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-05-06T22:16:28Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-06T22:18:45Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-05-06T22:20:29Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-11T12:09:08Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-18T12:27:27Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-25T12:28:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-01T14:58:23Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-08T13:04:51Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-06-13T09:17:54Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-06-13T10:15:09Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-06-13T10:18:50Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-06-13T10:44:23Z", "queue_seconds": 0.0}];
+    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-13T10:42:47Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-04-13T10:42:59Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-20T10:46:22Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-04-20T10:46:35Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-04-27T11:02:21Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-04-27T11:02:32Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-04T11:03:52Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-05-04T11:04:05Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-05-06T22:09:46Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-05-06T22:12:58Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-05-06T22:12:58Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-05-06T22:15:26Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-05-06T22:16:28Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-06T22:18:45Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-05-06T22:20:29Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-11T12:09:08Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-18T12:27:27Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-25T12:28:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-01T14:58:23Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-08T13:04:51Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-06-13T09:17:54Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-06-13T10:15:09Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-06-13T10:18:50Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-06-13T10:44:23Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-06-19T12:44:18Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-06-20T11:15:54Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-06-20T21:33:16Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-06-20T21:37:55Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-06-20T21:41:28Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-20T21:41:40Z", "queue_seconds": 0.0}];
     new Chart(document.getElementById('sparkline'), {
         type: 'bar',
         data: {
@@ -569,7 +569,7 @@
             labels: ["2026-02", "2026-03", "2026-04", "2026-05", "2026-06"],
             datasets: [{
                 label: 'Minutes',
-                data: [41.0, 20.0, 16.0, 22.0, 10.0],
+                data: [41.0, 20.0, 16.0, 22.0, 18.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1
