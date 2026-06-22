@@ -220,7 +220,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.8rem">Data through 2026-06-21</span>
+                <span class="muted" style="font-size:0.8rem">Data through 2026-06-22</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -248,6 +248,8 @@
             <span class="muted">Repo</span>
             <select id="filter-repo" class="mono" style="margin-left: 0.5rem; padding: 0.3rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px;">
                 <option value="">All repos</option>
+                
+                <option value="evenwebb/MacUpdater-Profiles">evenwebb/MacUpdater-Profiles</option>
                 
                 <option value="evenwebb/OctoCal">evenwebb/OctoCal</option>
                 
@@ -289,6 +291,8 @@
                 
                 <option value="evenwebb/wtw-whats-on">evenwebb/wtw-whats-on</option>
                 
+                <option value="evenwebb/youtube-channel-link-scraper">evenwebb/youtube-channel-link-scraper</option>
+                
             </select>
         </label>
         <label>
@@ -312,6 +316,8 @@
                 
                 <option value="Run Cornwall scraper">Run Cornwall scraper</option>
                 
+                <option value="Scrape Channel Links">Scrape Channel Links</option>
+                
                 <option value="Scrape Cinema Calendar">Scrape Cinema Calendar</option>
                 
                 <option value="Scrape Epic Games and Deploy to GitHub Pages">Scrape Epic Games and Deploy to GitHub Pages</option>
@@ -324,6 +330,8 @@
                 
                 <option value="Tests">Tests</option>
                 
+                <option value="Unknown">Unknown</option>
+                
                 <option value="Update Calendar Feed">Update Calendar Feed</option>
                 
                 <option value="Update Cinema iCal Feed">Update Cinema iCal Feed</option>
@@ -331,6 +339,8 @@
                 <option value="Update Profile README">Update Profile README</option>
                 
                 <option value="Update iCal Feed">Update iCal Feed</option>
+                
+                <option value="Validate Profiles">Validate Profiles</option>
                 
                 <option value="What's On HTML">What's On HTML</option>
                 
@@ -381,7 +391,7 @@
         </label>
         <button id="btn-reset" style="padding: 0.4rem 0.8rem; background: var(--border); color: var(--text); border: none; border-radius: 4px; cursor: pointer;">Reset</button>
     </div>
-    <p class="muted" style="margin-top: 0.5rem;"><span id="result-count">2435</span> runs · <a href="export/usage.json">Download JSON</a> · <a href="export/usage.csv">Download CSV</a></p>
+    <p class="muted" style="margin-top: 0.5rem;"><span id="result-count">2433</span> runs · <a href="export/usage.json">Download JSON</a> · <a href="export/usage.csv">Download CSV</a></p>
 </div>
 
 <div class="card">
@@ -391,6 +401,276 @@
             <tr><th>Date</th><th>Repo</th><th>Workflow</th><th>Event</th><th>Conclusion</th><th>Queue</th><th>Minutes</th></tr>
         </thead>
         <tbody id="runs-tbody">
+            
+            <tr data-repo="evenwebb/evenwebb" data-workflow="Update Profile README" data-event="schedule" data-date="2026-06-22">
+                <td class="mono">2026-06-22T04:48:24</td>
+                <td><a href="repo_evenwebb_evenwebb.html">evenwebb/evenwebb</a></td>
+                <td class="mono">Update Profile README</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/MacUpdater-Profiles" data-workflow="pages build and deployment" data-event="dynamic" data-date="2026-06-21">
+                <td class="mono">2026-06-21T23:48:21</td>
+                <td><a href="repo_evenwebb_MacUpdater-Profiles.html">evenwebb/MacUpdater-Profiles</a></td>
+                <td class="mono">pages build and deployment</td>
+                <td class="mono">dynamic</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">3.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/MacUpdater-Profiles" data-workflow="Validate Profiles" data-event="push" data-date="2026-06-21">
+                <td class="mono">2026-06-21T22:32:30</td>
+                <td><a href="repo_evenwebb_MacUpdater-Profiles.html">evenwebb/MacUpdater-Profiles</a></td>
+                <td class="mono">Validate Profiles</td>
+                <td class="mono">push</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/MacUpdater-Profiles" data-workflow="Validate Profiles" data-event="push" data-date="2026-06-21">
+                <td class="mono">2026-06-21T22:28:27</td>
+                <td><a href="repo_evenwebb_MacUpdater-Profiles.html">evenwebb/MacUpdater-Profiles</a></td>
+                <td class="mono">Validate Profiles</td>
+                <td class="mono">push</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T22:18:52</td>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">Scrape Octopus Energy Free Electricity</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/MacUpdater-Profiles" data-workflow="Validate Profiles" data-event="push" data-date="2026-06-21">
+                <td class="mono">2026-06-21T22:08:55</td>
+                <td><a href="repo_evenwebb_MacUpdater-Profiles.html">evenwebb/MacUpdater-Profiles</a></td>
+                <td class="mono">Validate Profiles</td>
+                <td class="mono">push</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/MacUpdater-Profiles" data-workflow="Validate Profiles" data-event="push" data-date="2026-06-21">
+                <td class="mono">2026-06-21T22:06:28</td>
+                <td><a href="repo_evenwebb_MacUpdater-Profiles.html">evenwebb/MacUpdater-Profiles</a></td>
+                <td class="mono">Validate Profiles</td>
+                <td class="mono">push</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/MacUpdater-Profiles" data-workflow="Validate Profiles" data-event="push" data-date="2026-06-21">
+                <td class="mono">2026-06-21T21:42:38</td>
+                <td><a href="repo_evenwebb_MacUpdater-Profiles.html">evenwebb/MacUpdater-Profiles</a></td>
+                <td class="mono">Validate Profiles</td>
+                <td class="mono">push</td>
+                <td><span class="badge badge-failure">failure</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/MacUpdater-Profiles" data-workflow="Unknown" data-event="push" data-date="2026-06-21">
+                <td class="mono">2026-06-21T21:36:19</td>
+                <td><a href="repo_evenwebb_MacUpdater-Profiles.html">evenwebb/MacUpdater-Profiles</a></td>
+                <td class="mono">Unknown</td>
+                <td class="mono">push</td>
+                <td><span class="badge badge-failure">startup_failure</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T19:53:30</td>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">Scrape Octopus Energy Free Electricity</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/evenwebb" data-workflow="Update Profile README" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T19:47:36</td>
+                <td><a href="repo_evenwebb_evenwebb.html">evenwebb/evenwebb</a></td>
+                <td class="mono">Update Profile README</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/epic-free-games-scraper" data-workflow="Scrape Epic Games and Deploy to GitHub Pages" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T17:39:12</td>
+                <td><a href="repo_evenwebb_epic-free-games-scraper.html">evenwebb/epic-free-games-scraper</a></td>
+                <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T16:49:07</td>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">Scrape Octopus Energy Free Electricity</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T14:25:11</td>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">Scrape Octopus Energy Free Electricity</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/evenwebb" data-workflow="Update Profile README" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T14:18:23</td>
+                <td><a href="repo_evenwebb_evenwebb.html">evenwebb/evenwebb</a></td>
+                <td class="mono">Update Profile README</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T13:04:56</td>
+                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/penrice-calendar-scraper" data-workflow="Update iCal Feed" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T13:00:14</td>
+                <td><a href="repo_evenwebb_penrice-calendar-scraper.html">evenwebb/penrice-calendar-scraper</a></td>
+                <td class="mono">Update iCal Feed</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/merlin-cinemas" data-workflow="pages build and deployment" data-event="dynamic" data-date="2026-06-21">
+                <td class="mono">2026-06-21T12:13:08</td>
+                <td><a href="repo_evenwebb_merlin-cinemas.html">evenwebb/merlin-cinemas</a></td>
+                <td class="mono">pages build and deployment</td>
+                <td class="mono">dynamic</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">3.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/merlin-cinemas" data-workflow="Scrape Cinema Calendar" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T12:12:37</td>
+                <td><a href="repo_evenwebb_merlin-cinemas.html">evenwebb/merlin-cinemas</a></td>
+                <td class="mono">Scrape Cinema Calendar</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/wtw-cinemas" data-workflow="Scrape Cinema Calendar" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T12:03:52</td>
+                <td><a href="repo_evenwebb_wtw-cinemas.html">evenwebb/wtw-cinemas</a></td>
+                <td class="mono">Scrape Cinema Calendar</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/tesla-owners-club-uk-events-calendar" data-workflow="Scrape Tesla Owners UK Events" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T11:44:03</td>
+                <td><a href="repo_evenwebb_tesla-owners-club-uk-events-calendar.html">evenwebb/tesla-owners-club-uk-events-calendar</a></td>
+                <td class="mono">Scrape Tesla Owners UK Events</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T09:59:17</td>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">Scrape Octopus Energy Free Electricity</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/evenwebb" data-workflow="Update Profile README" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T09:54:28</td>
+                <td><a href="repo_evenwebb_evenwebb.html">evenwebb/evenwebb</a></td>
+                <td class="mono">Update Profile README</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/youtube-channel-link-scraper" data-workflow="Scrape Channel Links" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T09:46:59</td>
+                <td><a href="repo_evenwebb_youtube-channel-link-scraper.html">evenwebb/youtube-channel-link-scraper</a></td>
+                <td class="mono">Scrape Channel Links</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/cornwall-waste-collection-calendar-generator" data-workflow="Run Cornwall scraper" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T09:44:17</td>
+                <td><a href="repo_evenwebb_cornwall-waste-collection-calendar-generator.html">evenwebb/cornwall-waste-collection-calendar-generator</a></td>
+                <td class="mono">Run Cornwall scraper</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T05:02:21</td>
+                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
+                <td class="mono">Scrape Octopus Energy Free Electricity</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr data-repo="evenwebb/github-actions-usage-tracker" data-workflow="Collect & Deploy" data-event="schedule" data-date="2026-06-21">
+                <td class="mono">2026-06-21T04:46:43</td>
+                <td><a href="repo_evenwebb_github-actions-usage-tracker.html">evenwebb/github-actions-usage-tracker</a></td>
+                <td class="mono">Collect & Deploy</td>
+                <td class="mono">schedule</td>
+                <td><span class="badge badge-success">success</span></td>
+                <td class="mono">0s</td>
+                <td class="mono">2.0</td>
+            </tr>
             
             <tr data-repo="evenwebb/evenwebb" data-workflow="Update Profile README" data-event="schedule" data-date="2026-06-21">
                 <td class="mono">2026-06-21T04:42:26</td>
@@ -24452,303 +24732,13 @@
                 <td class="mono">1.0</td>
             </tr>
             
-            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T21:45:03</td>
-                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
-                <td class="mono">Scrape Octopus Energy Free Electricity</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T19:04:31</td>
-                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
-                <td class="mono">Scrape Octopus Energy Free Electricity</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/evenwebb" data-workflow="Update Profile README" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T19:00:48</td>
-                <td><a href="repo_evenwebb_evenwebb.html">evenwebb/evenwebb</a></td>
-                <td class="mono">Update Profile README</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/epic-free-games-scraper" data-workflow="Scrape Epic Games and Deploy to GitHub Pages" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T16:56:58</td>
-                <td><a href="repo_evenwebb_epic-free-games-scraper.html">evenwebb/epic-free-games-scraper</a></td>
-                <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">2.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T16:04:07</td>
-                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
-                <td class="mono">Scrape Octopus Energy Free Electricity</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/epic-free-games-scraper" data-workflow="Scrape Epic Games and Deploy to GitHub Pages" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T16:01:11</td>
-                <td><a href="repo_evenwebb_epic-free-games-scraper.html">evenwebb/epic-free-games-scraper</a></td>
-                <td class="mono">Scrape Epic Games and Deploy to GitHub Pages</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">2.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T13:24:42</td>
-                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
-                <td class="mono">Scrape Octopus Energy Free Electricity</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/evenwebb" data-workflow="Update Profile README" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T13:16:40</td>
-                <td><a href="repo_evenwebb_evenwebb.html">evenwebb/evenwebb</a></td>
-                <td class="mono">Update Profile README</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="pages build and deployment" data-event="dynamic" data-date="2026-03-23">
-                <td class="mono">2026-03-23T11:42:36</td>
-                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
-                <td class="mono">pages build and deployment</td>
-                <td class="mono">dynamic</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">3.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/stmewan-parish-council-calendar" data-workflow="Update iCal Feed" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T11:42:23</td>
-                <td><a href="repo_evenwebb_stmewan-parish-council-calendar.html">evenwebb/stmewan-parish-council-calendar</a></td>
-                <td class="mono">Update iCal Feed</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/penrice-calendar-scraper" data-workflow="Update iCal Feed" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T11:36:41</td>
-                <td><a href="repo_evenwebb_penrice-calendar-scraper.html">evenwebb/penrice-calendar-scraper</a></td>
-                <td class="mono">Update iCal Feed</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T10:09:04</td>
-                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
-                <td class="mono">Scrape Octopus Energy Free Electricity</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/tesla-owners-club-uk-events-calendar" data-workflow="pages build and deployment" data-event="dynamic" data-date="2026-03-23">
-                <td class="mono">2026-03-23T10:01:10</td>
-                <td><a href="repo_evenwebb_tesla-owners-club-uk-events-calendar.html">evenwebb/tesla-owners-club-uk-events-calendar</a></td>
-                <td class="mono">pages build and deployment</td>
-                <td class="mono">dynamic</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">3.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/tesla-owners-club-uk-events-calendar" data-workflow="Scrape Tesla Owners UK Events" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T10:00:59</td>
-                <td><a href="repo_evenwebb_tesla-owners-club-uk-events-calendar.html">evenwebb/tesla-owners-club-uk-events-calendar</a></td>
-                <td class="mono">Scrape Tesla Owners UK Events</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/calendar-scraper-template" data-workflow="Update Calendar Feed" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T09:58:48</td>
-                <td><a href="repo_evenwebb_calendar-scraper-template.html">evenwebb/calendar-scraper-template</a></td>
-                <td class="mono">Update Calendar Feed</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-failure">failure</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/wtw-whats-on" data-workflow="pages build and deployment" data-event="dynamic" data-date="2026-03-23">
-                <td class="mono">2026-03-23T09:56:53</td>
-                <td><a href="repo_evenwebb_wtw-whats-on.html">evenwebb/wtw-whats-on</a></td>
-                <td class="mono">pages build and deployment</td>
-                <td class="mono">dynamic</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">3.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/wtw-cinemas-calendar" data-workflow="pages build and deployment" data-event="dynamic" data-date="2026-03-23">
-                <td class="mono">2026-03-23T09:56:43</td>
-                <td><a href="repo_evenwebb_wtw-cinemas-calendar.html">evenwebb/wtw-cinemas-calendar</a></td>
-                <td class="mono">pages build and deployment</td>
-                <td class="mono">dynamic</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">3.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/wtw-whats-on" data-workflow="What's On HTML" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T09:56:27</td>
-                <td><a href="repo_evenwebb_wtw-whats-on.html">evenwebb/wtw-whats-on</a></td>
-                <td class="mono">What's On HTML</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/wtw-cinemas-calendar" data-workflow="Update Cinema iCal Feed" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T09:56:24</td>
-                <td><a href="repo_evenwebb_wtw-cinemas-calendar.html">evenwebb/wtw-cinemas-calendar</a></td>
-                <td class="mono">Update Cinema iCal Feed</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/merlin-whats-on" data-workflow="What's On HTML" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T09:55:35</td>
-                <td><a href="repo_evenwebb_merlin-whats-on.html">evenwebb/merlin-whats-on</a></td>
-                <td class="mono">What's On HTML</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-failure">failure</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">2.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/merlin-cinemas-calendar" data-workflow="pages build and deployment" data-event="dynamic" data-date="2026-03-23">
-                <td class="mono">2026-03-23T09:54:14</td>
-                <td><a href="repo_evenwebb_merlin-cinemas-calendar.html">evenwebb/merlin-cinemas-calendar</a></td>
-                <td class="mono">pages build and deployment</td>
-                <td class="mono">dynamic</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">3.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/merlin-cinemas-calendar" data-workflow="Update Cinema iCal Feed" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T09:53:45</td>
-                <td><a href="repo_evenwebb_merlin-cinemas-calendar.html">evenwebb/merlin-cinemas-calendar</a></td>
-                <td class="mono">Update Cinema iCal Feed</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T07:22:12</td>
-                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
-                <td class="mono">Scrape Octopus Energy Free Electricity</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/evenwebb" data-workflow="Update Profile README" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T07:16:22</td>
-                <td><a href="repo_evenwebb_evenwebb.html">evenwebb/evenwebb</a></td>
-                <td class="mono">Update Profile README</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/cornwall-waste-collection-calendar-generator" data-workflow="Run Cornwall scraper" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T07:05:41</td>
-                <td><a href="repo_evenwebb_cornwall-waste-collection-calendar-generator.html">evenwebb/cornwall-waste-collection-calendar-generator</a></td>
-                <td class="mono">Run Cornwall scraper</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-failure">failure</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T05:10:00</td>
-                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
-                <td class="mono">Scrape Octopus Energy Free Electricity</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/OctoCal" data-workflow="Scrape Octopus Energy Free Electricity" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T02:53:04</td>
-                <td><a href="repo_evenwebb_OctoCal.html">evenwebb/OctoCal</a></td>
-                <td class="mono">Scrape Octopus Energy Free Electricity</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/github-actions-usage-tracker" data-workflow="Collect & Deploy" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T02:41:27</td>
-                <td><a href="repo_evenwebb_github-actions-usage-tracker.html">evenwebb/github-actions-usage-tracker</a></td>
-                <td class="mono">Collect & Deploy</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-failure">failure</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
-            <tr data-repo="evenwebb/evenwebb" data-workflow="Update Profile README" data-event="schedule" data-date="2026-03-23">
-                <td class="mono">2026-03-23T02:37:54</td>
-                <td><a href="repo_evenwebb_evenwebb.html">evenwebb/evenwebb</a></td>
-                <td class="mono">Update Profile README</td>
-                <td class="mono">schedule</td>
-                <td><span class="badge badge-success">success</span></td>
-                <td class="mono">0s</td>
-                <td class="mono">1.0</td>
-            </tr>
-            
         </tbody>
     </table>
 </div>
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-06-21 04:47 UTC</span>
+            <span>Last updated: 2026-06-22 04:54 UTC</span>
         </footer>
     </div>
 
