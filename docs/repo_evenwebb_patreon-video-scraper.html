@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>evenwebb/OctoCal — GitHub Actions</title>
+    <title>evenwebb/patreon-video-scraper — GitHub Actions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -240,8 +240,8 @@
             <a href="export/usage.csv">Export CSV</a>
         </nav>
         
-<h1 style="margin-bottom:0.25rem">evenwebb/OctoCal</h1>
-<p class="muted" style="margin-bottom:1.5rem"><a href="https://github.com/evenwebb/OctoCal" target="_blank" rel="noopener">View on GitHub &nearr;</a></p>
+<h1 style="margin-bottom:0.25rem">evenwebb/patreon-video-scraper</h1>
+<p class="muted" style="margin-bottom:1.5rem"><a href="https://github.com/evenwebb/patreon-video-scraper" target="_blank" rel="noopener">View on GitHub &nearr;</a></p>
 
 
 <div class="card">
@@ -271,12 +271,87 @@
         <thead><tr><th>Workflow</th><th>Runs</th><th>Avg Dur</th><th>Total Min</th><th>Wasted</th><th>Success</th></tr></thead>
         <tbody>
             
-            <tr><td colspan="6" class="muted">No workflow runs this month.</td></tr>
+            <tr>
+                <td class="mono">CI</td>
+                <td>2</td>
+                <td class="mono">12.5s</td>
+                <td class="mono">2.0</td>
+                <td class="mono">0</td>
+                <td>
+                    
+                    
+                    <span class="badge badge-success">100.0%</span>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">github_actions in /. - Update #1442804233</td>
+                <td>1</td>
+                <td class="mono">26.0s</td>
+                <td class="mono">1.0</td>
+                <td class="mono">0</td>
+                <td>
+                    
+                    
+                    <span class="badge badge-success">100.0%</span>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">pip in /. - Update #1442804194</td>
+                <td>1</td>
+                <td class="mono">32.0s</td>
+                <td class="mono">1.0</td>
+                <td class="mono">0</td>
+                <td>
+                    
+                    
+                    <span class="badge badge-success">100.0%</span>
+                    
+                </td>
+            </tr>
             
         </tbody>
     </table>
 </div>
 
+
+<div class="card">
+    <h2>Workflow Efficiency</h2>
+    <div class="muted" style="margin-bottom:0.75rem">Minutes consumed per successful run. Higher = more expensive per success.</div>
+    <table>
+        <thead><tr><th>Workflow</th><th>Runs</th><th>Successes</th><th>Total Min</th><th>Min/Success</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">CI</td>
+                <td>2</td>
+                <td>2</td>
+                <td class="mono">2.0</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">github_actions in /. - Update #1442804233</td>
+                <td>1</td>
+                <td>1</td>
+                <td class="mono">1.0</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">pip in /. - Update #1442804194</td>
+                <td>1</td>
+                <td>1</td>
+                <td class="mono">1.0</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -289,9 +364,21 @@
             <tbody>
                 
                 <tr>
-                    <td class="mono">scrape-and-deploy</td>
-                    <td>138</td>
-                    <td class="mono">138.0 min</td>
+                    <td class="mono">test</td>
+                    <td>2</td>
+                    <td class="mono">2.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Dependabot</td>
+                    <td>1</td>
+                    <td class="mono">1.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Dependabot</td>
+                    <td>1</td>
+                    <td class="mono">1.0 min</td>
                 </tr>
                 
             </tbody>
@@ -304,51 +391,51 @@
             <tbody>
                 
                 <tr>
-                    <td class="mono">Run scraper</td>
-                    <td>138</td>
-                    <td class="mono">269.0s</td>
-                </tr>
-                
-                <tr>
                     <td class="mono">Install dependencies</td>
-                    <td>138</td>
-                    <td class="mono">247.0s</td>
+                    <td>2</td>
+                    <td class="mono">9.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Set up job</td>
-                    <td>138</td>
-                    <td class="mono">184.0s</td>
+                    <td>2</td>
+                    <td class="mono">3.0s</td>
                 </tr>
                 
                 <tr>
-                    <td class="mono">Set up Python</td>
-                    <td>138</td>
-                    <td class="mono">147.0s</td>
+                    <td class="mono">Run actions/checkout@v7</td>
+                    <td>2</td>
+                    <td class="mono">2.0s</td>
                 </tr>
                 
                 <tr>
-                    <td class="mono">Run astral-sh/setup-uv@v4</td>
-                    <td>73</td>
-                    <td class="mono">104.0s</td>
+                    <td class="mono">Verify --version</td>
+                    <td>2</td>
+                    <td class="mono">1.0s</td>
                 </tr>
                 
                 <tr>
-                    <td class="mono">Checkout repository</td>
-                    <td>138</td>
-                    <td class="mono">103.0s</td>
+                    <td class="mono">Verify imports</td>
+                    <td>2</td>
+                    <td class="mono">1.0s</td>
                 </tr>
                 
                 <tr>
-                    <td class="mono">Fetch gh-pages branch</td>
-                    <td>138</td>
-                    <td class="mono">77.0s</td>
+                    <td class="mono">Complete job</td>
+                    <td>2</td>
+                    <td class="mono">0s</td>
                 </tr>
                 
                 <tr>
-                    <td class="mono">Deploy to GitHub Pages</td>
-                    <td>138</td>
-                    <td class="mono">55.0s</td>
+                    <td class="mono">Post Run actions/checkout@v7</td>
+                    <td>2</td>
+                    <td class="mono">0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Post Set up Python</td>
+                    <td>2</td>
+                    <td class="mono">0s</td>
                 </tr>
                 
             </tbody>
@@ -365,39 +452,9 @@
         <tbody>
             
             <tr>
-                <td class="mono">2026-06</td>
-                <td class="mono">138.0</td>
-                <td>138</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-05</td>
-                <td class="mono">195.0</td>
-                <td>195</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-04</td>
-                <td class="mono">215.0</td>
-                <td>215</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-03</td>
-                <td class="mono">300.0</td>
-                <td>300</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-02</td>
-                <td class="mono">560.0</td>
-                <td>525</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-01</td>
-                <td class="mono">1112.0</td>
-                <td>742</td>
+                <td class="mono">2026-07</td>
+                <td class="mono">4.0</td>
+                <td>4</td>
             </tr>
             
         </tbody>
@@ -408,7 +465,7 @@
 <div class="card">
     <h2>Recent Runs</h2>
     <div class="chart-wrap"><canvas id="sparkline" height="80"></canvas></div>
-    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 30 runs · Green = success, Red = failure</div>
+    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 4 runs · Green = success, Red = failure</div>
 </div>
 
         <footer>
@@ -484,7 +541,7 @@
         danger: style.getPropertyValue('--danger').trim(),
     };
 
-    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-26T04:18:01Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-26T09:40:32Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-26T14:38:11Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-26T17:03:51Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-26T19:59:34Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-26T22:19:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-27T04:04:43Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-27T08:45:05Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-27T11:00:40Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-27T13:57:29Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-27T16:11:45Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-27T19:38:12Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-27T22:08:36Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-28T04:26:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-28T09:21:50Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-28T14:03:56Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-28T16:18:20Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-28T19:39:34Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-28T22:06:59Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-29T04:46:15Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-29T11:15:11Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-29T15:59:36Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-29T20:11:46Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-29T22:14:22Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-30T04:12:36Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-30T09:53:30Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-30T14:33:15Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-30T17:08:28Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-30T20:06:50Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-30T22:18:05Z", "queue_seconds": 0.0}];
+    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-01T03:26:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-01T03:26:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-01T03:27:01Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-01T03:27:05Z", "queue_seconds": 0.0}];
     new Chart(document.getElementById('sparkline'), {
         type: 'bar',
         data: {
@@ -512,10 +569,10 @@
     new Chart(document.getElementById('repoMonthlyChart'), {
         type: 'bar',
         data: {
-            labels: ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"],
+            labels: ["2026-07"],
             datasets: [{
                 label: 'Minutes',
-                data: [1112.0, 560.0, 300.0, 215.0, 195.0, 138.0],
+                data: [4.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1
