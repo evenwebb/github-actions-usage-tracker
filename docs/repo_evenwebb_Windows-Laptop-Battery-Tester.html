@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>evenwebb/calendar-scraper-template — GitHub Actions</title>
+    <title>evenwebb/Windows-Laptop-Battery-Tester — GitHub Actions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -240,9 +240,14 @@
             <a href="export/usage.csv">Export CSV</a>
         </nav>
         
-<h1 style="margin-bottom:0.25rem">evenwebb/calendar-scraper-template</h1>
-<p class="muted" style="margin-bottom:1.5rem"><a href="https://github.com/evenwebb/calendar-scraper-template" target="_blank" rel="noopener">View on GitHub &nearr;</a></p>
+<h1 style="margin-bottom:0.25rem">evenwebb/Windows-Laptop-Battery-Tester</h1>
+<p class="muted" style="margin-bottom:1.5rem"><a href="https://github.com/evenwebb/Windows-Laptop-Battery-Tester" target="_blank" rel="noopener">View on GitHub &nearr;</a></p>
 
+
+<div class="card">
+    <h2>Workflow Audit</h2>
+    <p><span class="badge badge-amber">2</span> issues found · <a href="audit.html">View all &rarr;</a></p>
+</div>
 
 
 <div class="stats-grid">
@@ -254,8 +259,8 @@
     <div class="card">
         <h2>Failure Streaks</h2>
         
-        <div class="stat-big">60</div>
-        <div class="stat-label">Update Calendar Feed · 60.0 wasted min</div>
+        <div class="stat-big">1</div>
+        <div class="stat-label">CI · 3.0 wasted min</div>
         
     </div>
 </div>
@@ -266,7 +271,19 @@
         <thead><tr><th>Workflow</th><th>Runs</th><th>Avg Dur</th><th>Total Min</th><th>Wasted</th><th>Success</th></tr></thead>
         <tbody>
             
-            <tr><td colspan="6" class="muted">No workflow runs this month.</td></tr>
+            <tr>
+                <td class="mono">CI</td>
+                <td>1</td>
+                <td class="mono">23.0s</td>
+                <td class="mono">3.0</td>
+                <td class="mono">3.0</td>
+                <td>
+                    
+                    
+                    <span class="badge badge-failure">0.0%</span>
+                    
+                </td>
+            </tr>
             
         </tbody>
     </table>
@@ -282,10 +299,10 @@
         <tbody>
             
             <tr>
-                <td class="mono">Update Calendar Feed</td>
-                <td><span class="badge badge-failure">60</span></td>
-                <td class="mono">60.0 min</td>
-                <td class="mono">2026-04-28T11:01:34</td>
+                <td class="mono">CI</td>
+                <td><span class="badge badge-failure">1</span></td>
+                <td class="mono">3.0 min</td>
+                <td class="mono">2026-07-04T21:14:30</td>
             </tr>
             
         </tbody>
@@ -300,7 +317,23 @@
             <thead><tr><th>Job</th><th>Runs</th><th>Billable</th></tr></thead>
             <tbody>
                 
-                <tr><td colspan="3" class="muted">No job-level data yet.</td></tr>
+                <tr>
+                    <td class="mono">lint</td>
+                    <td>1</td>
+                    <td class="mono">1.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">syntax</td>
+                    <td>1</td>
+                    <td class="mono">1.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">imports</td>
+                    <td>1</td>
+                    <td class="mono">1.0 min</td>
+                </tr>
                 
             </tbody>
         </table>
@@ -327,20 +360,8 @@
         <tbody>
             
             <tr>
-                <td class="mono">2026-04</td>
-                <td class="mono">28.0</td>
-                <td>28</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-03</td>
-                <td class="mono">31.0</td>
-                <td>31</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-02</td>
-                <td class="mono">1.0</td>
+                <td class="mono">2026-07</td>
+                <td class="mono">3.0</td>
                 <td>1</td>
             </tr>
             
@@ -352,7 +373,7 @@
 <div class="card">
     <h2>Recent Runs</h2>
     <div class="chart-wrap"><canvas id="sparkline" height="80"></canvas></div>
-    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 30 runs · Green = success, Red = failure</div>
+    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 1 runs · Green = success, Red = failure</div>
 </div>
 
         <footer>
@@ -428,7 +449,7 @@
         danger: style.getPropertyValue('--danger').trim(),
     };
 
-    const recent = [{"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-30T10:13:46Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-03-31T10:02:48Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-01T10:03:48Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-02T09:58:05Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-03T09:49:47Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-04T09:34:03Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-05T09:35:21Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-06T10:05:54Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-07T10:05:01Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-08T10:04:24Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-09T10:09:30Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-10T10:05:23Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-11T09:36:24Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-12T09:41:43Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-13T10:42:42Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-14T10:12:59Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-15T10:14:02Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-16T10:12:48Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-17T10:11:23Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-18T09:43:17Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-19T09:42:54Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-20T10:44:33Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-21T10:16:29Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-22T10:16:40Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-23T10:18:50Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-24T10:17:54Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-25T09:49:37Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-26T09:51:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-27T10:59:35Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-04-28T11:01:34Z", "queue_seconds": 0.0}];
+    const recent = [{"billable_minutes_total": 3.0, "conclusion": "failure", "created_at": "2026-07-04T21:14:30Z", "queue_seconds": 0.0}];
     new Chart(document.getElementById('sparkline'), {
         type: 'bar',
         data: {
@@ -456,10 +477,10 @@
     new Chart(document.getElementById('repoMonthlyChart'), {
         type: 'bar',
         data: {
-            labels: ["2026-02", "2026-03", "2026-04"],
+            labels: ["2026-07"],
             datasets: [{
                 label: 'Minutes',
-                data: [1.0, 31.0, 28.0],
+                data: [3.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1
