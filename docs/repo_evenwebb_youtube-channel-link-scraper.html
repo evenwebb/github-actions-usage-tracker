@@ -222,7 +222,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.8rem">Data through 2026-07-05</span>
+                <span class="muted" style="font-size:0.8rem">Data through 2026-07-06</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -286,6 +286,20 @@
             </tr>
             
             <tr>
+                <td class="mono">Scrape Channel Links</td>
+                <td>1</td>
+                <td class="mono">17.0s</td>
+                <td class="mono">1.0</td>
+                <td class="mono">0</td>
+                <td>
+                    
+                    
+                    <span class="badge badge-success">100.0%</span>
+                    
+                </td>
+            </tr>
+            
+            <tr>
                 <td class="mono">github_actions in /. - Update #1443903828</td>
                 <td>1</td>
                 <td class="mono">22.0s</td>
@@ -320,6 +334,14 @@
             </tr>
             
             <tr>
+                <td class="mono">Scrape Channel Links</td>
+                <td>1</td>
+                <td>1</td>
+                <td class="mono">1.0</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr>
                 <td class="mono">github_actions in /. - Update #1443903828</td>
                 <td>1</td>
                 <td>1</td>
@@ -343,8 +365,8 @@
                 
                 <tr>
                     <td class="mono">scrape</td>
-                    <td>2</td>
-                    <td class="mono">2.0 min</td>
+                    <td>3</td>
+                    <td class="mono">3.0 min</td>
                 </tr>
                 
                 <tr>
@@ -370,49 +392,49 @@
                 
                 <tr>
                     <td class="mono">Scrape links</td>
-                    <td>2</td>
-                    <td class="mono">12.0s</td>
+                    <td>3</td>
+                    <td class="mono">24.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Commit & push</td>
-                    <td>2</td>
-                    <td class="mono">1.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Post Run actions/setup-python@v6</td>
-                    <td>2</td>
-                    <td class="mono">1.0s</td>
+                    <td>3</td>
+                    <td class="mono">2.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Run actions/checkout@v6</td>
-                    <td>2</td>
+                    <td>3</td>
+                    <td class="mono">2.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Post Run actions/setup-python@v6</td>
+                    <td>3</td>
                     <td class="mono">1.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Set up job</td>
-                    <td>2</td>
+                    <td>3</td>
                     <td class="mono">1.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Complete job</td>
-                    <td>2</td>
+                    <td>3</td>
                     <td class="mono">0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Post Run actions/checkout@v6</td>
-                    <td>2</td>
+                    <td>3</td>
                     <td class="mono">0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Run actions/setup-python@v6</td>
-                    <td>2</td>
+                    <td>3</td>
                     <td class="mono">0s</td>
                 </tr>
                 
@@ -431,8 +453,8 @@
             
             <tr>
                 <td class="mono">2026-07</td>
-                <td class="mono">2.0</td>
-                <td>2</td>
+                <td class="mono">3.0</td>
+                <td>3</td>
             </tr>
             
             <tr>
@@ -449,12 +471,12 @@
 <div class="card">
     <h2>Recent Runs</h2>
     <div class="chart-wrap"><canvas id="sparkline" height="80"></canvas></div>
-    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 4 runs · Green = success, Red = failure</div>
+    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 5 runs · Green = success, Red = failure</div>
 </div>
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-07-05 03:51 UTC</span>
+            <span>Last updated: 2026-07-06 03:58 UTC</span>
         </footer>
     </div>
 
@@ -525,7 +547,7 @@
         danger: style.getPropertyValue('--danger').trim(),
     };
 
-    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-21T09:46:59Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-28T08:49:03Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-01T16:38:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-01T16:38:36Z", "queue_seconds": 0.0}];
+    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-21T09:46:59Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-28T08:49:03Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-01T16:38:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-01T16:38:36Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-05T08:49:55Z", "queue_seconds": 0.0}];
     new Chart(document.getElementById('sparkline'), {
         type: 'bar',
         data: {
@@ -556,7 +578,7 @@
             labels: ["2026-06", "2026-07"],
             datasets: [{
                 label: 'Minutes',
-                data: [2.0, 2.0],
+                data: [2.0, 3.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1
