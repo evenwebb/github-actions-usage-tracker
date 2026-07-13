@@ -222,7 +222,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.8rem">Data through 2026-07-12</span>
+                <span class="muted" style="font-size:0.8rem">Data through 2026-07-13</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -285,12 +285,6 @@
                 
                 <tr>
                     <td class="mono">build</td>
-                    <td>3</td>
-                    <td class="mono">15.0 min</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">build</td>
                     <td>4</td>
                     <td class="mono">4.0 min</td>
                 </tr>
@@ -307,6 +301,12 @@
                     <td class="mono">4.0 min</td>
                 </tr>
                 
+                <tr>
+                    <td class="mono">build</td>
+                    <td>2</td>
+                    <td class="mono">2.0 min</td>
+                </tr>
+                
             </tbody>
         </table>
     </div>
@@ -315,12 +315,6 @@
         <table>
             <thead><tr><th>Step</th><th>Runs</th><th>Total</th></tr></thead>
             <tbody>
-                
-                <tr>
-                    <td class="mono">Generate Cinema iCal (with retries)</td>
-                    <td>3</td>
-                    <td class="mono">766.0s</td>
-                </tr>
                 
                 <tr>
                     <td class="mono">Pull ghcr.io/actions/jekyll-build-pages:v1.0.13</td>
@@ -335,21 +329,15 @@
                 </tr>
                 
                 <tr>
+                    <td class="mono">Generate Cinema iCal (with retries)</td>
+                    <td>2</td>
+                    <td class="mono">15.0s</td>
+                </tr>
+                
+                <tr>
                     <td class="mono">Build with Jekyll</td>
                     <td>4</td>
                     <td class="mono">9.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Run astral-sh/setup-uv@v4</td>
-                    <td>3</td>
-                    <td class="mono">6.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Set up job</td>
-                    <td>3</td>
-                    <td class="mono">5.0s</td>
                 </tr>
                 
                 <tr>
@@ -362,6 +350,18 @@
                     <td class="mono">Set up job</td>
                     <td>4</td>
                     <td class="mono">5.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Run astral-sh/setup-uv@v4</td>
+                    <td>2</td>
+                    <td class="mono">4.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Set up job</td>
+                    <td>2</td>
+                    <td class="mono">4.0s</td>
                 </tr>
                 
             </tbody>
@@ -409,8 +409,8 @@
             
             <tr>
                 <td class="mono">2026-01</td>
-                <td class="mono">20.0</td>
-                <td>20</td>
+                <td class="mono">19.0</td>
+                <td>19</td>
             </tr>
             
         </tbody>
@@ -426,7 +426,7 @@
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-07-12 03:22 UTC</span>
+            <span>Last updated: 2026-07-13 03:25 UTC</span>
         </footer>
     </div>
 
@@ -528,7 +528,7 @@
             labels: ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"],
             datasets: [{
                 label: 'Minutes',
-                data: [20.0, 98.0, 122.0, 118.0, 135.0, 102.0],
+                data: [19.0, 98.0, 122.0, 118.0, 135.0, 102.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1
