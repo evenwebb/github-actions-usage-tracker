@@ -222,7 +222,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.8rem">Data through 2026-07-13</span>
+                <span class="muted" style="font-size:0.8rem">Data through 2026-07-14</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -283,29 +283,7 @@
             <thead><tr><th>Job</th><th>Runs</th><th>Billable</th></tr></thead>
             <tbody>
                 
-                <tr>
-                    <td class="mono">build</td>
-                    <td>4</td>
-                    <td class="mono">4.0 min</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">deploy</td>
-                    <td>4</td>
-                    <td class="mono">4.0 min</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">report-build-status</td>
-                    <td>4</td>
-                    <td class="mono">4.0 min</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">build</td>
-                    <td>2</td>
-                    <td class="mono">2.0 min</td>
-                </tr>
+                <tr><td colspan="3" class="muted">No job-level data yet.</td></tr>
                 
             </tbody>
         </table>
@@ -316,53 +294,7 @@
             <thead><tr><th>Step</th><th>Runs</th><th>Total</th></tr></thead>
             <tbody>
                 
-                <tr>
-                    <td class="mono">Pull ghcr.io/actions/jekyll-build-pages:v1.0.13</td>
-                    <td>4</td>
-                    <td class="mono">46.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Deploy to GitHub Pages</td>
-                    <td>4</td>
-                    <td class="mono">24.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Generate Cinema iCal (with retries)</td>
-                    <td>2</td>
-                    <td class="mono">15.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Build with Jekyll</td>
-                    <td>4</td>
-                    <td class="mono">9.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Checkout</td>
-                    <td>4</td>
-                    <td class="mono">5.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Set up job</td>
-                    <td>4</td>
-                    <td class="mono">5.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Run astral-sh/setup-uv@v4</td>
-                    <td>2</td>
-                    <td class="mono">4.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Set up job</td>
-                    <td>2</td>
-                    <td class="mono">4.0s</td>
-                </tr>
+                <tr><td colspan="3" class="muted">No step-level data yet.</td></tr>
                 
             </tbody>
         </table>
@@ -409,8 +341,8 @@
             
             <tr>
                 <td class="mono">2026-01</td>
-                <td class="mono">19.0</td>
-                <td>19</td>
+                <td class="mono">18.0</td>
+                <td>18</td>
             </tr>
             
         </tbody>
@@ -426,7 +358,7 @@
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-07-13 03:25 UTC</span>
+            <span>Last updated: 2026-07-14 02:48 UTC</span>
         </footer>
     </div>
 
@@ -528,7 +460,7 @@
             labels: ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"],
             datasets: [{
                 label: 'Minutes',
-                data: [19.0, 98.0, 122.0, 118.0, 135.0, 102.0],
+                data: [18.0, 98.0, 122.0, 118.0, 135.0, 102.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1
