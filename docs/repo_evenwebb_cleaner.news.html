@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>evenwebb/cornwall-waste-collection-calendar-generator — GitHub Actions</title>
+    <title>evenwebb/cleaner.news — GitHub Actions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -240,8 +240,8 @@
             <a href="export/usage.csv">Export CSV</a>
         </nav>
         
-<h1 style="margin-bottom:0.25rem">evenwebb/cornwall-waste-collection-calendar-generator</h1>
-<p class="muted" style="margin-bottom:1.5rem"><a href="https://github.com/evenwebb/cornwall-waste-collection-calendar-generator" target="_blank" rel="noopener">View on GitHub &nearr;</a></p>
+<h1 style="margin-bottom:0.25rem">evenwebb/cleaner.news</h1>
+<p class="muted" style="margin-bottom:1.5rem"><a href="https://github.com/evenwebb/cleaner.news" target="_blank" rel="noopener">View on GitHub &nearr;</a></p>
 
 
 
@@ -267,10 +267,10 @@
         <tbody>
             
             <tr>
-                <td class="mono">Run Cornwall scraper</td>
-                <td>27</td>
-                <td class="mono">12.4s</td>
-                <td class="mono">27.0</td>
+                <td class="mono">Deploy to Krystal</td>
+                <td>4</td>
+                <td class="mono">17.5s</td>
+                <td class="mono">4.0</td>
                 <td class="mono">0</td>
                 <td>
                     
@@ -293,10 +293,10 @@
         <tbody>
             
             <tr>
-                <td class="mono">Run Cornwall scraper</td>
-                <td>27</td>
-                <td>27</td>
-                <td class="mono">27.0</td>
+                <td class="mono">Deploy to Krystal</td>
+                <td>4</td>
+                <td>4</td>
+                <td class="mono">4.0</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -315,9 +315,15 @@
             <tbody>
                 
                 <tr>
-                    <td class="mono">scrape</td>
-                    <td>30</td>
-                    <td class="mono">30.0 min</td>
+                    <td class="mono">ftp-deploy</td>
+                    <td>4</td>
+                    <td class="mono">4.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">ssh-deploy</td>
+                    <td>1</td>
+                    <td class="mono">0 min</td>
                 </tr>
                 
             </tbody>
@@ -330,51 +336,33 @@
             <tbody>
                 
                 <tr>
-                    <td class="mono">Run scraper (with retries)</td>
-                    <td>30</td>
-                    <td class="mono">60.0s</td>
+                    <td class="mono">Deploy via FTP</td>
+                    <td>4</td>
+                    <td class="mono">49.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Set up job</td>
-                    <td>30</td>
-                    <td class="mono">51.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Run astral-sh/setup-uv@v4</td>
-                    <td>30</td>
-                    <td class="mono">47.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Commit updated calendar</td>
-                    <td>30</td>
-                    <td class="mono">42.0s</td>
+                    <td>4</td>
+                    <td class="mono">6.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Run actions/checkout@v4</td>
-                    <td>30</td>
-                    <td class="mono">21.0s</td>
+                    <td>4</td>
+                    <td class="mono">3.0s</td>
                 </tr>
                 
                 <tr>
-                    <td class="mono">Install dependencies</td>
-                    <td>30</td>
-                    <td class="mono">15.0s</td>
+                    <td class="mono">Complete job</td>
+                    <td>4</td>
+                    <td class="mono">0s</td>
                 </tr>
                 
                 <tr>
-                    <td class="mono">Auto-close stale failure issue after 2 successful runs</td>
-                    <td>30</td>
-                    <td class="mono">14.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Post Run astral-sh/setup-uv@v4</td>
-                    <td>30</td>
-                    <td class="mono">8.0s</td>
+                    <td class="mono">Post Run actions/checkout@v4</td>
+                    <td>4</td>
+                    <td class="mono">0s</td>
                 </tr>
                 
             </tbody>
@@ -392,42 +380,6 @@
             
             <tr>
                 <td class="mono">2026-07</td>
-                <td class="mono">27.0</td>
-                <td>27</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-06</td>
-                <td class="mono">27.0</td>
-                <td>27</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-05</td>
-                <td class="mono">46.0</td>
-                <td>31</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-04</td>
-                <td class="mono">31.0</td>
-                <td>31</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-03</td>
-                <td class="mono">31.0</td>
-                <td>31</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-02</td>
-                <td class="mono">28.0</td>
-                <td>28</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-01</td>
                 <td class="mono">4.0</td>
                 <td>4</td>
             </tr>
@@ -440,7 +392,7 @@
 <div class="card">
     <h2>Recent Runs</h2>
     <div class="chart-wrap"><canvas id="sparkline" height="80"></canvas></div>
-    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 30 runs · Green = success, Red = failure</div>
+    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 4 runs · Green = success, Red = failure</div>
 </div>
 
         <footer>
@@ -516,7 +468,7 @@
         danger: style.getPropertyValue('--danger').trim(),
     };
 
-    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-28T08:46:49Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-29T10:51:09Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-30T09:28:15Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-01T09:39:39Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-02T08:51:11Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-03T08:57:21Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-04T08:32:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-05T08:48:00Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-06T10:12:21Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-07T09:35:16Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-08T08:22:14Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-09T09:32:52Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-10T09:29:14Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-11T07:49:36Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-12T08:11:22Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-13T09:19:28Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-14T07:57:37Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-15T08:02:45Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-16T08:06:45Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-17T08:04:00Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-18T07:43:42Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-19T08:10:37Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-20T08:51:46Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-21T08:22:19Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-22T08:22:35Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-23T08:24:18Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-24T08:21:43Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-25T08:01:21Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-26T08:21:08Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-27T09:43:19Z", "queue_seconds": 0.0}];
+    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-27T22:50:00Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-27T22:53:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-27T23:00:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-27T23:07:07Z", "queue_seconds": 0.0}];
     new Chart(document.getElementById('sparkline'), {
         type: 'bar',
         data: {
@@ -544,10 +496,10 @@
     new Chart(document.getElementById('repoMonthlyChart'), {
         type: 'bar',
         data: {
-            labels: ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07"],
+            labels: ["2026-07"],
             datasets: [{
                 label: 'Minutes',
-                data: [4.0, 28.0, 31.0, 31.0, 46.0, 27.0, 27.0],
+                data: [4.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1
