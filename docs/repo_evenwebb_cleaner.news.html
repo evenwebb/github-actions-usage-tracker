@@ -222,7 +222,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.8rem">Data through 2026-07-29</span>
+                <span class="muted" style="font-size:0.8rem">Data through 2026-07-30</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -268,9 +268,9 @@
             
             <tr>
                 <td class="mono">Deploy to Krystal</td>
-                <td>4</td>
-                <td class="mono">17.5s</td>
-                <td class="mono">4.0</td>
+                <td>6</td>
+                <td class="mono">14.3s</td>
+                <td class="mono">6.0</td>
                 <td class="mono">0</td>
                 <td>
                     
@@ -294,9 +294,9 @@
             
             <tr>
                 <td class="mono">Deploy to Krystal</td>
-                <td>4</td>
-                <td>4</td>
-                <td class="mono">4.0</td>
+                <td>6</td>
+                <td>6</td>
+                <td class="mono">6.0</td>
                 <td class="mono">1.0</td>
             </tr>
             
@@ -316,8 +316,8 @@
                 
                 <tr>
                     <td class="mono">ftp-deploy</td>
-                    <td>4</td>
-                    <td class="mono">4.0 min</td>
+                    <td>6</td>
+                    <td class="mono">6.0 min</td>
                 </tr>
                 
                 <tr>
@@ -337,31 +337,31 @@
                 
                 <tr>
                     <td class="mono">Deploy via FTP</td>
-                    <td>4</td>
-                    <td class="mono">49.0s</td>
+                    <td>6</td>
+                    <td class="mono">55.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Set up job</td>
-                    <td>4</td>
-                    <td class="mono">6.0s</td>
+                    <td>6</td>
+                    <td class="mono">8.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Run actions/checkout@v4</td>
-                    <td>4</td>
-                    <td class="mono">3.0s</td>
-                </tr>
-                
-                <tr>
-                    <td class="mono">Complete job</td>
-                    <td>4</td>
-                    <td class="mono">0s</td>
+                    <td>5</td>
+                    <td class="mono">4.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Post Run actions/checkout@v4</td>
-                    <td>4</td>
+                    <td>5</td>
+                    <td class="mono">1.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Complete job</td>
+                    <td>6</td>
                     <td class="mono">0s</td>
                 </tr>
                 
@@ -380,8 +380,8 @@
             
             <tr>
                 <td class="mono">2026-07</td>
-                <td class="mono">4.0</td>
-                <td>4</td>
+                <td class="mono">6.0</td>
+                <td>6</td>
             </tr>
             
         </tbody>
@@ -392,12 +392,12 @@
 <div class="card">
     <h2>Recent Runs</h2>
     <div class="chart-wrap"><canvas id="sparkline" height="80"></canvas></div>
-    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 4 runs · Green = success, Red = failure</div>
+    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 6 runs · Green = success, Red = failure</div>
 </div>
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-07-29 02:56 UTC</span>
+            <span>Last updated: 2026-07-30 02:41 UTC</span>
         </footer>
     </div>
 
@@ -468,7 +468,7 @@
         danger: style.getPropertyValue('--danger').trim(),
     };
 
-    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-27T22:50:00Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-27T22:53:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-27T23:00:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-27T23:07:07Z", "queue_seconds": 0.0}];
+    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-27T22:50:00Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-27T22:53:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-27T23:00:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-27T23:07:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-29T11:48:56Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-29T18:08:01Z", "queue_seconds": 0.0}];
     new Chart(document.getElementById('sparkline'), {
         type: 'bar',
         data: {
@@ -499,7 +499,7 @@
             labels: ["2026-07"],
             datasets: [{
                 label: 'Minutes',
-                data: [4.0],
+                data: [6.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1
