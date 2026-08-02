@@ -35,11 +35,11 @@ jobs:
       GITHUB_ACTIONS_ALLOWANCE: ${{ vars.GITHUB_ACTIONS_ALLOWANCE || '2000' }}
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 1
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
           cache: pip
