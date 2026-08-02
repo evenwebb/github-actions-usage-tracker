@@ -222,7 +222,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.8rem">Data through 2026-08-01</span>
+                <span class="muted" style="font-size:0.8rem">Data through 2026-08-02</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -266,12 +266,87 @@
         <thead><tr><th>Workflow</th><th>Runs</th><th>Avg Dur</th><th>Total Min</th><th>Wasted</th><th>Success</th></tr></thead>
         <tbody>
             
-            <tr><td colspan="6" class="muted">No workflow runs this month.</td></tr>
+            <tr>
+                <td class="mono">CI</td>
+                <td>1</td>
+                <td class="mono">16.0s</td>
+                <td class="mono">1.0</td>
+                <td class="mono">0</td>
+                <td>
+                    
+                    
+                    <span class="badge badge-success">100.0%</span>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">github_actions in /. - Update #1498723220</td>
+                <td>1</td>
+                <td class="mono">34.0s</td>
+                <td class="mono">1.0</td>
+                <td class="mono">0</td>
+                <td>
+                    
+                    
+                    <span class="badge badge-success">100.0%</span>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">pip in /. - Update #1498723215</td>
+                <td>1</td>
+                <td class="mono">42.0s</td>
+                <td class="mono">1.0</td>
+                <td class="mono">0</td>
+                <td>
+                    
+                    
+                    <span class="badge badge-success">100.0%</span>
+                    
+                </td>
+            </tr>
             
         </tbody>
     </table>
 </div>
 
+
+<div class="card">
+    <h2>Workflow Efficiency</h2>
+    <div class="muted" style="margin-bottom:0.75rem">Minutes consumed per successful run. Higher = more expensive per success.</div>
+    <table>
+        <thead><tr><th>Workflow</th><th>Runs</th><th>Successes</th><th>Total Min</th><th>Min/Success</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">CI</td>
+                <td>1</td>
+                <td>1</td>
+                <td class="mono">1.0</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">github_actions in /. - Update #1498723220</td>
+                <td>1</td>
+                <td>1</td>
+                <td class="mono">1.0</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">pip in /. - Update #1498723215</td>
+                <td>1</td>
+                <td>1</td>
+                <td class="mono">1.0</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -283,7 +358,23 @@
             <thead><tr><th>Job</th><th>Runs</th><th>Billable</th></tr></thead>
             <tbody>
                 
-                <tr><td colspan="3" class="muted">No job-level data yet.</td></tr>
+                <tr>
+                    <td class="mono">Dependabot</td>
+                    <td>1</td>
+                    <td class="mono">1.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Dependabot</td>
+                    <td>1</td>
+                    <td class="mono">1.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">test</td>
+                    <td>1</td>
+                    <td class="mono">1.0 min</td>
+                </tr>
                 
             </tbody>
         </table>
@@ -310,6 +401,12 @@
         <tbody>
             
             <tr>
+                <td class="mono">2026-08</td>
+                <td class="mono">3.0</td>
+                <td>3</td>
+            </tr>
+            
+            <tr>
                 <td class="mono">2026-07</td>
                 <td class="mono">3.0</td>
                 <td>3</td>
@@ -329,12 +426,12 @@
 <div class="card">
     <h2>Recent Runs</h2>
     <div class="chart-wrap"><canvas id="sparkline" height="80"></canvas></div>
-    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 8 runs · Green = success, Red = failure</div>
+    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 11 runs · Green = success, Red = failure</div>
 </div>
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-08-01 03:22 UTC</span>
+            <span>Last updated: 2026-08-02 03:21 UTC</span>
         </footer>
     </div>
 
@@ -405,7 +502,7 @@
         danger: style.getPropertyValue('--danger').trim(),
     };
 
-    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-13T21:17:56Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-13T21:17:56Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-13T21:17:56Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-13T21:17:58Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-13T21:17:58Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-01T06:27:00Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-01T06:27:00Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-01T06:27:30Z", "queue_seconds": 0.0}];
+    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-13T21:17:56Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-13T21:17:56Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-13T21:17:56Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-13T21:17:58Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-06-13T21:17:58Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-01T06:27:00Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-01T06:27:00Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-01T06:27:30Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-01T06:25:49Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-01T06:25:49Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-01T06:26:37Z", "queue_seconds": 0.0}];
     new Chart(document.getElementById('sparkline'), {
         type: 'bar',
         data: {
@@ -433,10 +530,10 @@
     new Chart(document.getElementById('repoMonthlyChart'), {
         type: 'bar',
         data: {
-            labels: ["2026-06", "2026-07"],
+            labels: ["2026-06", "2026-07", "2026-08"],
             datasets: [{
                 label: 'Minutes',
-                data: [5.0, 3.0],
+                data: [5.0, 3.0, 3.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1
