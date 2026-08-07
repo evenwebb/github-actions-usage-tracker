@@ -222,7 +222,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.8rem">Data through 2026-08-06</span>
+                <span class="muted" style="font-size:0.8rem">Data through 2026-08-07</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -268,14 +268,14 @@
             
             <tr>
                 <td class="mono">Deploy via FTP</td>
-                <td>2</td>
-                <td class="mono">18.0s</td>
-                <td class="mono">2.0</td>
-                <td class="mono">0</td>
+                <td>5</td>
+                <td class="mono">315.0s</td>
+                <td class="mono">30.0</td>
+                <td class="mono">28.0</td>
                 <td>
                     
                     
-                    <span class="badge badge-success">100.0%</span>
+                    <span class="badge badge-failure">40.0%</span>
                     
                 </td>
             </tr>
@@ -294,10 +294,10 @@
             
             <tr>
                 <td class="mono">Deploy via FTP</td>
+                <td>5</td>
                 <td>2</td>
-                <td>2</td>
-                <td class="mono">2.0</td>
-                <td class="mono">1.0</td>
+                <td class="mono">30.0</td>
+                <td class="mono">15.0</td>
             </tr>
             
         </tbody>
@@ -316,8 +316,8 @@
                 
                 <tr>
                     <td class="mono">ftp-deploy</td>
-                    <td>12</td>
-                    <td class="mono">18.0 min</td>
+                    <td>15</td>
+                    <td class="mono">46.0 min</td>
                 </tr>
                 
             </tbody>
@@ -331,20 +331,26 @@
                 
                 <tr>
                     <td class="mono">Deploy via FTP</td>
-                    <td>12</td>
-                    <td class="mono">454.0s</td>
+                    <td>15</td>
+                    <td class="mono">1966.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Reset sync state (trust all server files as synced)</td>
-                    <td>5</td>
+                    <td>8</td>
                     <td class="mono">26.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Set up job</td>
-                    <td>12</td>
-                    <td class="mono">19.0s</td>
+                    <td>15</td>
+                    <td class="mono">23.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Run actions/checkout@v5</td>
+                    <td>5</td>
+                    <td class="mono">14.0s</td>
                 </tr>
                 
                 <tr>
@@ -354,27 +360,21 @@
                 </tr>
                 
                 <tr>
-                    <td class="mono">Run actions/checkout@v5</td>
-                    <td>2</td>
-                    <td class="mono">4.0s</td>
-                </tr>
-                
-                <tr>
                     <td class="mono">Post Run actions/checkout@v4</td>
                     <td>10</td>
                     <td class="mono">2.0s</td>
                 </tr>
                 
                 <tr>
-                    <td class="mono">Restore DB if skipped</td>
-                    <td>11</td>
+                    <td class="mono">Post Run actions/checkout@v5</td>
+                    <td>5</td>
                     <td class="mono">1.0s</td>
                 </tr>
                 
                 <tr>
-                    <td class="mono">Check remote DB timestamp</td>
-                    <td>11</td>
-                    <td class="mono">0s</td>
+                    <td class="mono">Restore DB if skipped</td>
+                    <td>14</td>
+                    <td class="mono">1.0s</td>
                 </tr>
                 
             </tbody>
@@ -392,8 +392,8 @@
             
             <tr>
                 <td class="mono">2026-08</td>
-                <td class="mono">2.0</td>
-                <td>2</td>
+                <td class="mono">30.0</td>
+                <td>5</td>
             </tr>
             
             <tr>
@@ -410,12 +410,12 @@
 <div class="card">
     <h2>Recent Runs</h2>
     <div class="chart-wrap"><canvas id="sparkline" height="80"></canvas></div>
-    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 12 runs · Green = success, Red = failure</div>
+    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 15 runs · Green = success, Red = failure</div>
 </div>
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-08-06 02:52 UTC</span>
+            <span>Last updated: 2026-08-07 02:50 UTC</span>
         </footer>
     </div>
 
@@ -486,7 +486,7 @@
         danger: style.getPropertyValue('--danger').trim(),
     };
 
-    const recent = [{"billable_minutes_total": 6.0, "conclusion": "success", "created_at": "2026-07-29T18:32:33Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-29T18:40:43Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-29T19:29:02Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-29T20:29:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-29T20:34:03Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-29T20:38:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-29T21:21:06Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-29T22:19:32Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "failure", "created_at": "2026-07-29T22:20:32Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-30T09:48:34Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-02T12:30:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-05T20:15:38Z", "queue_seconds": 0.0}];
+    const recent = [{"billable_minutes_total": 6.0, "conclusion": "success", "created_at": "2026-07-29T18:32:33Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-29T18:40:43Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-29T19:29:02Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-29T20:29:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-29T20:34:03Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-29T20:38:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-29T21:21:06Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-29T22:19:32Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "failure", "created_at": "2026-07-29T22:20:32Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-30T09:48:34Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-02T12:30:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-05T20:15:38Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "failure", "created_at": "2026-08-06T09:58:50Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "failure", "created_at": "2026-08-06T09:59:08Z", "queue_seconds": 0.0}, {"billable_minutes_total": 22.0, "conclusion": "failure", "created_at": "2026-08-06T10:06:40Z", "queue_seconds": 0.0}];
     new Chart(document.getElementById('sparkline'), {
         type: 'bar',
         data: {
@@ -517,7 +517,7 @@
             labels: ["2026-07", "2026-08"],
             datasets: [{
                 label: 'Minutes',
-                data: [16.0, 2.0],
+                data: [16.0, 30.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1
