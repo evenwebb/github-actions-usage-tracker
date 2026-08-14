@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collection Logs — GitHub Actions</title>
+    <title>evenwebb/aliestimate — GitHub Actions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -214,6 +214,8 @@
         .chart-wrap canvas { width: 100% !important; }
     </style>
     
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
 </head>
 <body>
     <div class="container">
@@ -238,306 +240,171 @@
             <a href="export/usage.csv">Export CSV</a>
         </nav>
         
-<h1>Collection Logs</h1>
-<p class="muted">History of data collection runs. Backfill = initial 90-day fetch.</p>
+<h1 style="margin-bottom:0.25rem">evenwebb/aliestimate</h1>
+<p class="muted" style="margin-bottom:1.5rem"><a href="https://github.com/evenwebb/aliestimate" target="_blank" rel="noopener">View on GitHub &nearr;</a></p>
+
+
+
+<div class="stats-grid">
+    <div class="card">
+        <h2>Queue Time</h2>
+        <div class="stat-big">0<span style="font-size:0.8rem">s</span></div>
+        <div class="stat-label">avg · p95: 0s · max: 0s</div>
+    </div>
+    <div class="card">
+        <h2>Failure Streaks</h2>
+        
+        <div class="stat-big" style="color: var(--success)">0</div>
+        <div class="stat-label">No active streaks</div>
+        
+    </div>
+</div>
 
 <div class="card">
+    <h2>Workflows (This Month)</h2>
     <table>
-        <thead>
-            <tr>
-                <th>Started</th>
-                <th>Completed</th>
-                <th>Repos</th>
-                <th>Runs</th>
-                <th>API Calls</th>
-                <th>Backfill</th>
-                <th>Errors</th>
-            </tr>
-        </thead>
+        <thead><tr><th>Workflow</th><th>Runs</th><th>Avg Dur</th><th>Total Min</th><th>Wasted</th><th>Success</th></tr></thead>
         <tbody>
             
             <tr>
-                <td class="mono">2026-08-14T02:14:18</td>
-                <td class="mono">2026-08-14T02:14:40</td>
-                <td>49 (12 with runs)</td>
-                <td>64 collected → 6717 total in DB</td>
-                <td class="mono">114</td>
-                <td>—</td>
+                <td class="mono">Deploy via FTP</td>
+                <td>20</td>
+                <td class="mono">14.8s</td>
+                <td class="mono">20.0</td>
+                <td class="mono">0</td>
                 <td>
                     
-                    <span class="muted">—</span>
                     
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-08-13T02:18:54</td>
-                <td class="mono">2026-08-13T02:19:19</td>
-                <td>48 (11 with runs)</td>
-                <td>42 collected → 6674 total in DB</td>
-                <td class="mono">91</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-08-12T02:14:10</td>
-                <td class="mono">2026-08-12T02:14:33</td>
-                <td>48 (11 with runs)</td>
-                <td>45 collected → 6652 total in DB</td>
-                <td class="mono">94</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-08-11T02:00:21</td>
-                <td class="mono">2026-08-11T02:00:47</td>
-                <td>47 (12 with runs)</td>
-                <td>48 collected → 6630 total in DB</td>
-                <td class="mono">96</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-08-10T02:05:18</td>
-                <td class="mono">2026-08-10T02:05:38</td>
-                <td>47 (12 with runs)</td>
-                <td>45 collected → 6606 total in DB</td>
-                <td class="mono">93</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-08-09T02:00:57</td>
-                <td class="mono">2026-08-09T02:01:18</td>
-                <td>44 (11 with runs)</td>
-                <td>45 collected → 6582 total in DB</td>
-                <td class="mono">90</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-08-08T01:53:26</td>
-                <td class="mono">2026-08-08T01:53:44</td>
-                <td>44 (12 with runs)</td>
-                <td>46 collected → 6559 total in DB</td>
-                <td class="mono">91</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-08-07T02:50:08</td>
-                <td class="mono">2026-08-07T02:50:32</td>
-                <td>44 (12 with runs)</td>
-                <td>46 collected → 6537 total in DB</td>
-                <td class="mono">91</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-08-06T02:52:12</td>
-                <td class="mono">2026-08-06T02:52:35</td>
-                <td>44 (12 with runs)</td>
-                <td>45 collected → 6514 total in DB</td>
-                <td class="mono">90</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-08-05T02:49:00</td>
-                <td class="mono">2026-08-05T02:49:18</td>
-                <td>43 (11 with runs)</td>
-                <td>45 collected → 6490 total in DB</td>
-                <td class="mono">89</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-08-04T02:52:15</td>
-                <td class="mono">2026-08-04T02:52:38</td>
-                <td>43 (19 with runs)</td>
-                <td>72 collected → 6468 total in DB</td>
-                <td class="mono">116</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-08-03T03:23:04</td>
-                <td class="mono">2026-08-03T03:23:31</td>
-                <td>43 (19 with runs)</td>
-                <td>79 collected → 6446 total in DB</td>
-                <td class="mono">123</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-08-02T03:21:30</td>
-                <td class="mono">2026-08-02T03:21:52</td>
-                <td>43 (15 with runs)</td>
-                <td>84 collected → 6397 total in DB</td>
-                <td class="mono">128</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-08-01T03:21:39</td>
-                <td class="mono">2026-08-01T03:22:02</td>
-                <td>43 (13 with runs)</td>
-                <td>73 collected → 6366 total in DB</td>
-                <td class="mono">117</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-07-31T03:22:35</td>
-                <td class="mono">2026-07-31T03:22:55</td>
-                <td>43 (13 with runs)</td>
-                <td>52 collected → 6313 total in DB</td>
-                <td class="mono">96</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-07-30T02:41:01</td>
-                <td class="mono">2026-07-30T02:41:24</td>
-                <td>43 (13 with runs)</td>
-                <td>54 collected → 6290 total in DB</td>
-                <td class="mono">98</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-07-29T02:55:52</td>
-                <td class="mono">2026-07-29T02:56:10</td>
-                <td>41 (12 with runs)</td>
-                <td>48 collected → 6258 total in DB</td>
-                <td class="mono">90</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-07-28T02:49:24</td>
-                <td class="mono">2026-07-28T02:49:44</td>
-                <td>41 (13 with runs)</td>
-                <td>49 collected → 6237 total in DB</td>
-                <td class="mono">91</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-07-27T03:32:44</td>
-                <td class="mono">2026-07-27T03:33:02</td>
-                <td>41 (12 with runs)</td>
-                <td>41 collected → 6211 total in DB</td>
-                <td class="mono">83</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">2026-07-26T03:23:16</td>
-                <td class="mono">2026-07-26T03:23:38</td>
-                <td>41 (11 with runs)</td>
-                <td>44 collected → 6189 total in DB</td>
-                <td class="mono">86</td>
-                <td>—</td>
-                <td>
-                    
-                    <span class="muted">—</span>
+                    <span class="badge badge-success">100.0%</span>
                     
                 </td>
             </tr>
             
         </tbody>
     </table>
+</div>
+
+
+<div class="card">
+    <h2>Workflow Efficiency</h2>
+    <div class="muted" style="margin-bottom:0.75rem">Minutes consumed per successful run. Higher = more expensive per success.</div>
+    <table>
+        <thead><tr><th>Workflow</th><th>Runs</th><th>Successes</th><th>Total Min</th><th>Min/Success</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">Deploy via FTP</td>
+                <td>20</td>
+                <td>20</td>
+                <td class="mono">20.0</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+
+
+
+<div class="two-col">
+    <div class="card">
+        <h2>Expensive Jobs (30 Days)</h2>
+        <table>
+            <thead><tr><th>Job</th><th>Runs</th><th>Billable</th></tr></thead>
+            <tbody>
+                
+                <tr>
+                    <td class="mono">ftp-deploy</td>
+                    <td>20</td>
+                    <td class="mono">20.0 min</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    <div class="card">
+        <h2>Slow Steps (30 Days)</h2>
+        <table>
+            <thead><tr><th>Step</th><th>Runs</th><th>Total</th></tr></thead>
+            <tbody>
+                
+                <tr>
+                    <td class="mono">Deploy via FTP</td>
+                    <td>20</td>
+                    <td class="mono">135.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Check remote DB timestamp</td>
+                    <td>20</td>
+                    <td class="mono">34.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Run actions/checkout@v5</td>
+                    <td>20</td>
+                    <td class="mono">29.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Set up job</td>
+                    <td>20</td>
+                    <td class="mono">24.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Post Run actions/checkout@v5</td>
+                    <td>20</td>
+                    <td class="mono">7.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Reset sync state (trust all server files as synced)</td>
+                    <td>20</td>
+                    <td class="mono">5.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Complete job</td>
+                    <td>20</td>
+                    <td class="mono">0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Restore DB if skipped</td>
+                    <td>20</td>
+                    <td class="mono">0s</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="card">
+    <h2>Monthly History (Last 6 Months)</h2>
+    <div class="chart-wrap"><canvas id="repoMonthlyChart" height="120"></canvas></div>
+    <table style="margin-top: 1rem;">
+        <thead><tr><th>Month</th><th>Minutes</th><th>Runs</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">2026-08</td>
+                <td class="mono">20.0</td>
+                <td>20</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+
+
+<div class="card">
+    <h2>Recent Runs</h2>
+    <div class="chart-wrap"><canvas id="sparkline" height="80"></canvas></div>
+    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 20 runs · Green = success, Red = failure</div>
 </div>
 
         <footer>
@@ -599,5 +466,70 @@
     </script>
 
     
+<script>
+(function() {
+    if (typeof Chart === 'undefined') return;
+    const style = getComputedStyle(document.documentElement);
+    const colors = {
+        line: style.getPropertyValue('--chart-line').trim(),
+        fill: style.getPropertyValue('--chart-fill').trim(),
+        bar: style.getPropertyValue('--chart-bar').trim(),
+        grid: style.getPropertyValue('--chart-grid').trim(),
+        tick: style.getPropertyValue('--chart-tick').trim(),
+        success: style.getPropertyValue('--success').trim(),
+        danger: style.getPropertyValue('--danger').trim(),
+    };
+
+    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T17:12:32Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T17:43:37Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T17:45:19Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T17:46:06Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T17:55:45Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T17:58:45Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T17:58:46Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T19:32:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T19:41:25Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T20:17:14Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T20:39:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T21:18:09Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T21:18:53Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T21:30:53Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T22:02:55Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T22:35:26Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T22:45:55Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T23:30:33Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T23:39:41Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T23:43:06Z", "queue_seconds": 0.0}];
+    new Chart(document.getElementById('sparkline'), {
+        type: 'bar',
+        data: {
+            labels: recent.map((_, i) => i + 1),
+            datasets: [{
+                label: 'Minutes',
+                data: recent.map(r => r.billable_minutes_total || 0),
+                backgroundColor: recent.map(r => r.conclusion === 'success' ? 'rgba(63,185,80,0.6)' : 'rgba(248,81,73,0.6)'),
+                borderColor: recent.map(r => r.conclusion === 'success' ? colors.success : colors.danger),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { grid: { display: false }, ticks: { color: colors.tick, maxTicksLimit: 15, font: { size: 10 } } },
+                y: { grid: { color: colors.grid }, ticks: { color: colors.tick, font: { size: 10 } } }
+            }
+        }
+    });
+
+    
+    new Chart(document.getElementById('repoMonthlyChart'), {
+        type: 'bar',
+        data: {
+            labels: ["2026-08"],
+            datasets: [{
+                label: 'Minutes',
+                data: [20.0],
+                backgroundColor: colors.bar,
+                borderColor: colors.line,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { grid: { display: false }, ticks: { color: colors.tick, font: { size: 10 } } },
+                y: { grid: { color: colors.grid }, ticks: { color: colors.tick, font: { size: 10 } } }
+            }
+        }
+    });
+    
+})();
+</script>
+
 </body>
 </html>
