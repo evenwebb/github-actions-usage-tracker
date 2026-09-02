@@ -222,7 +222,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.8rem">Data through 2026-09-01</span>
+                <span class="muted" style="font-size:0.8rem">Data through 2026-09-02</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -266,12 +266,65 @@
         <thead><tr><th>Workflow</th><th>Runs</th><th>Avg Dur</th><th>Total Min</th><th>Wasted</th><th>Success</th></tr></thead>
         <tbody>
             
-            <tr><td colspan="6" class="muted">No workflow runs this month.</td></tr>
+            <tr>
+                <td class="mono">pages build and deployment</td>
+                <td>1</td>
+                <td class="mono">40.0s</td>
+                <td class="mono">3.0</td>
+                <td class="mono">0</td>
+                <td>
+                    
+                    
+                    <span class="badge badge-success">100.0%</span>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">Update iCal Feed</td>
+                <td>1</td>
+                <td class="mono">14.0s</td>
+                <td class="mono">1.0</td>
+                <td class="mono">0</td>
+                <td>
+                    
+                    
+                    <span class="badge badge-success">100.0%</span>
+                    
+                </td>
+            </tr>
             
         </tbody>
     </table>
 </div>
 
+
+<div class="card">
+    <h2>Workflow Efficiency</h2>
+    <div class="muted" style="margin-bottom:0.75rem">Minutes consumed per successful run. Higher = more expensive per success.</div>
+    <table>
+        <thead><tr><th>Workflow</th><th>Runs</th><th>Successes</th><th>Total Min</th><th>Min/Success</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">pages build and deployment</td>
+                <td>1</td>
+                <td>1</td>
+                <td class="mono">3.0</td>
+                <td class="mono">3.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">Update iCal Feed</td>
+                <td>1</td>
+                <td>1</td>
+                <td class="mono">1.0</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -291,20 +344,20 @@
                 
                 <tr>
                     <td class="mono">build</td>
-                    <td>8</td>
-                    <td class="mono">8.0 min</td>
+                    <td>9</td>
+                    <td class="mono">9.0 min</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">deploy</td>
-                    <td>8</td>
-                    <td class="mono">8.0 min</td>
+                    <td>9</td>
+                    <td class="mono">9.0 min</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">report-build-status</td>
-                    <td>8</td>
-                    <td class="mono">8.0 min</td>
+                    <td>9</td>
+                    <td class="mono">9.0 min</td>
                 </tr>
                 
             </tbody>
@@ -319,25 +372,25 @@
                 <tr>
                     <td class="mono">Generate iCal (with retries)</td>
                     <td>19</td>
-                    <td class="mono">177.0s</td>
+                    <td class="mono">155.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Pull ghcr.io/actions/jekyll-build-pages:v1.0.13</td>
-                    <td>8</td>
-                    <td class="mono">124.0s</td>
+                    <td>9</td>
+                    <td class="mono">135.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Deploy to GitHub Pages</td>
-                    <td>8</td>
-                    <td class="mono">101.0s</td>
+                    <td>9</td>
+                    <td class="mono">113.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Set up job</td>
                     <td>19</td>
-                    <td class="mono">36.0s</td>
+                    <td class="mono">35.0s</td>
                 </tr>
                 
                 <tr>
@@ -348,20 +401,20 @@
                 
                 <tr>
                     <td class="mono">Build with Jekyll</td>
-                    <td>8</td>
-                    <td class="mono">19.0s</td>
+                    <td>9</td>
+                    <td class="mono">22.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Set up job</td>
-                    <td>8</td>
-                    <td class="mono">16.0s</td>
+                    <td>9</td>
+                    <td class="mono">18.0s</td>
                 </tr>
                 
                 <tr>
-                    <td class="mono">Run actions/checkout@v4</td>
+                    <td class="mono">Commit and push iCal file</td>
                     <td>19</td>
-                    <td class="mono">14.0s</td>
+                    <td class="mono">15.0s</td>
                 </tr>
                 
             </tbody>
@@ -376,6 +429,12 @@
     <table style="margin-top: 1rem;">
         <thead><tr><th>Month</th><th>Minutes</th><th>Runs</th></tr></thead>
         <tbody>
+            
+            <tr>
+                <td class="mono">2026-09</td>
+                <td class="mono">4.0</td>
+                <td>2</td>
+            </tr>
             
             <tr>
                 <td class="mono">2026-08</td>
@@ -409,8 +468,8 @@
             
             <tr>
                 <td class="mono">2026-03</td>
-                <td class="mono">123.0</td>
-                <td>61</td>
+                <td class="mono">119.0</td>
+                <td>59</td>
             </tr>
             
         </tbody>
@@ -426,7 +485,7 @@
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-09-01 04:22 UTC</span>
+            <span>Last updated: 2026-09-02 03:45 UTC</span>
         </footer>
     </div>
 
@@ -497,7 +556,7 @@
         danger: style.getPropertyValue('--danger').trim(),
     };
 
-    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-30T12:27:24Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-07-31T12:54:22Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-01T12:00:52Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-02T12:01:21Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-03T13:40:08Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-04T13:01:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-05T12:50:49Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-06T12:55:00Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-07T11:43:26Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-08T11:27:08Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-09T11:27:44Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-10T11:45:55Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-11T11:42:01Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-12T11:44:30Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T11:44:51Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-08-25T16:56:36Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-25T16:57:03Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-08-25T16:57:22Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-26T11:18:57Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-08-26T11:19:15Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-27T20:50:38Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-08-27T20:50:58Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-28T21:16:57Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-08-28T21:17:17Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-29T15:22:29Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-08-29T15:22:49Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-30T15:06:23Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-08-30T15:06:42Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-31T17:45:02Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-08-31T17:45:22Z", "queue_seconds": 0.0}];
+    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-01T12:00:52Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-02T12:01:21Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-03T13:40:08Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-04T13:01:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-05T12:50:49Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-06T12:55:00Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-07T11:43:26Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-08T11:27:08Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-09T11:27:44Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-10T11:45:55Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-11T11:42:01Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-12T11:44:30Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-13T11:44:51Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-08-25T16:56:36Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-25T16:57:03Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-08-25T16:57:22Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-26T11:18:57Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-08-26T11:19:15Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-27T20:50:38Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-08-27T20:50:58Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-28T21:16:57Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-08-28T21:17:17Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-29T15:22:29Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-08-29T15:22:49Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-30T15:06:23Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-08-30T15:06:42Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-08-31T17:45:02Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-08-31T17:45:22Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-09-01T15:16:51Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-01T15:17:08Z", "queue_seconds": 0.0}];
     new Chart(document.getElementById('sparkline'), {
         type: 'bar',
         data: {
@@ -525,10 +584,10 @@
     new Chart(document.getElementById('repoMonthlyChart'), {
         type: 'bar',
         data: {
-            labels: ["2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08"],
+            labels: ["2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09"],
             datasets: [{
                 label: 'Minutes',
-                data: [123.0, 61.0, 91.0, 81.0, 31.0, 44.0],
+                data: [119.0, 61.0, 91.0, 81.0, 31.0, 44.0, 4.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1
