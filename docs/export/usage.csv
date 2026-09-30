@@ -1,4 +1,23 @@
 run_id,repo,workflow_name,event,conclusion,created_at,duration_seconds,queue_seconds,billable_minutes_total
+36670162342,evenwebb/evenwebb,Update Profile README,schedule,success,2026-09-30T04:44:02Z,16.0,0.0,1.0
+36648983899,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-09-30T00:10:19Z,9.0,0.0,1.0
+36636984984,evenwebb/evenwebb,Update Profile README,schedule,success,2026-09-29T22:01:02Z,17.0,0.0,1.0
+36636852388,evenwebb/aliestimate,Deploy via FTP,push,success,2026-09-29T21:59:51Z,16.0,0.0,1.0
+36626567760,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,schedule,success,2026-09-29T20:28:20Z,36.0,0.0,1.0
+36622286819,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-09-29T19:52:18Z,13.0,0.0,1.0
+36599505230,evenwebb/stmewan-parish-council-calendar,pages build and deployment,dynamic,success,2026-09-29T16:41:03Z,38.0,0.0,3.0
+36599473043,evenwebb/stmewan-parish-council-calendar,Update iCal Feed,schedule,success,2026-09-29T16:40:47Z,13.0,0.0,1.0
+36597528392,evenwebb/merlin-cinemas,pages build and deployment,dynamic,success,2026-09-29T16:24:52Z,48.0,0.0,3.0
+36597452734,evenwebb/merlin-cinemas,Scrape Cinema Calendar,schedule,success,2026-09-29T16:24:14Z,36.0,0.0,1.0
+36596122591,evenwebb/wtw-cinemas,pages build and deployment,dynamic,success,2026-09-29T16:13:21Z,56.0,0.0,3.0
+36595820400,evenwebb/wtw-cinemas,Scrape Cinema Calendar,schedule,success,2026-09-29T16:10:53Z,146.0,0.0,3.0
+36589416684,evenwebb/tesla-owners-club-uk-events-calendar,Scrape Tesla Owners UK Events,schedule,success,2026-09-29T15:20:18Z,21.0,0.0,1.0
+36568159212,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-09-29T12:26:51Z,9.0,0.0,1.0
+36567853098,evenwebb/evenwebb,Update Profile README,schedule,success,2026-09-29T12:24:05Z,16.0,0.0,1.0
+36566209165,evenwebb/MacUpdater-Profiles,Daily Profile Health Check,schedule,success,2026-09-29T12:08:55Z,24.0,0.0,1.0
+36565736203,evenwebb/cornwall-waste-collection-calendar-generator,Run Cornwall scraper,schedule,success,2026-09-29T12:04:30Z,14.0,0.0,1.0
+36524380340,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-09-29T05:03:22Z,9.0,0.0,1.0
+36524350305,evenwebb/github-actions-usage-tracker,Collect & Deploy,schedule,success,2026-09-29T05:02:59Z,62.0,0.0,2.0
 36523942263,evenwebb/evenwebb,Update Profile README,schedule,success,2026-09-29T04:57:37Z,17.0,0.0,1.0
 36495843133,evenwebb/evenwebb,Update Profile README,schedule,success,2026-09-28T23:02:37Z,19.0,0.0,1.0
 36487222526,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,schedule,success,2026-09-28T21:36:26Z,36.0,0.0,1.0
@@ -2003,41 +2022,3 @@ run_id,repo,workflow_name,event,conclusion,created_at,duration_seconds,queue_sec
 28564670300,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-07-02T04:08:16Z,10.0,0.0,1.0
 28564242246,evenwebb/github-actions-usage-tracker,Collect & Deploy,schedule,success,2026-07-02T03:56:38Z,56.0,0.0,2.0
 28564124893,evenwebb/evenwebb,Update Profile README,schedule,success,2026-07-02T03:53:12Z,15.0,0.0,1.0
-28551643995,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-07-01T22:22:32Z,10.0,0.0,1.0
-28544372213,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-07-01T20:03:51Z,16.0,0.0,1.0
-28544173741,evenwebb/evenwebb,Update Profile README,schedule,success,2026-07-01T20:00:16Z,16.0,0.0,1.0
-28537329098,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,schedule,success,2026-07-01T17:56:43Z,392.0,0.0,7.0
-28535316789,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-07-01T17:20:24Z,11.0,0.0,1.0
-28532965968,evenwebb/youtube-channel-link-scraper,CI,pull_request,success,2026-07-01T16:38:36Z,6.0,0.0,1.0
-28532939944,evenwebb/youtube-channel-link-scraper,github_actions in /. - Update #1443903828,dynamic,success,2026-07-01T16:38:07Z,22.0,0.0,1.0
-28526381659,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-07-01T14:50:30Z,14.0,0.0,1.0
-28525939705,evenwebb/evenwebb,Update Profile README,schedule,success,2026-07-01T14:43:35Z,15.0,0.0,1.0
-28521405516,evenwebb/stmewan-parish-council-calendar,Update iCal Feed,schedule,success,2026-07-01T13:32:50Z,17.0,0.0,1.0
-28521226200,evenwebb/penrice-calendar-scraper,Update iCal Feed,schedule,success,2026-07-01T13:30:03Z,9.0,0.0,1.0
-28518043451,evenwebb/merlin-cinemas,pages build and deployment,dynamic,success,2026-07-01T12:37:44Z,67.0,0.0,3.0
-28518014973,evenwebb/merlin-cinemas,Scrape Cinema Calendar,schedule,success,2026-07-01T12:37:15Z,27.0,0.0,1.0
-28517382373,evenwebb/wtw-cinemas,Scrape Cinema Calendar,schedule,success,2026-07-01T12:26:15Z,49.0,0.0,1.0
-28515972733,evenwebb/tesla-owners-club-uk-events-calendar,Scrape Tesla Owners UK Events,schedule,success,2026-07-01T12:01:10Z,23.0,0.0,1.0
-28509557103,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-07-01T10:02:22Z,13.0,0.0,1.0
-28509110822,evenwebb/evenwebb,Update Profile README,schedule,success,2026-07-01T09:54:29Z,15.0,0.0,1.0
-28508443140,evenwebb/MacUpdater-Profiles,Daily Profile Health Check,schedule,failure,2026-07-01T09:42:42Z,8.0,0.0,1.0
-28508273276,evenwebb/cornwall-waste-collection-calendar-generator,Run Cornwall scraper,schedule,success,2026-07-01T09:39:39Z,11.0,0.0,1.0
-28498157977,evenwebb/epic-free-games-notifier,CI,pull_request,success,2026-07-01T06:27:30Z,12.0,0.0,1.0
-28498136113,evenwebb/epic-free-games-notifier,pip in /. - Update #1443060774,dynamic,success,2026-07-01T06:27:00Z,42.0,0.0,1.0
-28498136102,evenwebb/epic-free-games-notifier,github_actions in /. - Update #1443060781,dynamic,success,2026-07-01T06:27:00Z,23.0,0.0,1.0
-28493996888,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-07-01T04:41:13Z,12.0,0.0,1.0
-28493122933,evenwebb/github-actions-usage-tracker,Collect & Deploy,schedule,success,2026-07-01T04:16:38Z,41.0,0.0,2.0
-28492971185,evenwebb/evenwebb,Update Profile README,schedule,success,2026-07-01T04:12:35Z,18.0,0.0,1.0
-28491393516,evenwebb/patreon-video-scraper,CI,pull_request,success,2026-07-01T03:27:05Z,13.0,0.0,1.0
-28491391380,evenwebb/patreon-video-scraper,CI,push,success,2026-07-01T03:27:01Z,12.0,0.0,1.0
-28491373759,evenwebb/patreon-video-scraper,pip in /. - Update #1442804194,dynamic,success,2026-07-01T03:26:31Z,32.0,0.0,1.0
-28491373792,evenwebb/patreon-video-scraper,github_actions in /. - Update #1442804233,dynamic,success,2026-07-01T03:26:31Z,26.0,0.0,1.0
-28487460164,evenwebb/patreon-notifier,CI,pull_request,failure,2026-07-01T01:35:55Z,11.0,0.0,1.0
-28487458289,evenwebb/patreon-notifier,CI,push,failure,2026-07-01T01:35:52Z,10.0,0.0,1.0
-28487438821,evenwebb/patreon-notifier,pip in /. - Update #1442679424,dynamic,success,2026-07-01T01:35:20Z,38.0,0.0,1.0
-28487438826,evenwebb/patreon-notifier,github_actions in /. - Update #1442679422,dynamic,success,2026-07-01T01:35:20Z,27.0,0.0,1.0
-28484574584,evenwebb/epic-free-games-scraper,CI,pull_request,success,2026-07-01T00:18:57Z,16.0,0.0,1.0
-28484571615,evenwebb/epic-free-games-scraper,CI,pull_request,success,2026-07-01T00:18:53Z,16.0,0.0,1.0
-28484570395,evenwebb/epic-free-games-scraper,CI,pull_request,success,2026-07-01T00:18:51Z,17.0,0.0,1.0
-28484545398,evenwebb/epic-free-games-scraper,github_actions in /. - Update #1442592705,dynamic,success,2026-07-01T00:18:11Z,39.0,0.0,1.0
-28484545387,evenwebb/epic-free-games-scraper,pip in /. - Update #1442592695,dynamic,success,2026-07-01T00:18:11Z,39.0,0.0,1.0
