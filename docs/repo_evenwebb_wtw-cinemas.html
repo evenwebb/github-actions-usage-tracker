@@ -222,7 +222,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.8rem">Data through 2026-09-30</span>
+                <span class="muted" style="font-size:0.8rem">Data through 2026-10-01</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -266,65 +266,12 @@
         <thead><tr><th>Workflow</th><th>Runs</th><th>Avg Dur</th><th>Total Min</th><th>Wasted</th><th>Success</th></tr></thead>
         <tbody>
             
-            <tr>
-                <td class="mono">pages build and deployment</td>
-                <td>29</td>
-                <td class="mono">57.2s</td>
-                <td class="mono">94.0</td>
-                <td class="mono">0</td>
-                <td>
-                    
-                    
-                    <span class="badge badge-success">100.0%</span>
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                <td class="mono">Scrape Cinema Calendar</td>
-                <td>29</td>
-                <td class="mono">145.1s</td>
-                <td class="mono">87.0</td>
-                <td class="mono">0</td>
-                <td>
-                    
-                    
-                    <span class="badge badge-success">100.0%</span>
-                    
-                </td>
-            </tr>
+            <tr><td colspan="6" class="muted">No workflow runs this month.</td></tr>
             
         </tbody>
     </table>
 </div>
 
-
-<div class="card">
-    <h2>Workflow Efficiency</h2>
-    <div class="muted" style="margin-bottom:0.75rem">Minutes consumed per successful run. Higher = more expensive per success.</div>
-    <table>
-        <thead><tr><th>Workflow</th><th>Runs</th><th>Successes</th><th>Total Min</th><th>Min/Success</th></tr></thead>
-        <tbody>
-            
-            <tr>
-                <td class="mono">pages build and deployment</td>
-                <td>29</td>
-                <td>29</td>
-                <td class="mono">94.0</td>
-                <td class="mono">3.2</td>
-            </tr>
-            
-            <tr>
-                <td class="mono">Scrape Cinema Calendar</td>
-                <td>29</td>
-                <td>29</td>
-                <td class="mono">87.0</td>
-                <td class="mono">3.0</td>
-            </tr>
-            
-        </tbody>
-    </table>
-</div>
 
 
 
@@ -345,7 +292,7 @@
                 <tr>
                     <td class="mono">deploy</td>
                     <td>30</td>
-                    <td class="mono">37.0 min</td>
+                    <td class="mono">38.0 min</td>
                 </tr>
                 
                 <tr>
@@ -372,19 +319,19 @@
                 <tr>
                     <td class="mono">Run scraper (with retries)</td>
                     <td>30</td>
-                    <td class="mono">3972.0s</td>
+                    <td class="mono">3990.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Deploy to GitHub Pages</td>
                     <td>30</td>
-                    <td class="mono">772.0s</td>
+                    <td class="mono">833.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Pull ghcr.io/actions/jekyll-build-pages:v1.0.13</td>
                     <td>30</td>
-                    <td class="mono">384.0s</td>
+                    <td class="mono">389.0s</td>
                 </tr>
                 
                 <tr>
@@ -396,13 +343,13 @@
                 <tr>
                     <td class="mono">Commit and push changes</td>
                     <td>30</td>
-                    <td class="mono">56.0s</td>
+                    <td class="mono">57.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Checkout</td>
                     <td>30</td>
-                    <td class="mono">56.0s</td>
+                    <td class="mono">57.0s</td>
                 </tr>
                 
                 <tr>
@@ -414,7 +361,7 @@
                 <tr>
                     <td class="mono">Run actions/checkout@v4</td>
                     <td>30</td>
-                    <td class="mono">46.0s</td>
+                    <td class="mono">47.0s</td>
                 </tr>
                 
             </tbody>
@@ -432,8 +379,8 @@
             
             <tr>
                 <td class="mono">2026-09</td>
-                <td class="mono">181.0</td>
-                <td>58</td>
+                <td class="mono">188.0</td>
+                <td>60</td>
             </tr>
             
             <tr>
@@ -467,7 +414,7 @@
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-09-30 04:50 UTC</span>
+            <span>Last updated: 2026-10-01 05:03 UTC</span>
         </footer>
     </div>
 
@@ -538,7 +485,7 @@
         danger: style.getPropertyValue('--danger').trim(),
     };
 
-    const recent = [{"billable_minutes_total": 4.0, "conclusion": "success", "created_at": "2026-09-15T14:31:25Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-15T14:34:49Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-16T14:25:25Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-16T14:27:59Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-17T14:30:24Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-17T14:32:47Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-18T13:56:32Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-18T13:58:35Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-19T13:31:19Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-19T13:33:26Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-09-20T13:46:35Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-20T13:48:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-21T16:03:05Z", "queue_seconds": 0.0}, {"billable_minutes_total": 9.0, "conclusion": "success", "created_at": "2026-09-21T16:05:08Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-22T14:13:50Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-22T14:16:30Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-23T14:29:35Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-23T14:31:59Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-24T14:29:19Z", "queue_seconds": 0.0}, {"billable_minutes_total": 4.0, "conclusion": "success", "created_at": "2026-09-24T14:32:01Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-25T14:49:29Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-25T14:51:48Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-26T13:55:59Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-26T13:58:01Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-27T14:53:06Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-27T14:55:17Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-28T17:50:48Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-28T17:53:05Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-29T16:10:53Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-29T16:13:21Z", "queue_seconds": 0.0}];
+    const recent = [{"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-16T14:25:25Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-16T14:27:59Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-17T14:30:24Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-17T14:32:47Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-18T13:56:32Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-18T13:58:35Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-19T13:31:19Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-19T13:33:26Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-09-20T13:46:35Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-20T13:48:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-21T16:03:05Z", "queue_seconds": 0.0}, {"billable_minutes_total": 9.0, "conclusion": "success", "created_at": "2026-09-21T16:05:08Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-22T14:13:50Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-22T14:16:30Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-23T14:29:35Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-23T14:31:59Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-24T14:29:19Z", "queue_seconds": 0.0}, {"billable_minutes_total": 4.0, "conclusion": "success", "created_at": "2026-09-24T14:32:01Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-25T14:49:29Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-25T14:51:48Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-26T13:55:59Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-26T13:58:01Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-27T14:53:06Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-27T14:55:17Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-28T17:50:48Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-28T17:53:05Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-29T16:10:53Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-29T16:13:21Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-09-30T16:08:10Z", "queue_seconds": 0.0}, {"billable_minutes_total": 4.0, "conclusion": "success", "created_at": "2026-09-30T16:10:56Z", "queue_seconds": 0.0}];
     new Chart(document.getElementById('sparkline'), {
         type: 'bar',
         data: {
@@ -569,7 +516,7 @@
             labels: ["2026-06", "2026-07", "2026-08", "2026-09"],
             datasets: [{
                 label: 'Minutes',
-                data: [103.0, 109.0, 296.0, 181.0],
+                data: [103.0, 109.0, 296.0, 188.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1
