@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>evenwebb/gpx2map — GitHub Actions</title>
+    <title>evenwebb/perranporth-flying-weather — GitHub Actions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -240,14 +240,9 @@
             <a href="export/usage.csv">Export CSV</a>
         </nav>
         
-<h1 style="margin-bottom:0.25rem">evenwebb/gpx2map</h1>
-<p class="muted" style="margin-bottom:1.5rem"><a href="https://github.com/evenwebb/gpx2map" target="_blank" rel="noopener">View on GitHub &nearr;</a></p>
+<h1 style="margin-bottom:0.25rem">evenwebb/perranporth-flying-weather</h1>
+<p class="muted" style="margin-bottom:1.5rem"><a href="https://github.com/evenwebb/perranporth-flying-weather" target="_blank" rel="noopener">View on GitHub &nearr;</a></p>
 
-
-<div class="card">
-    <h2>Workflow Audit</h2>
-    <p><span class="badge badge-amber">1</span> issues found · <a href="audit.html">View all &rarr;</a></p>
-</div>
 
 
 <div class="stats-grid">
@@ -271,12 +266,65 @@
         <thead><tr><th>Workflow</th><th>Runs</th><th>Avg Dur</th><th>Total Min</th><th>Wasted</th><th>Success</th></tr></thead>
         <tbody>
             
-            <tr><td colspan="6" class="muted">No workflow runs this month.</td></tr>
+            <tr>
+                <td class="mono">Deploy beta to Krystal</td>
+                <td>8</td>
+                <td class="mono">31.0s</td>
+                <td class="mono">8.0</td>
+                <td class="mono">0</td>
+                <td>
+                    
+                    
+                    <span class="badge badge-success">100.0%</span>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="mono">Deploy to Krystal</td>
+                <td>2</td>
+                <td class="mono">32.0s</td>
+                <td class="mono">2.0</td>
+                <td class="mono">0</td>
+                <td>
+                    
+                    
+                    <span class="badge badge-success">100.0%</span>
+                    
+                </td>
+            </tr>
             
         </tbody>
     </table>
 </div>
 
+
+<div class="card">
+    <h2>Workflow Efficiency</h2>
+    <div class="muted" style="margin-bottom:0.75rem">Minutes consumed per successful run. Higher = more expensive per success.</div>
+    <table>
+        <thead><tr><th>Workflow</th><th>Runs</th><th>Successes</th><th>Total Min</th><th>Min/Success</th></tr></thead>
+        <tbody>
+            
+            <tr>
+                <td class="mono">Deploy beta to Krystal</td>
+                <td>8</td>
+                <td>8</td>
+                <td class="mono">8.0</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+            <tr>
+                <td class="mono">Deploy to Krystal</td>
+                <td>2</td>
+                <td>2</td>
+                <td class="mono">2.0</td>
+                <td class="mono">1.0</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -288,7 +336,17 @@
             <thead><tr><th>Job</th><th>Runs</th><th>Billable</th></tr></thead>
             <tbody>
                 
-                <tr><td colspan="3" class="muted">No job-level data yet.</td></tr>
+                <tr>
+                    <td class="mono">ftp-deploy</td>
+                    <td>8</td>
+                    <td class="mono">8.0 min</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">ftp-deploy</td>
+                    <td>2</td>
+                    <td class="mono">2.0 min</td>
+                </tr>
                 
             </tbody>
         </table>
@@ -299,7 +357,53 @@
             <thead><tr><th>Step</th><th>Runs</th><th>Total</th></tr></thead>
             <tbody>
                 
-                <tr><td colspan="3" class="muted">No step-level data yet.</td></tr>
+                <tr>
+                    <td class="mono">Install, typecheck, build and lint</td>
+                    <td>8</td>
+                    <td class="mono">91.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Deploy via FTP</td>
+                    <td>8</td>
+                    <td class="mono">48.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Set up PHP</td>
+                    <td>8</td>
+                    <td class="mono">43.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Install, typecheck, build and lint</td>
+                    <td>2</td>
+                    <td class="mono">21.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Deploy via FTP</td>
+                    <td>2</td>
+                    <td class="mono">16.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Set up Node</td>
+                    <td>8</td>
+                    <td class="mono">16.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Set up PHP</td>
+                    <td>2</td>
+                    <td class="mono">11.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Set up job</td>
+                    <td>8</td>
+                    <td class="mono">10.0s</td>
+                </tr>
                 
             </tbody>
         </table>
@@ -315,9 +419,9 @@
         <tbody>
             
             <tr>
-                <td class="mono">2026-05</td>
-                <td class="mono">9.0</td>
-                <td>5</td>
+                <td class="mono">2026-10</td>
+                <td class="mono">10.0</td>
+                <td>10</td>
             </tr>
             
         </tbody>
@@ -328,7 +432,7 @@
 <div class="card">
     <h2>Recent Runs</h2>
     <div class="chart-wrap"><canvas id="sparkline" height="80"></canvas></div>
-    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 5 runs · Green = success, Red = failure</div>
+    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 10 runs · Green = success, Red = failure</div>
 </div>
 
         <footer>
@@ -404,7 +508,7 @@
         danger: style.getPropertyValue('--danger').trim(),
     };
 
-    const recent = [{"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-05-05T21:39:53Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-05-05T21:44:09Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-05T21:44:10Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "failure", "created_at": "2026-05-05T22:57:34Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-05-05T22:59:58Z", "queue_seconds": 0.0}];
+    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-04T11:01:54Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-04T11:06:43Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-04T11:39:20Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-04T11:58:47Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-04T12:22:36Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-04T12:25:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-04T12:32:26Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-04T15:52:26Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-04T17:24:21Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-04T19:51:07Z", "queue_seconds": 0.0}];
     new Chart(document.getElementById('sparkline'), {
         type: 'bar',
         data: {
@@ -432,10 +536,10 @@
     new Chart(document.getElementById('repoMonthlyChart'), {
         type: 'bar',
         data: {
-            labels: ["2026-05"],
+            labels: ["2026-10"],
             datasets: [{
                 label: 'Minutes',
-                data: [9.0],
+                data: [10.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1
