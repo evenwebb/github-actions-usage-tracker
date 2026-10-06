@@ -222,7 +222,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.8rem">Data through 2026-10-05</span>
+                <span class="muted" style="font-size:0.8rem">Data through 2026-10-06</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -268,9 +268,9 @@
             
             <tr>
                 <td class="mono">Deploy to Krystal</td>
-                <td>31</td>
-                <td class="mono">24.0s</td>
-                <td class="mono">44.0</td>
+                <td>33</td>
+                <td class="mono">24.5s</td>
+                <td class="mono">48.0</td>
                 <td class="mono">0</td>
                 <td>
                     
@@ -294,10 +294,10 @@
             
             <tr>
                 <td class="mono">Deploy to Krystal</td>
-                <td>31</td>
-                <td>31</td>
-                <td class="mono">44.0</td>
-                <td class="mono">1.4</td>
+                <td>33</td>
+                <td>33</td>
+                <td class="mono">48.0</td>
+                <td class="mono">1.5</td>
             </tr>
             
         </tbody>
@@ -316,14 +316,14 @@
                 
                 <tr>
                     <td class="mono">ftp-deploy</td>
-                    <td>45</td>
-                    <td class="mono">47.0 min</td>
+                    <td>47</td>
+                    <td class="mono">49.0 min</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">test</td>
-                    <td>11</td>
-                    <td class="mono">11.0 min</td>
+                    <td>13</td>
+                    <td class="mono">13.0 min</td>
                 </tr>
                 
             </tbody>
@@ -337,20 +337,26 @@
                 
                 <tr>
                     <td class="mono">Deploy application files except front controllers</td>
-                    <td>36</td>
-                    <td class="mono">326.0s</td>
+                    <td>38</td>
+                    <td class="mono">340.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Deploy front controllers last</td>
-                    <td>36</td>
-                    <td class="mono">116.0s</td>
+                    <td>38</td>
+                    <td class="mono">122.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Set up PHP</td>
-                    <td>11</td>
-                    <td class="mono">62.0s</td>
+                    <td>13</td>
+                    <td class="mono">74.0s</td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Run actions/checkout@v5</td>
+                    <td>47</td>
+                    <td class="mono">56.0s</td>
                 </tr>
                 
                 <tr>
@@ -360,27 +366,21 @@
                 </tr>
                 
                 <tr>
-                    <td class="mono">Run actions/checkout@v5</td>
-                    <td>45</td>
-                    <td class="mono">54.0s</td>
-                </tr>
-                
-                <tr>
                     <td class="mono">Set up job</td>
-                    <td>45</td>
-                    <td class="mono">45.0s</td>
+                    <td>47</td>
+                    <td class="mono">47.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Lint every PHP file</td>
-                    <td>11</td>
-                    <td class="mono">39.0s</td>
+                    <td>13</td>
+                    <td class="mono">45.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Regression suite</td>
-                    <td>11</td>
-                    <td class="mono">23.0s</td>
+                    <td>13</td>
+                    <td class="mono">28.0s</td>
                 </tr>
                 
             </tbody>
@@ -398,8 +398,8 @@
             
             <tr>
                 <td class="mono">2026-10</td>
-                <td class="mono">44.0</td>
-                <td>31</td>
+                <td class="mono">48.0</td>
+                <td>33</td>
             </tr>
             
             <tr>
@@ -433,7 +433,7 @@
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-10-05 04:52 UTC</span>
+            <span>Last updated: 2026-10-06 05:39 UTC</span>
         </footer>
     </div>
 
@@ -504,7 +504,7 @@
         danger: style.getPropertyValue('--danger').trim(),
     };
 
-    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-01T08:01:42Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-01T08:14:29Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-01T08:15:33Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-01T09:23:56Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-01T09:38:41Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-01T10:00:42Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-01T15:24:56Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-01T21:38:19Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T02:51:01Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-02T10:18:30Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T10:26:19Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T11:17:03Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T11:28:52Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T15:48:09Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T19:52:15Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T20:30:19Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T20:46:51Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T20:59:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T22:49:09Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T11:31:17Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T11:41:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T11:58:42Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T12:05:11Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T12:18:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T12:20:29Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T13:21:12Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T13:32:24Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T15:51:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T21:39:27Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T23:10:33Z", "queue_seconds": 0.0}];
+    const recent = [{"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-01T08:15:33Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-01T09:23:56Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-01T09:38:41Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-01T10:00:42Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-01T15:24:56Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-01T21:38:19Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T02:51:01Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-02T10:18:30Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T10:26:19Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T11:17:03Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T11:28:52Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T15:48:09Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T19:52:15Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T20:30:19Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T20:46:51Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T20:59:04Z", "queue_seconds": 0.0}, {"billable_minutes_total": 1.0, "conclusion": "success", "created_at": "2026-10-02T22:49:09Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T11:31:17Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T11:41:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T11:58:42Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T12:05:11Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T12:18:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T12:20:29Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T13:21:12Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T13:32:24Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T15:51:07Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T21:39:27Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-03T23:10:33Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-05T11:51:55Z", "queue_seconds": 0.0}, {"billable_minutes_total": 2.0, "conclusion": "success", "created_at": "2026-10-05T14:29:29Z", "queue_seconds": 0.0}];
     new Chart(document.getElementById('sparkline'), {
         type: 'bar',
         data: {
@@ -535,7 +535,7 @@
             labels: ["2026-07", "2026-08", "2026-09", "2026-10"],
             datasets: [{
                 label: 'Minutes',
-                data: [6.0, 1.0, 14.0, 44.0],
+                data: [6.0, 1.0, 14.0, 48.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1
