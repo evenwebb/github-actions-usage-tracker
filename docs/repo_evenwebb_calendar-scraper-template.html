@@ -222,7 +222,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.8rem">Data through 2026-10-28</span>
+                <span class="muted" style="font-size:0.8rem">Data through 2026-10-29</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -302,23 +302,6 @@
 </div>
 
 
-<div class="card">
-    <h2>Monthly History (Last 6 Months)</h2>
-    <div class="chart-wrap"><canvas id="repoMonthlyChart" height="120"></canvas></div>
-    <table style="margin-top: 1rem;">
-        <thead><tr><th>Month</th><th>Minutes</th><th>Runs</th></tr></thead>
-        <tbody>
-            
-            <tr>
-                <td class="mono">2026-04</td>
-                <td class="mono">1.0</td>
-                <td>1</td>
-            </tr>
-            
-        </tbody>
-    </table>
-</div>
-
 
 <div class="card">
     <h2>Recent Runs</h2>
@@ -328,7 +311,7 @@
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-10-28 04:52 UTC</span>
+            <span>Last updated: 2026-10-29 05:03 UTC</span>
         </footer>
     </div>
 
@@ -423,29 +406,6 @@
         }
     });
 
-    
-    new Chart(document.getElementById('repoMonthlyChart'), {
-        type: 'bar',
-        data: {
-            labels: ["2026-04"],
-            datasets: [{
-                label: 'Minutes',
-                data: [1.0],
-                backgroundColor: colors.bar,
-                borderColor: colors.line,
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: {
-                x: { grid: { display: false }, ticks: { color: colors.tick, font: { size: 10 } } },
-                y: { grid: { color: colors.grid }, ticks: { color: colors.tick, font: { size: 10 } } }
-            }
-        }
-    });
     
 })();
 </script>
