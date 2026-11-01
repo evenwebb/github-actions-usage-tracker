@@ -222,7 +222,7 @@
         <div class="header">
             <h1>&#9889; Actions Usage</h1>
             <div class="header-right">
-                <span class="muted" style="font-size:0.8rem">Data through 2026-10-31</span>
+                <span class="muted" style="font-size:0.8rem">Data through 2026-11-01</span>
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
                     <span class="light-icon">&#9728;&#65039;</span>
                     <span class="dark-icon">&#127769;</span>
@@ -266,43 +266,12 @@
         <thead><tr><th>Workflow</th><th>Runs</th><th>Avg Dur</th><th>Total Min</th><th>Wasted</th><th>Success</th></tr></thead>
         <tbody>
             
-            <tr>
-                <td class="mono">tests</td>
-                <td>14</td>
-                <td class="mono">149.7s</td>
-                <td class="mono">42.0</td>
-                <td class="mono">6.0</td>
-                <td>
-                    
-                    
-                    <span class="badge badge-success">86.0%</span>
-                    
-                </td>
-            </tr>
+            <tr><td colspan="6" class="muted">No workflow runs this month.</td></tr>
             
         </tbody>
     </table>
 </div>
 
-
-<div class="card">
-    <h2>Workflow Efficiency</h2>
-    <div class="muted" style="margin-bottom:0.75rem">Minutes consumed per successful run. Higher = more expensive per success.</div>
-    <table>
-        <thead><tr><th>Workflow</th><th>Runs</th><th>Successes</th><th>Total Min</th><th>Min/Success</th></tr></thead>
-        <tbody>
-            
-            <tr>
-                <td class="mono">tests</td>
-                <td>14</td>
-                <td>12</td>
-                <td class="mono">42.0</td>
-                <td class="mono">3.5</td>
-            </tr>
-            
-        </tbody>
-    </table>
-</div>
 
 
 
@@ -316,8 +285,8 @@
                 
                 <tr>
                     <td class="mono">chain</td>
-                    <td>14</td>
-                    <td class="mono">42.0 min</td>
+                    <td>15</td>
+                    <td class="mono">45.0 min</td>
                 </tr>
                 
             </tbody>
@@ -331,49 +300,49 @@
                 
                 <tr>
                     <td class="mono">Run npm test</td>
-                    <td>14</td>
-                    <td class="mono">1865.0s</td>
+                    <td>15</td>
+                    <td class="mono">1999.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Run npm ci</td>
-                    <td>14</td>
-                    <td class="mono">52.0s</td>
+                    <td>15</td>
+                    <td class="mono">55.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Run shivammathur/setup-php@v2</td>
-                    <td>14</td>
-                    <td class="mono">48.0s</td>
+                    <td>15</td>
+                    <td class="mono">51.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Run actions/setup-node@v4</td>
-                    <td>14</td>
-                    <td class="mono">36.0s</td>
+                    <td>15</td>
+                    <td class="mono">38.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Run actions/checkout@v4</td>
-                    <td>14</td>
-                    <td class="mono">24.0s</td>
+                    <td>15</td>
+                    <td class="mono">26.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Set up job</td>
-                    <td>14</td>
-                    <td class="mono">16.0s</td>
+                    <td>15</td>
+                    <td class="mono">17.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Post Run actions/setup-node@v4</td>
-                    <td>14</td>
+                    <td>15</td>
                     <td class="mono">5.0s</td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Post Run actions/checkout@v4</td>
-                    <td>14</td>
+                    <td>15</td>
                     <td class="mono">3.0s</td>
                 </tr>
                 
@@ -392,8 +361,8 @@
             
             <tr>
                 <td class="mono">2026-10</td>
-                <td class="mono">42.0</td>
-                <td>14</td>
+                <td class="mono">45.0</td>
+                <td>15</td>
             </tr>
             
         </tbody>
@@ -404,12 +373,12 @@
 <div class="card">
     <h2>Recent Runs</h2>
     <div class="chart-wrap"><canvas id="sparkline" height="80"></canvas></div>
-    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 14 runs · Green = success, Red = failure</div>
+    <div class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Last 15 runs · Green = success, Red = failure</div>
 </div>
 
         <footer>
             <span>GitHub Actions Usage Tracker</span>
-            <span>Last updated: 2026-10-31 04:50 UTC</span>
+            <span>Last updated: 2026-11-01 05:14 UTC</span>
         </footer>
     </div>
 
@@ -480,7 +449,7 @@
         danger: style.getPropertyValue('--danger').trim(),
     };
 
-    const recent = [{"billable_minutes_total": 3.0, "conclusion": "failure", "created_at": "2026-10-20T15:33:58Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-20T15:57:10Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-20T22:29:43Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-21T08:38:13Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-22T08:40:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-23T08:36:20Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-24T08:11:30Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "failure", "created_at": "2026-10-25T08:28:54Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-25T10:58:44Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-26T09:00:44Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-27T09:04:02Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-28T09:44:13Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-29T10:02:56Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-30T10:06:00Z", "queue_seconds": 0.0}];
+    const recent = [{"billable_minutes_total": 3.0, "conclusion": "failure", "created_at": "2026-10-20T15:33:58Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-20T15:57:10Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-20T22:29:43Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-21T08:38:13Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-22T08:40:31Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-23T08:36:20Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-24T08:11:30Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "failure", "created_at": "2026-10-25T08:28:54Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-25T10:58:44Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-26T09:00:44Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-27T09:04:02Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-28T09:44:13Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-29T10:02:56Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-30T10:06:00Z", "queue_seconds": 0.0}, {"billable_minutes_total": 3.0, "conclusion": "success", "created_at": "2026-10-31T09:42:24Z", "queue_seconds": 0.0}];
     new Chart(document.getElementById('sparkline'), {
         type: 'bar',
         data: {
@@ -511,7 +480,7 @@
             labels: ["2026-10"],
             datasets: [{
                 label: 'Minutes',
-                data: [42.0],
+                data: [45.0],
                 backgroundColor: colors.bar,
                 borderColor: colors.line,
                 borderWidth: 1
