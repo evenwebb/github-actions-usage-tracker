@@ -1,4 +1,19 @@
 run_id,repo,workflow_name,event,conclusion,created_at,duration_seconds,queue_seconds,billable_minutes_total
+41976311022,evenwebb/evenwebb,Update Profile README,schedule,success,2026-11-05T05:48:22Z,21.0,0.0,1.0
+41933378263,evenwebb/evenwebb,Update Profile README,schedule,success,2026-11-04T23:23:49Z,20.0,0.0,1.0
+41918751974,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,schedule,success,2026-11-04T21:43:34Z,14.0,0.0,1.0
+41886142229,evenwebb/stmewan-parish-council-calendar,pages build and deployment,dynamic,success,2026-11-04T18:20:16Z,55.0,0.0,3.0
+41886080290,evenwebb/stmewan-parish-council-calendar,Update iCal Feed,schedule,success,2026-11-04T18:19:55Z,20.0,0.0,1.0
+41881293561,evenwebb/merlin-cinemas,pages build and deployment,dynamic,success,2026-11-04T17:52:30Z,183.0,0.0,5.0
+41881173714,evenwebb/merlin-cinemas,Scrape Cinema Calendar,schedule,success,2026-11-04T17:51:46Z,42.0,0.0,1.0
+41879361190,evenwebb/wtw-cinemas,pages build and deployment,dynamic,success,2026-11-04T17:40:04Z,94.0,0.0,4.0
+41879059739,evenwebb/wtw-cinemas,Scrape Cinema Calendar,schedule,success,2026-11-04T17:37:36Z,147.0,0.0,3.0
+41871255400,evenwebb/tesla-owners-club-uk-events-calendar,Scrape Tesla Owners UK Events,schedule,success,2026-11-04T16:48:53Z,22.0,0.0,1.0
+41842922890,evenwebb/evenwebb,Update Profile README,schedule,success,2026-11-04T13:57:57Z,23.0,0.0,1.0
+41841264619,evenwebb/MacUpdater-Profiles,Daily Profile Health Check,schedule,success,2026-11-04T13:47:06Z,11.0,0.0,1.0
+41840776526,evenwebb/cornwall-waste-collection-calendar-generator,Run Cornwall scraper,schedule,success,2026-11-04T13:43:57Z,13.0,0.0,1.0
+41817944360,evenwebb/dealspotter,tests,schedule,success,2026-11-04T11:00:04Z,153.0,0.0,3.0
+41779985331,evenwebb/github-actions-usage-tracker,Collect & Deploy,schedule,success,2026-11-04T05:33:35Z,73.0,0.0,3.0
 41779467135,evenwebb/evenwebb,Update Profile README,schedule,success,2026-11-04T05:28:35Z,18.0,0.0,1.0
 41735522355,evenwebb/evenwebb,Update Profile README,schedule,success,2026-11-03T22:59:55Z,17.0,0.0,1.0
 41722699947,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,schedule,success,2026-11-03T21:32:19Z,29.0,0.0,1.0
@@ -1867,25 +1882,3 @@ run_id,repo,workflow_name,event,conclusion,created_at,duration_seconds,queue_sec
 31142439376,evenwebb/github-actions-usage-tracker,Collect & Deploy,schedule,success,2026-08-07T02:49:53Z,59.0,0.0,2.0
 31133532958,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-08-07T00:07:53Z,12.0,0.0,1.0
 31133293486,evenwebb/evenwebb,Update Profile README,schedule,success,2026-08-07T00:04:11Z,16.0,0.0,1.0
-31124177260,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,schedule,failure,2026-08-06T17:48:06Z,902.0,0.0,16.0
-31121375287,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,failure,2026-08-06T16:53:17Z,902.0,0.0,16.0
-31110860447,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-08-06T14:26:52Z,15.0,0.0,1.0
-31110220055,evenwebb/evenwebb,Update Profile README,schedule,success,2026-08-06T14:19:08Z,19.0,0.0,1.0
-31103495171,evenwebb/stmewan-parish-council-calendar,Update iCal Feed,schedule,success,2026-08-06T12:55:00Z,21.0,0.0,1.0
-31103082381,evenwebb/penrice-calendar-scraper,Update iCal Feed,schedule,success,2026-08-06T12:49:35Z,10.0,0.0,1.0
-31099947382,evenwebb/merlin-cinemas,pages build and deployment,dynamic,failure,2026-08-06T12:05:36Z,637.0,0.0,13.0
-31099890067,evenwebb/merlin-cinemas,Scrape Cinema Calendar,schedule,success,2026-08-06T12:04:49Z,39.0,0.0,1.0
-31099370711,evenwebb/wtw-cinemas,pages build and deployment,dynamic,failure,2026-08-06T11:57:24Z,638.0,0.0,13.0
-31099201045,evenwebb/wtw-cinemas,Scrape Cinema Calendar,schedule,success,2026-08-06T11:54:54Z,151.0,0.0,3.0
-31097362995,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-08-06T11:27:54Z,11.0,0.0,1.0
-31096869566,evenwebb/tesla-owners-club-uk-events-calendar,Scrape Tesla Owners UK Events,schedule,success,2026-08-06T11:20:32Z,19.0,0.0,1.0
-31091914971,evenwebb/red-scraper,Deploy via FTP,push,failure,2026-08-06T10:06:40Z,1282.0,0.0,22.0
-31091375896,evenwebb/red-scraper,Deploy via FTP,push,failure,2026-08-06T09:59:08Z,122.0,0.0,3.0
-31091356232,evenwebb/red-scraper,Deploy via FTP,push,failure,2026-08-06T09:58:50Z,135.0,0.0,3.0
-31086309589,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-08-06T08:46:53Z,14.0,0.0,1.0
-31085899964,evenwebb/evenwebb,Update Profile README,schedule,success,2026-08-06T08:40:57Z,14.0,0.0,1.0
-31085332573,evenwebb/MacUpdater-Profiles,Daily Profile Health Check,schedule,success,2026-08-06T08:32:42Z,14.0,0.0,1.0
-31085114651,evenwebb/cornwall-waste-collection-calendar-generator,Run Cornwall scraper,schedule,success,2026-08-06T08:29:38Z,15.0,0.0,1.0
-31068083032,evenwebb/OctoCal,Scrape Octopus Energy Free Electricity,schedule,success,2026-08-06T03:18:42Z,8.0,0.0,1.0
-31066817692,evenwebb/github-actions-usage-tracker,Collect & Deploy,schedule,success,2026-08-06T02:52:00Z,56.0,0.0,2.0
-31066651707,evenwebb/evenwebb,Update Profile README,schedule,success,2026-08-06T02:48:22Z,14.0,0.0,1.0
