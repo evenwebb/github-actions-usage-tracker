@@ -1,4 +1,19 @@
 run_id,repo,workflow_name,event,conclusion,created_at,duration_seconds,queue_seconds,billable_minutes_total
+43562298138,evenwebb/evenwebb,Update Profile README,schedule,success,2026-11-14T05:35:48Z,16.0,0.0,1.0
+43526650317,evenwebb/evenwebb,Update Profile README,schedule,success,2026-11-13T23:22:38Z,16.0,0.0,1.0
+43513964393,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,schedule,success,2026-11-13T21:48:38Z,13.0,0.0,1.0
+43480850715,evenwebb/stmewan-parish-council-calendar,pages build and deployment,dynamic,success,2026-11-13T18:15:27Z,30.0,0.0,3.0
+43480799515,evenwebb/stmewan-parish-council-calendar,Update iCal Feed,schedule,success,2026-11-13T18:15:10Z,15.0,0.0,1.0
+43474293104,evenwebb/merlin-cinemas,pages build and deployment,dynamic,success,2026-11-13T17:35:27Z,40.0,0.0,3.0
+43474174319,evenwebb/merlin-cinemas,Scrape Cinema Calendar,schedule,success,2026-11-13T17:34:46Z,40.0,0.0,1.0
+43472950542,evenwebb/wtw-cinemas,pages build and deployment,dynamic,success,2026-11-13T17:27:19Z,63.0,0.0,3.0
+43472512850,evenwebb/wtw-cinemas,Scrape Cinema Calendar,schedule,success,2026-11-13T17:24:36Z,162.0,0.0,3.0
+43467666219,evenwebb/tesla-owners-club-uk-events-calendar,Scrape Tesla Owners UK Events,schedule,success,2026-11-13T16:55:57Z,26.0,0.0,1.0
+43440565971,evenwebb/evenwebb,Update Profile README,schedule,success,2026-11-13T14:12:44Z,18.0,0.0,1.0
+43438054366,evenwebb/MacUpdater-Profiles,Daily Profile Health Check,schedule,success,2026-11-13T13:56:19Z,27.0,0.0,1.0
+43437505393,evenwebb/cornwall-waste-collection-calendar-generator,Run Cornwall scraper,schedule,success,2026-11-13T13:52:38Z,14.0,0.0,1.0
+43414060491,evenwebb/dealspotter,tests,schedule,success,2026-11-13T11:04:22Z,142.0,0.0,3.0
+43374691010,evenwebb/github-actions-usage-tracker,Collect & Deploy,schedule,success,2026-11-13T05:51:00Z,57.0,0.0,2.0
 43374103316,evenwebb/evenwebb,Update Profile README,schedule,success,2026-11-13T05:45:33Z,15.0,0.0,1.0
 43327908395,evenwebb/evenwebb,Update Profile README,schedule,success,2026-11-12T23:19:43Z,18.0,0.0,1.0
 43316489449,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,schedule,success,2026-11-12T22:04:50Z,33.0,0.0,1.0
@@ -1797,17 +1812,3 @@ run_id,repo,workflow_name,event,conclusion,created_at,duration_seconds,queue_sec
 31931716078,evenwebb/cornwall-waste-collection-calendar-generator,Run Cornwall scraper,schedule,success,2026-08-16T06:33:44Z,11.0,0.0,1.0
 31919958868,evenwebb/github-actions-usage-tracker,Collect & Deploy,schedule,success,2026-08-16T01:36:35Z,48.0,0.0,2.0
 31919850004,evenwebb/evenwebb,Update Profile README,schedule,success,2026-08-16T01:33:42Z,15.0,0.0,1.0
-31901423924,evenwebb/evenwebb,Update Profile README,schedule,success,2026-08-15T18:32:59Z,15.0,0.0,1.0
-31895413252,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,schedule,success,2026-08-15T16:24:19Z,10.0,0.0,1.0
-31885253710,evenwebb/evenwebb,Update Profile README,schedule,success,2026-08-15T12:41:42Z,19.0,0.0,1.0
-31881346852,evenwebb/penrice-calendar-scraper,Update iCal Feed,schedule,success,2026-08-15T11:09:47Z,11.0,0.0,1.0
-31879542823,evenwebb/merlin-cinemas,pages build and deployment,dynamic,success,2026-08-15T10:27:07Z,41.0,0.0,3.0
-31879516606,evenwebb/merlin-cinemas,Scrape Cinema Calendar,schedule,success,2026-08-15T10:26:26Z,39.0,0.0,1.0
-31878996468,evenwebb/wtw-cinemas,pages build and deployment,dynamic,success,2026-08-15T10:13:53Z,38.0,0.0,3.0
-31878863731,evenwebb/wtw-cinemas,Scrape Cinema Calendar,schedule,success,2026-08-15T10:10:40Z,192.0,0.0,4.0
-31876821714,evenwebb/tesla-owners-club-uk-events-calendar,Scrape Tesla Owners UK Events,schedule,success,2026-08-15T09:22:20Z,25.0,0.0,1.0
-31870084941,evenwebb/evenwebb,Update Profile README,schedule,success,2026-08-15T06:41:50Z,15.0,0.0,1.0
-31869762049,evenwebb/MacUpdater-Profiles,Daily Profile Health Check,schedule,success,2026-08-15T06:33:54Z,25.0,0.0,1.0
-31869669787,evenwebb/cornwall-waste-collection-calendar-generator,Run Cornwall scraper,schedule,success,2026-08-15T06:31:44Z,11.0,0.0,1.0
-31856440400,evenwebb/github-actions-usage-tracker,Collect & Deploy,schedule,success,2026-08-15T01:24:57Z,49.0,0.0,2.0
-31856350708,evenwebb/evenwebb,Update Profile README,schedule,success,2026-08-15T01:22:57Z,20.0,0.0,1.0
