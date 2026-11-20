@@ -1,6 +1,38 @@
 run_id,repo,workflow_name,event,conclusion,created_at,duration_seconds,queue_seconds,billable_minutes_total
+44645519239,evenwebb/evenwebb,Update Profile README,schedule,success,2026-11-20T00:23:48Z,17.0,0.0,1.0
+44633033070,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,schedule,success,2026-11-19T22:55:12Z,51.0,0.0,1.0
+44597731160,evenwebb/penrice-calendar-scraper,Update iCal Feed,schedule,success,2026-11-19T19:23:00Z,9.0,0.0,1.0
+44596197140,evenwebb/stmewan-parish-council-calendar,pages build and deployment,dynamic,success,2026-11-19T19:14:10Z,35.0,0.0,3.0
+44596155155,evenwebb/stmewan-parish-council-calendar,Update iCal Feed,schedule,success,2026-11-19T19:13:54Z,13.0,0.0,1.0
+44592954781,evenwebb/merlin-cinemas,pages build and deployment,dynamic,success,2026-11-19T18:55:47Z,39.0,0.0,3.0
+44592843286,evenwebb/merlin-cinemas,Scrape Cinema Calendar,schedule,success,2026-11-19T18:55:08Z,37.0,0.0,1.0
+44591188612,evenwebb/wtw-cinemas,pages build and deployment,dynamic,success,2026-11-19T18:45:36Z,39.0,0.0,3.0
+44590701536,evenwebb/wtw-cinemas,Scrape Cinema Calendar,schedule,success,2026-11-19T18:42:49Z,166.0,0.0,3.0
+44582680114,evenwebb/tesla-owners-club-uk-events-calendar,Deploy GitHub Pages,workflow_dispatch,success,2026-11-19T17:57:30Z,16.0,0.0,2.0
+44582595062,evenwebb/tesla-owners-club-uk-events-calendar,Scrape Tesla Owners UK Events,schedule,success,2026-11-19T17:57:00Z,30.0,0.0,1.0
+44554891473,evenwebb/evenwebb,Update Profile README,schedule,success,2026-11-19T15:26:56Z,22.0,0.0,1.0
+44552846208,evenwebb/MacUpdater-Profiles,Daily Profile Health Check,schedule,success,2026-11-19T15:16:03Z,9.0,0.0,1.0
+44552015036,evenwebb/cornwall-waste-collection-calendar-generator,Run Cornwall scraper,schedule,success,2026-11-19T15:11:39Z,10.0,0.0,1.0
+44548934482,evenwebb/aliestimate,Refresh bot IP list,workflow_run,success,2026-11-19T14:55:02Z,19.0,0.0,1.0
+44548785615,evenwebb/aliestimate,Deploy via FTP,push,success,2026-11-19T14:54:12Z,38.0,0.0,2.0
+44538982380,evenwebb/aliestimate,Refresh bot IP list,workflow_run,success,2026-11-19T13:59:38Z,17.0,0.0,1.0
+44538847526,evenwebb/aliestimate,Deploy via FTP,push,success,2026-11-19T13:58:47Z,38.0,0.0,2.0
+44537525753,evenwebb/aliestimate,Refresh bot IP list,workflow_run,success,2026-11-19T13:50:49Z,13.0,0.0,1.0
+44537387109,evenwebb/aliestimate,Deploy via FTP,push,success,2026-11-19T13:50:02Z,36.0,0.0,2.0
+44536012493,evenwebb/aliestimate,Refresh bot IP list,workflow_run,success,2026-11-19T13:41:46Z,13.0,0.0,1.0
+44535883750,evenwebb/aliestimate,Deploy via FTP,push,success,2026-11-19T13:40:58Z,38.0,0.0,2.0
+44529869091,evenwebb/aliestimate,Refresh bot IP list,workflow_run,skipped,2026-11-19T13:04:35Z,-1.0,0.0,0.0
+44529382482,evenwebb/aliestimate,Deploy via FTP,push,failure,2026-11-19T13:01:37Z,169.0,0.0,4.0
+44518749199,evenwebb/aliestimate,Refresh bot IP list,workflow_run,success,2026-11-19T11:52:55Z,17.0,0.0,1.0
+44518627999,evenwebb/aliestimate,Deploy via FTP,push,success,2026-11-19T11:52:06Z,38.0,0.0,2.0
+44517615909,evenwebb/dealspotter,tests,schedule,success,2026-11-19T11:45:14Z,91.0,0.0,2.0
+44517473923,evenwebb/aliestimate,Refresh bot IP list,workflow_run,success,2026-11-19T11:44:17Z,14.0,0.0,1.0
+44517354916,evenwebb/aliestimate,Deploy via FTP,push,success,2026-11-19T11:43:28Z,39.0,0.0,2.0
+44510321835,evenwebb/aliestimate,Refresh bot IP list,workflow_run,success,2026-11-19T10:56:53Z,16.0,0.0,1.0
+44509050995,evenwebb/aliestimate,Refresh bot IP list,schedule,success,2026-11-19T10:48:26Z,18.0,0.0,1.0
+44474084830,evenwebb/github-actions-usage-tracker,Collect & Deploy,schedule,success,2026-11-19T06:42:08Z,65.0,0.0,2.0
 44438202818,evenwebb/aliestimate,Refresh bot IP list,workflow_run,skipped,2026-11-19T01:36:41Z,-1.0,0.0,0.0
-44437828187,evenwebb/aliestimate,Deploy via FTP,push,failure,2026-11-19T01:33:43Z,166.0,0.0,4.0
+44437828187,evenwebb/aliestimate,Deploy via FTP,push,success,2026-11-19T01:33:43Z,41.0,33764.0,2.0
 44437629288,evenwebb/aliestimate,Refresh bot IP list,workflow_run,success,2026-11-19T01:32:08Z,14.0,0.0,1.0
 44437545414,evenwebb/aliestimate,Deploy via FTP,push,success,2026-11-19T01:31:29Z,30.0,0.0,2.0
 44436803341,evenwebb/aliestimate,Refresh bot IP list,workflow_run,success,2026-11-19T01:25:33Z,17.0,0.0,1.0
@@ -1839,17 +1871,3 @@ run_id,repo,workflow_name,event,conclusion,created_at,duration_seconds,queue_sec
 32557269757,evenwebb/cornwall-waste-collection-calendar-generator,Run Cornwall scraper,schedule,success,2026-08-22T06:33:10Z,9.0,0.0,1.0
 32543330365,evenwebb/github-actions-usage-tracker,Collect & Deploy,schedule,success,2026-08-22T01:24:25Z,53.0,0.0,2.0
 32543218734,evenwebb/evenwebb,Update Profile README,schedule,success,2026-08-22T01:22:03Z,18.0,0.0,1.0
-32514460636,evenwebb/evenwebb,Update Profile README,schedule,success,2026-08-21T18:39:29Z,18.0,0.0,1.0
-32503603922,evenwebb/epic-free-games-scraper,Scrape Epic Games and Deploy to GitHub Pages,schedule,success,2026-08-21T16:34:20Z,9.0,0.0,1.0
-32484018150,evenwebb/evenwebb,Update Profile README,schedule,success,2026-08-21T12:52:53Z,17.0,0.0,1.0
-32476423874,evenwebb/penrice-calendar-scraper,Update iCal Feed,schedule,success,2026-08-21T11:16:04Z,9.0,0.0,1.0
-32473279118,evenwebb/merlin-cinemas,pages build and deployment,dynamic,success,2026-08-21T10:34:49Z,36.0,0.0,3.0
-32473229108,evenwebb/merlin-cinemas,Scrape Cinema Calendar,schedule,success,2026-08-21T10:34:08Z,40.0,0.0,1.0
-32472187474,evenwebb/wtw-cinemas,pages build and deployment,dynamic,success,2026-08-21T10:20:32Z,41.0,0.0,3.0
-32471976860,evenwebb/wtw-cinemas,Scrape Cinema Calendar,schedule,success,2026-08-21T10:17:45Z,166.0,0.0,3.0
-32468418240,evenwebb/tesla-owners-club-uk-events-calendar,Scrape Tesla Owners UK Events,schedule,success,2026-08-21T09:32:55Z,23.0,0.0,1.0
-32456103200,evenwebb/evenwebb,Update Profile README,schedule,success,2026-08-21T06:51:27Z,19.0,0.0,1.0
-32455431629,evenwebb/MacUpdater-Profiles,Daily Profile Health Check,schedule,success,2026-08-21T06:41:43Z,25.0,0.0,1.0
-32455258112,evenwebb/cornwall-waste-collection-calendar-generator,Run Cornwall scraper,schedule,success,2026-08-21T06:39:09Z,12.0,0.0,1.0
-32436851327,evenwebb/github-actions-usage-tracker,Collect & Deploy,schedule,success,2026-08-21T01:35:37Z,46.0,0.0,2.0
-32436329802,evenwebb/evenwebb,Update Profile README,schedule,success,2026-08-21T01:27:02Z,19.0,0.0,1.0
